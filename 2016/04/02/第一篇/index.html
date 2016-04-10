@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next pisces use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -63,7 +63,7 @@
 <meta property="og:url" content="http://www.full-stacker.com/2016/04/02/第一篇/index.html">
 <meta property="og:site_name" content="骐骏的博客">
 <meta property="og:description" content="终于把这博客搭起来了，今后的日子就在这里记录些自己的东西。人的惰性真的是越不克服，就会变的越‘强大’，上学的时候在新浪上写过几篇，刚毕业的时候转战的到CSDN。但都没能坚持下来，总共也就写了寥寥几篇。刚毕业的时候想自己搭个blog但舍不得每年一百大洋的服务器的费用。等舍得花钱租服务器的时候，又四处出差，博客的事情就这么搁置到现在。好吧，啰嗦这么多其实就是想为自己直到现在才搭起博客来找个借口。工作这">
-<meta property="og:updated_time" content="2016-04-02T14:55:59.323Z">
+<meta property="og:updated_time" content="2016-04-10T04:13:41.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第一篇">
 <meta name="twitter:description" content="终于把这博客搭起来了，今后的日子就在这里记录些自己的东西。人的惰性真的是越不克服，就会变的越‘强大’，上学的时候在新浪上写过几篇，刚毕业的时候转战的到CSDN。但都没能坚持下来，总共也就写了寥寥几篇。刚毕业的时候想自己搭个blog但舍不得每年一百大洋的服务器的费用。等舍得花钱租服务器的时候，又四处出差，博客的事情就这么搁置到现在。好吧，啰嗦这么多其实就是想为自己直到现在才搭起博客来找个借口。工作这">
@@ -73,13 +73,13 @@
 <script type="text/javascript" id="hexo.configuration">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post"},
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
     fancybox: true,
     motion: true,
     duoshuo: {
       userId: 0,
-      author: 'Author'
+      author: '博主'
     }
   };
 </script>
@@ -87,7 +87,7 @@
   <title> 第一篇 | 骐骏的博客 </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -105,7 +105,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -142,7 +142,17 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            Home
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -150,29 +160,9 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-杂谈">
-          <a href="/杂谈" rel="section">
-            
-              <i class="menu-item-icon fa fa-icon-comments-alt fa-fw"></i> <br />
-            
-            menu.杂谈
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-test">
-          <a href="/杂谈/test" rel="section">
-            
               <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
             
-            menu.test
+            归档
           </a>
         </li>
       
@@ -180,9 +170,9 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -235,7 +225,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2016-04-02T22:42:18+08:00" content="2016-04-02">
               2016-04-02
             </time>
@@ -247,7 +237,7 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/杂谈/" itemprop="url" rel="index">
@@ -297,6 +287,27 @@
     <div>
       
         
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/path/to/wechat-reward-image" alt="骐骏 WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/path/to/alipay-reward-image" alt="骐骏 Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
       
     </div>
 
@@ -358,10 +369,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -369,7 +380,7 @@
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
+               src="/images/avatar.jpg"
                alt="骐骏" />
           <p class="site-author-name" itemprop="name">骐骏</p>
           <p class="site-description motion-element" itemprop="description"></p>
@@ -378,16 +389,16 @@
           <div class="site-state-item site-state-posts">
             <a href="/archives">
               <span class="site-state-item-count">1</span>
-              <span class="site-state-item-name">posts</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
             <div class="site-state-item site-state-categories">
-              
+              <a href="/categories">
                 <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">categories</span>
-              
+                <span class="site-state-item-name">分类</span>
+              </a>
             </div>
           
 
@@ -395,7 +406,7 @@
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-name">标签</span>
               </a>
             </div>
           
@@ -405,6 +416,26 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/iqijun" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/iqijun" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
           
         </div>
 
@@ -425,7 +456,7 @@
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
@@ -452,13 +483,13 @@
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  Theme -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Pisces
   </a>
 </div>
 
@@ -511,6 +542,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
