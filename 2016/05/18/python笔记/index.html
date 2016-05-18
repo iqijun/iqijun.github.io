@@ -80,73 +80,79 @@
 
 
 
-<meta name="description" content="#1python是动态语言，变量本身的类型不固定 
-如:  
+<meta name="description" content="python是动态语言，变量本身的类型不固定 
+ 如:  
+a=1;  
+a=&amp;quot;abc&amp;quot;; 
+ 这是正确的
 
-    a=1;  
-    a=&amp;quot;abc&amp;quot;; 
+python中有两种除法 /  // 
+ / 得到的总是浮点数 ,// 叫做地除法 它总是只取整数部分
+ 如： 
+ 10/3 
 
-这是正确的
- ###2. python中有两种除法 /  // 
-/ 得到的总是浮点数 ,// 叫做地除法 它总是只取整数部分
+3.3333 
 
-如： 
+10//3  
 
-    10/3 
+3  
 
-   3.3333 
 
-   10//3  
 
-   3  
-###3. 字符和编码转换    ord">
+字符和编码转换 ord() chr()
+
+由于Python的字符串类型是str，在内存中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python笔记">
 <meta property="og:url" content="http://full-stacker.com/2016/05/18/python笔记/index.html">
 <meta property="og:site_name" content="骐骏的博客">
-<meta property="og:description" content="#1python是动态语言，变量本身的类型不固定 
-如:  
+<meta property="og:description" content="python是动态语言，变量本身的类型不固定 
+ 如:  
+a=1;  
+a=&amp;quot;abc&amp;quot;; 
+ 这是正确的
 
-    a=1;  
-    a=&amp;quot;abc&amp;quot;; 
+python中有两种除法 /  // 
+ / 得到的总是浮点数 ,// 叫做地除法 它总是只取整数部分
+ 如： 
+ 10/3 
 
-这是正确的
- ###2. python中有两种除法 /  // 
-/ 得到的总是浮点数 ,// 叫做地除法 它总是只取整数部分
+3.3333 
 
-如： 
+10//3  
 
-    10/3 
+3  
 
-   3.3333 
 
-   10//3  
 
-   3  
-###3. 字符和编码转换    ord">
-<meta property="og:updated_time" content="2016-05-18T04:01:17.113Z">
+字符和编码转换 ord() chr()
+
+由于Python的字符串类型是str，在内存中">
+<meta property="og:updated_time" content="2016-05-18T06:41:41.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python笔记">
-<meta name="twitter:description" content="#1python是动态语言，变量本身的类型不固定 
-如:  
+<meta name="twitter:description" content="python是动态语言，变量本身的类型不固定 
+ 如:  
+a=1;  
+a=&amp;quot;abc&amp;quot;; 
+ 这是正确的
 
-    a=1;  
-    a=&amp;quot;abc&amp;quot;; 
+python中有两种除法 /  // 
+ / 得到的总是浮点数 ,// 叫做地除法 它总是只取整数部分
+ 如： 
+ 10/3 
 
-这是正确的
- ###2. python中有两种除法 /  // 
-/ 得到的总是浮点数 ,// 叫做地除法 它总是只取整数部分
+3.3333 
 
-如： 
+10//3  
 
-    10/3 
+3  
 
-   3.3333 
 
-   10//3  
 
-   3  
-###3. 字符和编码转换    ord">
+字符和编码转换 ord() chr()
+
+由于Python的字符串类型是str，在内存中">
 
 
 
@@ -365,37 +371,44 @@
       
 
       
-        <p>#1python是动态语言，变量本身的类型不固定 </p>
-<pre><code>如:  
+        <ol>
+<li><p>python是动态语言，变量本身的类型不固定 </p>
+<p> 如:  </p>
+<pre><code>a=1;  
+a=&quot;abc&quot;; 
+</code></pre><p> 这是正确的</p>
+</li>
+<li><p>python中有两种除法 /  // </p>
+<p> / 得到的总是浮点数 ,// 叫做地除法 它总是只取整数部分</p>
+<p> 如： </p>
+<pre><code> 10/3 
 
-    a=1;  
-    a=&quot;abc&quot;; 
+3.3333 
 
-这是正确的
-</code></pre><p> ###2. python中有两种除法 /  // </p>
-<pre><code>/ 得到的总是浮点数 ,// 叫做地除法 它总是只取整数部分
+10//3  
 
-如： 
-
-    10/3 
-
-   3.3333 
-
-   10//3  
-
-   3  
-</code></pre><p>###3. 字符和编码转换<br>    ord() chr()</p>
-<p>###4. 由于Python的字符串类型是str，在内存中以Unicode表示，一个字符对应若干个字节。如果要在网络上传输，或者保存到磁盘上，就需要把str变为以字节为单位的bytes。  </p>
+3  
+</code></pre></li>
+</ol>
+<ol>
+<li><p>字符和编码转换<br> ord() chr()</p>
+</li>
+<li><p>由于Python的字符串类型是str，在内存中以Unicode表示，一个字符对应若干个字节。如果要在网络上传输，或者保存到磁盘上，就需要把str变为以字节为单位的bytes。  </p>
 <pre><code>x=b&apos;xyx&apos;
-</code></pre><p>###5. 以Unicode表示的str通过encode()方法可以编码为指定的bytes </p>
+</code></pre></li>
+<li><p>以Unicode表示的str通过encode()方法可以编码为指定的bytes </p>
 <pre><code>&apos;abc&apos;.encode(&apos;utf-8&apos;)
-</code></pre><p>###6. 如果我们从网络或磁盘上读取了字节流，那么读到的数据就是bytes。要把bytes变为str，就需要用decode()方法 </p>
+</code></pre></li>
+<li><p>如果我们从网络或磁盘上读取了字节流，那么读到的数据就是bytes。要把bytes变为str，就需要用decode()方法 </p>
 <pre><code>b&apos;\xe4\xb8\xad\xe6\x96\x87&apos;.decode(&apos;utf8&apos;)
-</code></pre><p>###7. 字符串str长度函数len(),此函数同样适用于字节</p>
-<p>###8. 由于Python源代码也是一个文本文件，所以，当你的源代码中包含中文的时候，在保存源代码时，就需要务必指定保存为UTF-8编码。当Python解释器读取源代码时，为了让它按UTF-8编码读取，我们通常在文件开头写上这两行：</p>
+</code></pre></li>
+<li>字符串str长度函数len(),此函数同样适用于字节</li>
+<li><p>由于Python源代码也是一个文本文件，所以，当你的源代码中包含中文的时候，在保存源代码时，就需要务必指定保存为UTF-8编码。当Python解释器读取源代码时，为了让它按UTF-8编码读取，我们通常在文件开头写上这两行：</p>
 <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-</code></pre><p>###9.list api </p>
+</code></pre></li>
+</ol>
+<p>9.list api </p>
 <pre><code>list=[&apos;1&apos;,&apos;2&apos;,&apos;3&apos;]
 len(list)
 list[-1] //返回最后一个元素
@@ -404,53 +417,53 @@ list.append(&apos;4&apos;)  //追加元素
 list.insert(1,&apos;5&apos;)
 list.pop() //删除最后一个
 list.pop(1) //删除索引为1的元素
-</code></pre><p>###10. tuple 数组   tuple一旦初始化就不能修改<br>    如果tuple中只有一个元素要跟一个逗号如</p>
+</code></pre><ol>
+<li><p>tuple 数组   tuple一旦初始化就不能修改<br>如果tuple中只有一个元素要跟一个逗号如</p>
 <pre><code>t=(1,)
-</code></pre><p>###11. 条件判断</p>
+</code></pre></li>
+<li><p>条件判断</p>
 <pre><code>if age&gt;18:
     print(&quot;18&quot;)
 elif age&gt;10:
     print(&apos;10&apos;)
 else :
     print(&apos;baby&apos;)
-</code></pre><p>###12. 循环</p>
+</code></pre></li>
+<li><p>循环</p>
 <pre><code>for cell in cells
     print(cell)
 
 while n&gt;10
     sum = sum+n
     print(sum)
-</code></pre><p>###13. dict  同java中的map</p>
-<pre><code>    dict={&apos;name&apos;:&apos;123&apos;}
-    print(dict[&apos;name&apos;])
-    //判断dict中是否含有某个key
-    &apos;age&apos; in dict
-    //dict的get方法
-    print(dict.get(&apos;name&apos;)) //输出 123 
-    print(dict.get(&apos;age&apos;)) //None
-    print(dict.get(&apos;age&apos;,-1)) // -1
-    dict.pop(&apos;name&apos;)
-    dict[&apos;age&apos;]=10 //新增元素
-
-和list比较，dict有以下几个特点：
-
-查找和插入的速度极快，不会随着key的增加而变慢；
-需要占用大量的内存，内存浪费多。
-而list相反：
-
-查找和插入的时间随着元素的增加而增加；
-占用空间小，浪费内存很少。
-</code></pre><p>###14. set</p>
+</code></pre></li>
+<li><p>dict  同java中的map</p>
+<pre><code>dict={&apos;name&apos;:&apos;123&apos;}
+print(dict[&apos;name&apos;])
+//判断dict中是否含有某个key
+&apos;age&apos; in dict
+//dict的get方法
+print(dict.get(&apos;name&apos;)) //输出 123 
+print(dict.get(&apos;age&apos;)) //None
+print(dict.get(&apos;age&apos;,-1)) // -1
+dict.pop(&apos;name&apos;)
+dict[&apos;age&apos;]=10 //新增元素
+</code></pre><p>和list比较，dict有以下几个特点：</p>
+<p>查找和插入的速度极快，不会随着key的增加而变慢；<br>需要占用大量的内存，内存浪费多。<br>而list相反：</p>
+<p>查找和插入的时间随着元素的增加而增加；<br>占用空间小，浪费内存很少。</p>
+</li>
+<li><p>set</p>
 <pre><code>s = set(&apos;apage&apos;)
 print(s)
 s1 = set([1,2,3])
 s1.add(5)
 s1.remove(5)
-</code></pre><p>###15. 内置函数</p>
-<pre><code>数据类型检查可以用内置函数isinstance() 
-
-    isinstance(123,(int,float)) //第二个参数可以是一个数组
-</code></pre><p>###16. 函数可以返回多个值</p>
+</code></pre></li>
+<li><p>内置函数</p>
+<p>数据类型检查可以用内置函数isinstance() </p>
+<pre><code>isinstance(123,(int,float)) //第二个参数可以是一个数组
+</code></pre></li>
+<li><p>函数可以返回多个值</p>
 <pre><code>def move(x,y){
     //处理
     return x,y
@@ -459,24 +472,24 @@ s1.remove(5)
 x,y  = move(1,2);
 print(x);
 print(y);
-
-
-r = move(1,2);
+</code></pre></li>
+</ol>
+<pre><code>r = move(1,2);
 print(r);//r=(xx,xx);返回值是tuple
-</code></pre><p> ###17. 函数参数 </p>
-<pre><code>1) 定义函数时可以使用默认值，例如   
-
-    def power(x,n=2):
-        s = 1;
-        while n &gt;= 1 :
-            s = x * s;
-            n = n-1;
-        return s
-
-    带默认值要放到参数后面
-
-2) 
-</code></pre><p>本文根据廖雪峰老师<a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431752945034eb82ac80a3e64b9bb4929b16eeed1eb9000" target="_blank" rel="external">博客</a>记录</p>
+</code></pre><ol>
+<li><p>函数参数 </p>
+<p>1) 定义函数时可以使用默认值，例如   </p>
+<p>   def power(x,n=2):</p>
+<pre><code>s = 1;
+while n &gt;= 1 :
+    s = x * s;
+    n = n-1;
+return s
+</code></pre><p>   带默认值要放到参数后面</p>
+<p>2) </p>
+</li>
+</ol>
+<p>本文根据廖雪峰老师<a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431752945034eb82ac80a3e64b9bb4929b16eeed1eb9000" target="_blank" rel="external">博客</a>记录</p>
 
       
     </div>
