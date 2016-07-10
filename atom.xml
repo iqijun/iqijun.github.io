@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>骐骏的博客</title>
+  <subtitle>学习 记录 分享</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.full-stacker.com/"/> 
+   <id>http://www.full-stacker.com/</id>
+  
+  <author>
+    <name>骐骏</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo问题记录</title>
+    <link href="http://www.full-stacker.com/2016/07/10/hexo%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    <id>http://www.full-stacker.com/2016/07/10/hexo问题记录/</id>
+    <published>2016-07-10T07:57:16.000Z</published>
+    <updated>2016-07-10T07:57:16.000Z</updated>
+    
+    <content type="html">&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;hexo添加feed插件后报错&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;FATAL Something&#39;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Template render error: (unknown path) [Line 8, Column 23]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Error: Unable to call `the return value of (posts[&quot;first&quot;])[&quot;updated&quot;][&quot;toISOStrin&quot;]`, which is undefined or falsey&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; at Object.exports.withPrettyErrors (E:\hexo\node_modules\hexo-generator-feed\node_modules\nunjucks\src\lib.js:35:17)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at Obj.extend.render (E:\hexo\node_modules\hexo-generator-feed\node_modules\nunjucks\src\environment.js:374:20)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; at Hexo.module.exports (E:\hexo\node_modules\hexo-generator-feed\lib\generator.js:33:22)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;添加feed插件后hexo server无法使用&lt;/p&gt;
+&lt;p&gt; 原因是在站点的配置文件中添加了 &lt;/p&gt;
+ &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;plugins:&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;- hexo-generator-feed&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt; 将依赖添加到站点的package.json中即可解决&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;hexo添加feed插件后报错&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>碎碎念</title>
+    <link href="http://www.full-stacker.com/2016/06/04/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+    <id>http://www.full-stacker.com/2016/06/04/碎碎念/</id>
+    <published>2016-06-04T10:02:57.000Z</published>
+    <updated>2016-04-10T05:28:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;  2016-06-04，星期六，晴&lt;br&gt; 早六点被某人弄醒，带着睡意，准备去奥森公园跑步。转了两趟地铁，和相约的几个同事在南门碰面，相互认识后，进园开跑。进入2016年第一次运动就这么开始了。。。3KM，气喘、汗出、双腿无力前行。一字以形容：虚。慢走一公里，而后又跑1KM，运动结束。感悟：人虚就要多锻炼。同行人中有一同事小师弟，刚毕业来到帝都，重点是人长得帅，而且是全国健美操冠军。趁机学几个健身操的动作，协调性差，跳的太丑。。。。闲聊几句，回到住处。简单冲洗了一下便陪着某人来到立水桥的一咖啡店学习。作为一个程序员来咖啡店学习这是第一次，第一次就这么没了。。。&lt;br&gt;应该说咖啡店并不是学习的好地方，至少对程序员来说绝对不是一个好地方。人来人往，各色人，而且各种声音，主要是他们说的都比看代码新鲜，不知不觉就被吸引过去了，对不对。。。然后就没心思学习了。。&lt;br&gt;说说“遇到”的几个人吧&lt;br&gt;第一个吸引到我的是it培训学校某内的两个老师，其中一位应该是已经拉起了小队伍，准备辞职创业。然后像大多数人一样开始吐槽“什么都不懂”上级，什么教学总监不懂课程啊，不知道公司的优势啊等等，当然此时的吐槽更多是为了拉近两个人的关系。接着开始将自己创业路上遇到的各种“贵人”，当然也说了一些不能在台面上说的，呵呵，很给一个整天敲代码的程序猿开阔思路。&lt;br&gt;第二个是位进入职场不久的小姑娘，实习生或者应届毕业生吧。就职于某大型it产品分销与方案解决公司（不知这么说对不对），&lt;br&gt;很荣幸的，我最近也去这家公司面试了，然后被以一句项目经验太少打发了。当然我要说的不是这个公司，重点是这位小姑娘。小姑娘的座位和我们的间隔应该还是挺远的。但小姑娘声音洪亮啊。。。我们在这边听的清清楚楚。在咖啡厅看书的人还蛮多的，然后小姑娘的声音引起了我们桌正在学习的同学们的不满，不免问候几句。。。但吸引我的是小姑娘说的话，让我想起了刚毕业时的自己，也想找个钱多活少离家近的工作，工作上也有各种各样的想法，感觉手头上做的工作各种无聊，想尝试其他的工作，但是始终迈不出第一步，不敢去尝试新的机会。也许这是人生的一个阶段，每个人都会经历。然而现在的自己虽然能踏踏实实的完成手头上的工作，却真真切切的感觉心中梦想的小火苗慢慢的被熄灭。不知是悲哀还是悲哀。&lt;br&gt;最后一位，是位让我认识到为啥一直在加班的长者。。。几个人在一起学习，有问题就&lt;br&gt;说出来讨论，长者闻声而来，一句“你们是准备项目管理考试吗”打开话匣，然后给我们几个晚生后辈讲了n个项目管理的问题，也说了一些考试中的技巧，很实用。当然也有血淋淋的例子为证，比如客户需求变更，工期压缩，线上问题啊之类的，讲的我感同身受，怎么可以这么真实的感受到呢。。。最后证实这是我司的一项目经理，讲的原来都是我啊。。。作为一名小猿，终于知道真相了，简单的说下这个人员配置的例子吧，比如客户方要20人，项目经理就说没人啊，只能出10个人。然后去找职能部门要人，然后职能部门给了5个人（五个小猿这样的人）。。。。。。最后的最后这5个人还要提前完成20个人的工作量，因为还要吧测试的时间给挤出来，咋整？加班呗，7*24小时的加。。。最后知道真相的我眼泪像盆泼啊。&lt;br&gt;最后的总结，一缕阳光，一杯咖啡，一本书，只能是午后的休闲时光了，如果想学习的话，还是安安心心的找个自习室吧。当然咖啡馆里还是很能长见识的，“偷听”到各色各样的人生，说不定也是另一种提升。   &lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;  2016-06-04，星期六，晴&lt;br&gt; 早六点被某人弄醒，带着睡意，准备去奥森公园跑步。转了两趟地铁，和相约的几个同事在南门碰面，相互认识后，进园开跑。进入2016年第一次运动就这么开始了。。。3KM，气喘、汗出、双腿无力前行。一字以形容：虚。慢走一公里，而后又跑1K
+    
+    </summary>
+    
+      <category term="杂谈" scheme="http://www.full-stacker.com/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="北漂" scheme="http://www.full-stacker.com/tags/%E5%8C%97%E6%BC%82/"/>
+    
+      <category term="工作" scheme="http://www.full-stacker.com/tags/%E5%B7%A5%E4%BD%9C/"/>
+    
+      <category term="公司" scheme="http://www.full-stacker.com/tags/%E5%85%AC%E5%8F%B8/"/>
+    
+      <category term="项目" scheme="http://www.full-stacker.com/tags/%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python笔记</title>
+    <link href="http://www.full-stacker.com/2016/05/18/python%E7%AC%94%E8%AE%B0/"/>
+    <id>http://www.full-stacker.com/2016/05/18/python笔记/</id>
+    <published>2016-05-18T03:40:41.000Z</published>
+    <updated>2016-04-10T05:28:06.000Z</updated>
+    
+    <content type="html">&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;python是动态语言，变量本身的类型不固定 &lt;/p&gt;
+&lt;p&gt; 如:  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;a=1;  
+a=&amp;quot;abc&amp;quot;; 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 这是正确的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;python中有两种除法 /  // &lt;/p&gt;
+&lt;p&gt; / 得到的总是浮点数 ,// 叫做地除法 它总是只取整数部分&lt;/p&gt;
+&lt;p&gt; 如： &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; 10/3 
+
+3.3333 
+
+10//3  
+
+3     
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;字符和编码转换&lt;br&gt; ord() chr()&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;由于Python的字符串类型是str，在内存中以Unicode表示，一个字符对应若干个字节。如果要在网络上传输，或者保存到磁盘上，就需要把str变为以字节为单位的bytes。  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;x=b&amp;apos;xyx&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;以Unicode表示的str通过encode()方法可以编码为指定的bytes &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;apos;abc&amp;apos;.encode(&amp;apos;utf-8&amp;apos;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;如果我们从网络或磁盘上读取了字节流，那么读到的数据就是bytes。要把bytes变为str，就需要用decode()方法 &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;b&amp;apos;\xe4\xb8\xad\xe6\x96\x87&amp;apos;.decode(&amp;apos;utf8&amp;apos;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;字符串str长度函数len(),此函数同样适用于字节&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;由于Python源代码也是一个文本文件，所以，当你的源代码中包含中文的时候，在保存源代码时，就需要务必指定保存为UTF-8编码。当Python解释器读取源代码时，为了让它按UTF-8编码读取，我们通常在文件开头写上这两行：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;list api &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;list=[&amp;apos;1&amp;apos;,&amp;apos;2&amp;apos;,&amp;apos;3&amp;apos;]
+len(list)
+list[-1] //返回最后一个元素
+list[-2] //返回倒数第二个 依次类推
+list.append(&amp;apos;4&amp;apos;)  //追加元素
+list.insert(1,&amp;apos;5&amp;apos;)
+list.pop() //删除最后一个
+list.pop(1) //删除索引为1的元素
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;tuple 数组   tuple一旦初始化就不能修改&lt;br&gt;如果tuple中只有一个元素要跟一个逗号如&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;t=(1,)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;条件判断&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if age&amp;gt;18:
+    print(&amp;quot;18&amp;quot;)
+elif age&amp;gt;10:
+    print(&amp;apos;10&amp;apos;)
+else :
+    print(&amp;apos;baby&amp;apos;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;循环&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;for cell in cells
+    print(cell)
+
+while n&amp;gt;10
+    sum = sum+n
+    print(sum)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;dict  同java中的map&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dict={&amp;apos;name&amp;apos;:&amp;apos;123&amp;apos;}
+print(dict[&amp;apos;name&amp;apos;])
+//判断dict中是否含有某个key
+&amp;apos;age&amp;apos; in dict
+//dict的get方法
+print(dict.get(&amp;apos;name&amp;apos;)) //输出 123 
+print(dict.get(&amp;apos;age&amp;apos;)) //None
+print(dict.get(&amp;apos;age&amp;apos;,-1)) // -1
+dict.pop(&amp;apos;name&amp;apos;)
+dict[&amp;apos;age&amp;apos;]=10 //新增元素
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;和list比较，dict有以下几个特点：&lt;/p&gt;
+&lt;p&gt;查找和插入的速度极快，不会随着key的增加而变慢；&lt;br&gt;需要占用大量的内存，内存浪费多。&lt;br&gt;而list相反：&lt;/p&gt;
+&lt;p&gt;查找和插入的时间随着元素的增加而增加；&lt;br&gt;占用空间小，浪费内存很少。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;set&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;s = set(&amp;apos;apage&amp;apos;)
+print(s)
+s1 = set([1,2,3])
+s1.add(5)
+s1.remove(5)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;内置函数&lt;/p&gt;
+&lt;p&gt;数据类型检查可以用内置函数isinstance() &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;isinstance(123,(int,float)) //第二个参数可以是一个数组
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;函数可以返回多个值&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def move(x,y){
+    //处理
+    return x,y
+}
+
+x,y  = move(1,2);
+print(x);
+print(y);
+
+ r = move(1,2);
+ print(r);//r=(xx,xx);返回值是tuple
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;函数参数 &lt;/p&gt;
+&lt;p&gt;1) 定义函数时可以使用默认值，例如   &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def power(x,n=2):
+    s = 1;
+    while n &amp;gt;= 1 :
+        s = x * s;
+        n = n-1;
+    return s
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;带默认值要放到参数后面；&lt;br&gt;参数默认值问题，默认参数必须指向不变对象！&lt;br&gt;可以使用None来避免：如&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def add_end(L=None):
+     if L is None:
+         L = []
+         L.append(&amp;apos;END&amp;apos;)
+    return L
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2) 可变参数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    def calc(*numbers):
+        sum = 0
+        for n in numbers:
+             sum = sum + n * n
+        return sum
+将list或tuple作为可变参数传入
+
+    num = [1,2,3]
+    calc(*num)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3) 关键字参数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def person(**kw)
+    print(kw)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;4) 命名关键字参数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    def person(a,b,*,city,job)
+命名关键字需要用*号分开，*后面的参数被视为命名关键字参数
+命名关键字参数可以使用默认值：
+
+    def person(a,b,*,city=&amp;apos;beijing&amp;apos;,job)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;5) 小结：&lt;/p&gt;
+&lt;p&gt;  默认参数一定要用不可变对象，如果是可变对象，程序运行时会有逻辑错误！&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;要注意定义可变参数和关键字参数的语法：
+*args是可变参数，args接收的是一个tuple；
+**kw是关键字参数，kw接收的是一个dict。
+命名的关键字参数是为了限制调用者可以传入的参数名，同时可以提供默认值。定义命名的关键字参数在没有可变参数的情况下不要忘了写分隔符*，否则定义的将是位置参数
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;尾递归是指，在函数返回的时候，调用自身本身，并且，return语句不能包含表达式。这样，编译器或者解释器就可以把尾递归做优化，使递归本身无论调用多少次，都只占用一个栈帧，不会出现栈溢出的情况。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;分片操作&lt;/p&gt;
+&lt;p&gt;即截取操作，list,tuple,字符串都可以使用分片操作，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;list=[1,2,3,4,5];
+list[1:3]  //截取第二个到第三个  ，索引从0开始
+list[:3]  //截取前三个
+list[-2:]  //截取倒数两个
+list[:]   //复制
+tuple=(1,2,3,4,5)
+tuple[2:3]
+tuple[2:3:-1]  //截取出‘子串’，然后倒序输出  如果最后一位如果为正则，则正序输出；为负，则倒序输出
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;迭代&lt;br&gt;1) 迭代dict&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dict = {&amp;apos;a&amp;apos;:1,&amp;apos;b&amp;apos;:2,&amp;apos;c&amp;apos;:3}
+//默认迭代key
+for key in dict
+    print(key)
+//迭代value
+for value in dict.values()
+    print(value)
+//同时迭代
+for key,value in dict.items()
+    print(key,&amp;apos;:&amp;apos;value)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2)   判断元素是否可以迭代：导入collections模块的Iterable类型&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    from collections import Iterable
+     isinstance(&amp;apos;abc&amp;apos;,Iterable) 
+
+    //enumerate将list转换为索引-元素对 
+for i,value in enumerate([&amp;apos;a&amp;apos;,&amp;apos;b&amp;apos;,&amp;apos;c&amp;apos;]):
+    print(i,value)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;列表生成式&lt;/p&gt;
+&lt;p&gt;生成一个list列表，如&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dict={&amp;apos;a&amp;apos;:1,&amp;apos;b&amp;apos;:2,&amp;apos;c&amp;apos;:3]
+list =[x+&amp;quot;=&amp;quot;+str(y) for x,y in dict.items()]
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;列表生成器&lt;/p&gt;
+&lt;p&gt;列表生成器和生成式的区别在于：生成器为“（）” 而生成式是“[]”&lt;br&gt;可以使用next()函数获取generator的下一个值，当获取不到值后，会产生StopIteration异常，如：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;generator = (x+&amp;quot;=&amp;quot;+str(y) for x,y in dict.items())
+next(generator)
+//使用for循环
+for x in generator
+    print(x)
+//使用函数产生一个生成器 
+def  fib_generator(max):
+    n,a,b = 0,0,1
+    while n&amp;lt;max:
+        yield(b)
+        a,b = b, a+b
+        n=n+1
+    return &amp;apos;done&amp;apos;
+
+     for x in fib_generator(5):
+        print(x)  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 但是用for循环调用generator时，发现拿不到generator的return语句的返回值。如果想要拿到返回值，必须捕获StopIteration错误，返回值包含在StopIteration的value中：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;g = fib(6)
+while True:
+   try:
+        x = next(g)
+       print(&amp;apos;g:&amp;apos;, x)
+   except StopIteration as e:
+            print(&amp;apos;Generator return value:&amp;apos;, e.value)
+    break  
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;凡是可作用于for循环的对象都是Iterable类型；&lt;br&gt;凡是可作用于next()函数的对象都是Iterator类型，它们表示一个惰性计算的序列；&lt;br&gt;集合数据类型如list、dict、str等是Iterable但不是Iterator，不过可以通过iter()函数获得一个Iterator对象。&lt;/p&gt;
+&lt;p&gt;Python的for循环本质上就是通过不断调用next()函数实现的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;函数式编程&lt;br&gt;1） 高阶函数：参数中含有其他函数的函数称为高阶函&lt;br&gt;2） map/reduce&lt;br&gt;map()函数接收两个参数，一个是函数，一个是&lt;strong&gt;Iterable&lt;/strong&gt;，map将传入的函数依次作用到序列的每个元素，并把结果作为新的&lt;strong&gt;Iterator&lt;/strong&gt;返回。&lt;br&gt;reduce把一个函数作用在一个序列[x1, x2, x3, …]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;本文根据廖雪峰老师&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431752945034eb82ac80a3e64b9bb4929b16eeed1eb9000&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;博客&lt;/a&gt;记录&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;python是动态语言，变量本身的类型不固定 &lt;/p&gt;
+&lt;p&gt; 如:  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;a=1;  
+a=&amp;quot;abc&amp;quot;; 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 这是正确的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;python中有两
+    
+    </summary>
+    
+      <category term="python" scheme="http://www.full-stacker.com/categories/python/"/>
+    
+    
+      <category term="python" scheme="http://www.full-stacker.com/tags/python/"/>
+    
+      <category term="廖雪锋" scheme="http://www.full-stacker.com/tags/%E5%BB%96%E9%9B%AA%E9%94%8B/"/>
+    
+      <category term="博客" scheme="http://www.full-stacker.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-六大原则</title>
+    <link href="http://www.full-stacker.com/2016/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99/"/>
+    <id>http://www.full-stacker.com/2016/04/27/设计模式-六大原则/</id>
+    <published>2016-04-27T05:50:32.000Z</published>
+    <updated>2016-04-10T05:28:06.000Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;经过半个月暗无天日的加班，项目总算告一段落。回头想想之前看过的书，感觉记忆全无。突然想起一句话，“没有输出就不算阅读”。so…写点东西，回忆一下之前看过的，另外也算更新下这个命苦的博客。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这篇文章是在看过《设计模式之禅》这本书的一部分写的，算是读书笔记吧。以下是正文：&lt;/p&gt;
+&lt;hr&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;经过半个月暗无天日的加班，项目总算告一段落。回头想想之前看过的书，感觉记忆全无。突然想起一句话，“没有输出就不算阅读”。so…写点东西，回忆一下之前看过的，另外也算更新下这个命苦的博客。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这篇文章是在看过《
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://www.full-stacker.com/2016/04/20/test/"/>
+    <id>http://www.full-stacker.com/2016/04/20/test/</id>
+    <published>2016-04-20T05:17:34.000Z</published>
+    <updated>2016-04-10T05:28:06.000Z</updated>
+    
+    <content type="html"></content>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>git学习</title>
+    <link href="http://www.full-stacker.com/2016/04/15/git%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://www.full-stacker.com/2016/04/15/git学习/</id>
+    <published>2016-04-15T11:49:29.000Z</published>
+    <updated>2016-04-10T05:28:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;1.安装客户端 （略）&lt;br&gt;2.告诉git你的名字&lt;br&gt;    git config –global user.name “你的名字”&lt;br&gt;3.设置邮箱&lt;br&gt;    git config –global user.email “xxxx@xx.com”&lt;br&gt;4.cd到要创建git仓库的目录&lt;br&gt;     注意：windows系统下进入到某个盘符要使用“/盘符名/xxx”如：“/c/work”&lt;br&gt; 5.创建仓库&lt;br&gt;    git init&lt;br&gt; 6.将文件添加到git仓库&lt;br&gt;    git add  目录&lt;br&gt;   出现警告  warning: LF will be replaced by CRLF in&lt;br&gt;7.查看仓库的状态&lt;br&gt;    git status&lt;br&gt;8.查看修改的内容&lt;br&gt;    git diff &lt;path&gt;&lt;/path&gt;&lt;br&gt;9.提交修改后的文件&lt;br&gt;    git add &lt;path&gt;&lt;/path&gt;&lt;br&gt;    git commit&lt;br&gt;10.查看提交过的版本&lt;br&gt;    git log&lt;br&gt;    git log –pretty=oneline  //查看简易的提交日志&lt;br&gt;11.版本回退&lt;br&gt;    在 git中使用“head”表示当前版本，上一个版本是“head^”,上上个版本是“head^^”前一百个版本是“HEAD~100”&lt;br&gt;   使用git reset恢复&lt;br&gt;    git reset –hard HEAD&lt;br&gt;    git reset –hard  commit_id&lt;br&gt;12.撤销修改&lt;br&gt;    git checkout —  &lt;path&gt;&lt;/path&gt;&lt;br&gt;    1.如果没有执行git add命令将修改添加的暂存区，那么将工作区的修改恢复为与版本库一样&lt;br&gt;    2.如果执行了git add命令，那么将恢复到添加到暂存区后的状态。&lt;br&gt;    3.git reset HEAD &lt;path&gt;&lt;/path&gt;可以把暂存区的修改撤销掉（unstage），然后执行git checkout –&lt;path&gt;&lt;/path&gt;&lt;br&gt; 13.删除文件&lt;br&gt;    git rm&lt;br&gt; 14.添加远程仓库&lt;br&gt;     git remote add weixin git@git.oschina.net:iqijun/weChat.git  //将git仓库重命名为weixin&lt;br&gt;     git push -u weixin master    //将当前分支推送到名为weixin的远程仓库的master分支，-u将本地分支和远程分支创建关联，以后推送或拉去时可以简化命令&lt;br&gt;     拉取文件：&lt;br&gt;         git pull &amp;lt;远程主机名&amp;gt; &amp;lt;远程分支名&amp;gt;:&amp;lt;本地分支名&amp;gt;&lt;br&gt;         如果远程分支和当前分支合并，可简化为git pull &amp;lt;远程主机名&amp;gt; &amp;lt;远程分支名&amp;gt; 如：git pull weixin master&lt;br&gt;  15.克隆远程库&lt;br&gt;    git clone   git@git.oschina.net:iqijun/weChat.git&lt;br&gt;   16.分支管理&lt;br&gt;       a) git checkout -b branchA  //创建并切换到branchA分支&lt;br&gt;           checkout -b 相当于以下两条命令：&lt;br&gt;           git  branch branchA  //创建分支&lt;br&gt;           git checkout branchA  //&lt;br&gt;        b) git branch 查看分支，当前面有“*”时表示当前分支。&lt;br&gt;        c) git  merge branchA  将branchA合并到当前分支&lt;br&gt;        d)删除分支  git branch -d branchA&lt;br&gt;        e)存储现场，存储现场后可以保存当前分支的状态，然后切换到其他分支进行其他工作（如：修改bug）&lt;br&gt;              git stash //可以进行多次现场存储&lt;br&gt;               git stash  list   //查看现场&lt;br&gt;                git stash apply stash@{0}  恢复stash@{0}状态时的现场。&lt;br&gt;                git stash drop     删除现场&lt;br&gt;                git stash pop 恢复并删除现场&lt;br&gt;        f)创建远程分支到本地&lt;br&gt;git checkout -b weixin  origin/dev  //将远程origin主机上的dev分支创建为本地weixin分支&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  17.多人协作
+
+18.标签管理
+
+19.标签操作
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;  20.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;误将a.txt删除后找回方法：&lt;br&gt;  git rm a.txt ，删除文件&lt;br&gt;  a. git log 找到离没删文件前最近的commit id&lt;br&gt;  b. 将操作过的其它文件转移&lt;br&gt;  c. git reset –hard “commit id”&lt;ol&gt;
+&lt;li&gt;忽略已被git追踪的文件&lt;br&gt;1) git rm –cached 路径/文件&lt;br&gt;2) git update-index –assume-unchanged &lt;path&gt;&lt;/path&gt;  更新&lt;br&gt;3) 编辑.gitignore文件&lt;br&gt;4) git commit -m “We really don’t want Git to track this anymore!”&lt;br&gt;9.怎么知道本地有设置？git config –local –list 看一眼。&lt;br&gt;怎么设置本地属性？ git config user.name/email。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.安装客户端 （略）&lt;br&gt;2.告诉git你的名字&lt;br&gt;    git config –global user.name “你的名字”&lt;br&gt;3.设置邮箱&lt;br&gt;    git config –global user.email “xxxx@xx.com”&lt;br&gt;4.c
+    
+    </summary>
+    
+      <category term="git" scheme="http://www.full-stacker.com/categories/git/"/>
+    
+    
+      <category term="git" scheme="http://www.full-stacker.com/tags/git/"/>
+    
+      <category term="学习笔记" scheme="http://www.full-stacker.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="github" scheme="http://www.full-stacker.com/tags/github/"/>
+    
+      <category term="oschina git" scheme="http://www.full-stacker.com/tags/oschina-git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>写在二十六岁</title>
+    <link href="http://www.full-stacker.com/2016/04/15/%E5%86%99%E5%9C%A8%E4%BA%8C%E5%8D%81%E5%85%AD%E5%B2%81/"/>
+    <id>http://www.full-stacker.com/2016/04/15/写在二十六岁/</id>
+    <published>2016-04-15T11:29:33.000Z</published>
+    <updated>2016-04-10T05:28:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;其实我已经迈入26岁的天空一周多了。。。。。&lt;br&gt;工作三年，有两年的生日是在加班中度过，这概率，也是没谁了。&lt;br&gt;又看了下去年年初写的一小段文字，当时给自己定了几个小目标：读几本书；考项目管理证书；学习敏捷和设计模式；建个小站；写点东西；锻炼身体。&lt;br&gt;现在来看，这小小的目标还是没有彻底完成。读过几本不值得提的小书，但阅读量似乎比以前没啥进步。考下了软考的中级项目管理，但却挂在了高级考试的考场。敏捷和设计模式么，只能呵呵了。但简单学习了一下UML&lt;br&gt;从15年五月份起，就开始了漂泊的出差旅程，从济南到杭州再到帝都。在杭州待的时间比较长五月到十二月，从刚到杭州项目开始，一个人开发，应付客户，讨论需求，配合测试，到项目逐渐稳定，一二期上线。在杭州的半年时间里，学到的东西挺多的，进步也不小，包括技术上和非技术的。非技术上的东西更多一些吧，因为客户的关系比较复杂，做事之前总要捋一下客户的关系再做定夺。也对自己的职场生涯有点启发吧，在这里明显让我感觉到，那么多优秀的人面前，不得不提前为以后的路做好准备。笨鸟先飞，总不至于让自己迷了路。&lt;br&gt;来到北京的这几个月，在各项目之间来回串，哪边缺人我顶上，忙完我就赶下场。。。。。整体来说就是填坑，把别人挖的坑填好，捎带着也为其他人挖了坑。在挖坑填坑间，打磨打磨自己的技术。说的高大上一点，这一年忙活的也算是J2EE分布式系统的开发,在填坑的过程中，发现自己的欠缺，慢慢补上。&lt;br&gt;2016，站在26岁的路口，为自己定几个目标：&lt;br&gt;第一,责任。&lt;br&gt;都说养儿防老，当突然发现自己的父母老了，再也不能想以前一样为自己遮风挡雨，心中先是一颤，然后便是疼。二十六岁在奔三的路上迅速前行，突然觉得自己该担当养家的责任了，该为父母做些什么了。&lt;br&gt;说到责任，当然还有那个她，此处不多表。&lt;br&gt;第二，提升。&lt;br&gt;看我域名。虽然很多人说全栈是个伪命题，但我还是选择了这个域名。总觉得多会些东西，是不会错的。在这里想给自己定几个比较容易验证是否完成的目标。一下内容不以先后顺序区分重要性&lt;br&gt;1.学完《疯狂Android讲义》，然后学习phoneGap,能做出混合app&lt;br&gt;2.至少精读一遍《java编程思想》&lt;br&gt;3.学习python,这个要达到什么样的水平还不好定，因为还没仔细研究过&lt;br&gt;4.学习bootstrap，做出一个网站的前端&lt;br&gt;5.学点php能简单打理一下这个blog即可&lt;br&gt;第三，一个决定&lt;br&gt;做一个北漂。毕业时没直接来，一直觉得是个遗憾。趁现在，感受下北漂。顺便在帝都学习下先进的技术和管理经验，顺便积累些RMB，因为上边说的一切和今后的生活都离不开它。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;其实我已经迈入26岁的天空一周多了。。。。。&lt;br&gt;工作三年，有两年的生日是在加班中度过，这概率，也是没谁了。&lt;br&gt;又看了下去年年初写的一小段文字，当时给自己定了几个小目标：读几本书；考项目管理证书；学习敏捷和设计模式；建个小站；写点东西；锻炼身体。&lt;br&gt;现在来看，这小
+    
+    </summary>
+    
+      <category term="杂谈" scheme="http://www.full-stacker.com/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="26岁" scheme="http://www.full-stacker.com/tags/26%E5%B2%81/"/>
+    
+      <category term="北漂" scheme="http://www.full-stacker.com/tags/%E5%8C%97%E6%BC%82/"/>
+    
+      <category term="提升" scheme="http://www.full-stacker.com/tags/%E6%8F%90%E5%8D%87/"/>
+    
+      <category term="责任" scheme="http://www.full-stacker.com/tags/%E8%B4%A3%E4%BB%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从equals方法开始说</title>
+    <link href="http://www.full-stacker.com/2016/04/10/%E4%BB%8Eequals%E6%96%B9%E6%B3%95%E5%BC%80%E5%A7%8B%E8%AF%B4/"/>
+    <id>http://www.full-stacker.com/2016/04/10/从equals方法开始说/</id>
+    <published>2016-04-10T05:28:06.000Z</published>
+    <updated>2016-04-10T05:28:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;一句废话，eqauls方法是用来判断对象是否相等的。&lt;br&gt;怎么判断的呢？可以重写类的equals方法，在equals方法中实现判等逻辑。&lt;br&gt;但是没有重写equals方法，怎么判断两个对象是否相等呢？根据java的继承机制，咱们去找它爸爸，去看看父类是怎么实现的equals方法。类的老祖宗Ojbect中，equals方法实现十分简单，如下：&lt;br&gt;    &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; 	 * &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt;   obj   the reference object with which to compare.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * &lt;span class=&quot;doctag&quot;&gt;@return&lt;/span&gt;  &amp;lt;code&amp;gt;true&amp;lt;/code&amp;gt; if this object is the same as the obj&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    *          argument; &amp;lt;code&amp;gt;false&amp;lt;/code&amp;gt; otherwise.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * &lt;span class=&quot;doctag&quot;&gt;@see&lt;/span&gt;     #hashCode()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * &lt;span class=&quot;doctag&quot;&gt;@see&lt;/span&gt;     java.util.Hashtable&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    */&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;   &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Object obj)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt; == obj);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;   &amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;通俗易懂，就是判断两个对象地址是否相等。&lt;br&gt;看下面一例：&lt;br&gt;定义student类&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;20&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;21&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;22&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;23&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;25&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;26&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;27&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;28&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;29&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;30&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;31&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;32&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;33&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;34&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;35&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;36&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;37&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;38&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;39&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;40&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;41&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;42&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;43&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;44&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;45&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;46&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;47&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;48&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;49&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;50&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Student&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * 学号&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     */&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; String stu_no;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * 姓名&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     */&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; String name;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Student&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Student&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String no, String name)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.stu_no = no;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.name = name;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; String &lt;span class=&quot;title&quot;&gt;getStu_no&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; stu_no;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;setStu_no&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String stu_no)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.stu_no = stu_no;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; String &lt;span class=&quot;title&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; name;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String name)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.name = name;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Object obj)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt; == obj) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;true&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125; &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;null&lt;/span&gt; == obj) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;false&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125; &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (!(obj &lt;span class=&quot;keyword&quot;&gt;instanceof&lt;/span&gt; Student)) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;false&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125; &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.name.equals(((Student) obj).getName())&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                &amp;amp;&amp;amp; &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.stu_no.equals(((Student) obj).getStu_no())) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;true&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;false&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;执行测试类：&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    Set&amp;lt;Student&amp;gt; set = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; HashSet&amp;lt;Student&amp;gt;();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    Student stu1 = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Student(&lt;span class=&quot;string&quot;&gt;&quot;1&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;张三&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    set.add(stu1);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    Student stu2 = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Student(&lt;span class=&quot;string&quot;&gt;&quot;1&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;张三&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    set.add(stu2);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    System.out.println(&lt;span class=&quot;string&quot;&gt;&quot;是否equal：&quot;&lt;/span&gt; + stu1.equals(stu2));&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    System.out.println(&lt;span class=&quot;string&quot;&gt;&quot;set大小：&quot;&lt;/span&gt; + set.size());&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;结果输出：&lt;br&gt;是否equal：true&lt;br&gt;set大小：2&lt;br&gt;为啥set里放进了两个equal的对象；答：因为hashCode不同；&lt;br&gt;对呀，还有hashCode这回事；&lt;br&gt;先来说明为什么set中放入了两个equal的对象；因为在向set中添加数据的时候先检查两个对象的hashCode是否相等，如果不等的话，会直接将对i想放入到集合中。如果两个对象的hashCode相等时，才会去调用equals方法判断是否相等；&lt;br&gt;那为什么没有重写hashCode方法，他们的hashCode值就不同能。再到父类中去寻找hashCode的实现。&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  * As much as is reasonably practical, the hashCode method defined by &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * class &amp;lt;tt&amp;gt;Object&amp;lt;/tt&amp;gt; does return distinct integers for distinct &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * objects. (This is typically implemented by converting the internal &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * address of the object into an integer, but this implementation &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * technique is not required by the &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * Java&amp;lt;font size=&quot;-2&quot;&amp;gt;&amp;lt;sup&amp;gt;TM&amp;lt;/sup&amp;gt;&amp;lt;/font&amp;gt; programming language.)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    *&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * &lt;span class=&quot;doctag&quot;&gt;@return&lt;/span&gt;  a hash code value for this object.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * &lt;span class=&quot;doctag&quot;&gt;@see&lt;/span&gt;     java.lang.Object#equals(java.lang.Object)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    * &lt;span class=&quot;doctag&quot;&gt;@see&lt;/span&gt;     java.util.Hashtable&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    */&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;   &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;native&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;可以看到这是调用一个本地方法；在注释中发现Object的hashCode会对每个对象返回唯一的hash值。&lt;br&gt;so,在没有重写hashCode方法的时候两个Student的hash值肯定是不同的。所以两个对象都可以放到set中。&lt;br&gt;那么什么情况下要重写equals方法和hashCode方法呢？&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一句废话，eqauls方法是用来判断对象是否相等的。&lt;br&gt;怎么判断的呢？可以重写类的equals方法，在equals方法中实现判等逻辑。&lt;br&gt;但是没有重写equals方法，怎么判断两个对象是否相等呢？根据java的继承机制，咱们去找它爸爸，去看看父类是怎么实现的equa
+    
+    </summary>
+    
+      <category term="java" scheme="http://www.full-stacker.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://www.full-stacker.com/tags/java/"/>
+    
+      <category term="equals" scheme="http://www.full-stacker.com/tags/equals/"/>
+    
+      <category term="hashCode" scheme="http://www.full-stacker.com/tags/hashCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第一篇</title>
+    <link href="http://www.full-stacker.com/2016/04/02/%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
+    <id>http://www.full-stacker.com/2016/04/02/第一篇/</id>
+    <published>2016-04-02T14:42:18.000Z</published>
+    <updated>2016-04-10T05:28:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;终于把这博客搭起来了，今后的日子就在这里记录些自己的东西。&lt;br&gt;人的惰性真的是越不克服，就会变的越‘强大’，上学的时候在新浪上写过几篇，刚毕业的时候转战的到CSDN。但都没能坚持下来，总共也就写了寥寥几篇。刚毕业的时候想自己搭个blog但舍不得每年一百大洋的服务器的费用。等舍得花钱租服务器的时候，又四处出差，博客的事情就这么搁置到现在。&lt;br&gt;好吧，啰嗦这么多其实就是想为自己直到现在才搭起博客来找个借口。&lt;br&gt;工作这两年来，其实有很多时候是想写点东西。一方面是为了把自己日常用的技术，碰到的问题做个积累；另一方面，有些时候想把自己遇到事情的，一些感受能够真真切切的记录下来，比如最近遇到的奇葩客户，真是不吐不快（稍后再做吐槽）。&lt;br&gt;既然搭起了这个博客，就坚持写下去吧。这里不像在CSDN写日常生活那么格格不入，也不像在新浪写技术博显得那么low（纯属个人感觉。。。。我没有针对某些人。。。。。），在这里我是站长，我想写啥就写啥。坚持写下去！！&lt;br&gt;接下来要做的，把以前写的各种笔记稍做整理，发到本博中；调整下博客的主题；将耕耘本博纳入2016年度计划。&lt;br&gt;坚持！&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;终于把这博客搭起来了，今后的日子就在这里记录些自己的东西。&lt;br&gt;人的惰性真的是越不克服，就会变的越‘强大’，上学的时候在新浪上写过几篇，刚毕业的时候转战的到CSDN。但都没能坚持下来，总共也就写了寥寥几篇。刚毕业的时候想自己搭个blog但舍不得每年一百大洋的服务器的费用。
+    
+    </summary>
+    
+      <category term="杂谈" scheme="http://www.full-stacker.com/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="杂谈" scheme="http://www.full-stacker.com/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+</feed>
