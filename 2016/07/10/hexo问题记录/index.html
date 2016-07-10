@@ -311,7 +311,9 @@
 <li><p>添加feed插件后hexo server无法使用</p>
 <p> 原因是在站点的配置文件中添加了 </p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">plugins:</div><div class="line">- hexo-generator-feed</div></pre></td></tr></table></figure>
-<p> 将依赖添加到站点的package.json中即可解决</p>
+<p> 去掉改配置，将依赖添加到站点的package.json中即可解决</p>
+</li>
+<li><p>升级win10后，hexo d 无法部署问题<br> 重新生成公钥，gitbash将公钥默认生成到C:\Windows\System32\config\systemprofile.ssh目录下 需要保证用户对该目录有读写权限</p>
 </li>
 </ol>
 
