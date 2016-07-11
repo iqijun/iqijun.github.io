@@ -15,6 +15,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>feed问题</title>
+    <link href="http://www.full-stacker.com/2016/07/11/feed%E9%97%AE%E9%A2%98/"/>
+    <id>http://www.full-stacker.com/2016/07/11/feed问题/</id>
+    <published>2016-07-11T14:17:35.000Z</published>
+    <updated>2016-07-11T14:22:15.450Z</updated>
+    
+    <content type="html">&lt;ol&gt;
+&lt;li&gt;在发表新文章的时候想利用ifttt分享到微博，增加hexo-genrater-feed插件后，可以生成atom文件，但是并没有触发ifttt的triger&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;在发表新文章的时候想利用ifttt分享到微博，增加hexo-genrater-feed插件后，可以生成atom文件，但是并没有触发ifttt的triger&lt;/li&gt;
+&lt;/ol&gt;
+
+    
+    </summary>
+    
+      <category term="hexo" scheme="http://www.full-stacker.com/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="http://www.full-stacker.com/tags/hexo/"/>
+    
+      <category term="feed" scheme="http://www.full-stacker.com/tags/feed/"/>
+    
+      <category term="ifttt" scheme="http://www.full-stacker.com/tags/ifttt/"/>
+    
+  </entry>
+  
+  <entry>
     <title>hexo问题记录</title>
     <link href="http://www.full-stacker.com/2016/07/10/hexo%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
     <id>http://www.full-stacker.com/2016/07/10/hexo问题记录/</id>
@@ -43,6 +75,12 @@
     
     </summary>
     
+      <category term="hexo" scheme="http://www.full-stacker.com/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="http://www.full-stacker.com/tags/hexo/"/>
+    
+      <category term="feed" scheme="http://www.full-stacker.com/tags/feed/"/>
     
   </entry>
   
@@ -425,9 +463,9 @@ a=&amp;quot;abc&amp;quot;;
       <category term="杂谈" scheme="http://www.full-stacker.com/categories/%E6%9D%82%E8%B0%88/"/>
     
     
-      <category term="26岁" scheme="http://www.full-stacker.com/tags/26%E5%B2%81/"/>
-    
       <category term="北漂" scheme="http://www.full-stacker.com/tags/%E5%8C%97%E6%BC%82/"/>
+    
+      <category term="26岁" scheme="http://www.full-stacker.com/tags/26%E5%B2%81/"/>
     
       <category term="提升" scheme="http://www.full-stacker.com/tags/%E6%8F%90%E5%8D%87/"/>
     
