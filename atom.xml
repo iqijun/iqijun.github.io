@@ -55,7 +55,7 @@
     <link href="http://www.full-stacker.com/2016/07/11/feed%E9%97%AE%E9%A2%98/"/>
     <id>http://www.full-stacker.com/2016/07/11/feed问题/</id>
     <published>2016-07-11T14:17:35.000Z</published>
-    <updated>2016-07-17T07:55:29.582Z</updated>
+    <updated>2016-07-17T07:56:30.899Z</updated>
     
     <content type="html">&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;在发表新文章的时候想利用ifttt分享到微博，增加hexo-genrater-feed插件后，可以生成atom文件，但是并没有触发ifttt的triger&lt;/p&gt;
@@ -140,9 +140,9 @@
       <category term="杂谈" scheme="http://www.full-stacker.com/categories/%E6%9D%82%E8%B0%88/"/>
     
     
-      <category term="北漂" scheme="http://www.full-stacker.com/tags/%E5%8C%97%E6%BC%82/"/>
-    
       <category term="工作" scheme="http://www.full-stacker.com/tags/%E5%B7%A5%E4%BD%9C/"/>
+    
+      <category term="北漂" scheme="http://www.full-stacker.com/tags/%E5%8C%97%E6%BC%82/"/>
     
       <category term="公司" scheme="http://www.full-stacker.com/tags/%E5%85%AC%E5%8F%B8/"/>
     
