@@ -1664,7 +1664,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #995321;
+  background: #ffff1a;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2249,7 +2249,10 @@ a.search-result {
   overflow: hidden;
 }
 body {
-  background: #f5f7f9;
+  background: #f5f7f9 url("/images/backgroud.png");
+  -moz-background-size: 40% 100%;
+/* 老版本的 Firefox */
+  background-size: 100% 150%;
 }
 @media (min-width: 992px) {
   .full-image.full-image.full-image {
