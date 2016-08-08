@@ -15,9 +15,53 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>一行代码解决的问题</title>
+    <link href="http://www.full-stacker.com/2016/08/08/cirm4od5t000d4wmf763w2jo4/"/>
+    <id>http://www.full-stacker.com/2016/08/08/cirm4od5t000d4wmf763w2jo4/</id>
+    <published>2016-08-08T13:48:00.000Z</published>
+    <updated>2016-08-08T14:22:41.611Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;人活久了什么鸟都能见到，代码敲久了什么问题都能见到。问题产生后总有些惰性，懒得去改。到头来却是非不为也，实不知也。知道了其实也就是一行代码的事儿。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;　　前段时间做了一个登陆功能，本来以为是手到擒来的小活，没怎么放到心上，但真正用起来细节问题处理的实在粗糙。&lt;br&gt;　　功能很简单，就是常见的登陆，但是不使用session，改用redis缓存记录登陆标识。&lt;br&gt;遇到的问题，不再这细说了，大多是项目中特殊情况引起的。在此单表一例。登陆后跳转到登陆前的页面。&lt;/p&gt;
+&lt;p&gt;第一版代码如下：&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;jumpLoginPage&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(HttpServletRequest request,HttpServletResponse response)&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;throws&lt;/span&gt; IOException&lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    String redirectUrl = request.getRequestURL().toString();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    String queryString = request.getQueryString();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;null&lt;/span&gt;!=queryString)&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        redirectUrl = URLEncoder.encode(redirectUrl+&lt;span class=&quot;string&quot;&gt;&quot;?&quot;&lt;/span&gt;+queryString, &lt;span class=&quot;string&quot;&gt;&quot;UTF-8&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    response.sendRedirect(loginUrl+&lt;span class=&quot;string&quot;&gt;&quot;?redirectUrl=&quot;&lt;/span&gt;+redirectUrl);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;五分钟写完，提交svn，然后愉快的去大群水了。&lt;/p&gt;
+&lt;p&gt;第二天，就有人开始发现问题了： &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; 登陆成功，停留在一个页面，当登陆标识失效后，点击页面的按钮发送**post**请求,请求被拦截后跳转到登陆页面，输入账号，密码，点击登陆，登陆成功跳转到之前页面（此处应为跳转的之前的请求，即点击按钮发送的请求），然后。。。。悲剧了，由于改请求只支持post方式，所以400错误。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 修改，第二版代码&lt;/p&gt;
+ &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;jumpLoginPage&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(HttpServletRequest request,HttpServletResponse response)&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;throws&lt;/span&gt; IOException&lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;          String redirectUrl = request.getHeader(&lt;span class=&quot;string&quot;&gt;&quot;Referer&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        response.sendRedirect(loginUrl+&lt;span class=&quot;string&quot;&gt;&quot;?redirectUrl=&quot;&lt;/span&gt;+redirectUrl);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后，愉快的去水了。。。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;人活久了什么鸟都能见到，代码敲久了什么问题都能见到。问题产生后总有些惰性，懒得去改。到头来却是非不为也，实不知也。知道了其实也就是一行代码的事儿。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;　　前段时间做了一个登陆功能，本来以为是手到擒来的小活，没
+    
+    </summary>
+    
+      <category term="java" scheme="http://www.full-stacker.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://www.full-stacker.com/tags/java/"/>
+    
+      <category term="登陆" scheme="http://www.full-stacker.com/tags/%E7%99%BB%E9%99%86/"/>
+    
+      <category term="request" scheme="http://www.full-stacker.com/tags/request/"/>
+    
+      <category term="路径" scheme="http://www.full-stacker.com/tags/%E8%B7%AF%E5%BE%84/"/>
+    
+      <category term="跳转" scheme="http://www.full-stacker.com/tags/%E8%B7%B3%E8%BD%AC/"/>
+    
+  </entry>
+  
+  <entry>
     <title>一点感慨</title>
-    <link href="http://www.full-stacker.com/2016/07/17/%E4%B8%80%E7%82%B9%E6%84%9F%E6%85%A8/"/>
-    <id>http://www.full-stacker.com/2016/07/17/一点感慨/</id>
+    <link href="http://www.full-stacker.com/2016/07/17/cirm4od68000j4wmf2763e53g/"/>
+    <id>http://www.full-stacker.com/2016/07/17/cirm4od68000j4wmf2763e53g/</id>
     <published>2016-07-17T06:47:19.000Z</published>
     <updated>2016-07-17T07:49:29.020Z</updated>
     
@@ -52,8 +96,8 @@
   
   <entry>
     <title>feed问题</title>
-    <link href="http://www.full-stacker.com/2016/07/11/feed%E9%97%AE%E9%A2%98/"/>
-    <id>http://www.full-stacker.com/2016/07/11/feed问题/</id>
+    <link href="http://www.full-stacker.com/2016/07/11/cirm4od0400014wmf1o75ic9v/"/>
+    <id>http://www.full-stacker.com/2016/07/11/cirm4od0400014wmf1o75ic9v/</id>
     <published>2016-07-11T14:17:35.000Z</published>
     <updated>2016-07-17T07:56:30.899Z</updated>
     
@@ -85,8 +129,8 @@
   
   <entry>
     <title>hexo问题记录</title>
-    <link href="http://www.full-stacker.com/2016/07/10/hexo%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
-    <id>http://www.full-stacker.com/2016/07/10/hexo问题记录/</id>
+    <link href="http://www.full-stacker.com/2016/07/10/cirm4od66000i4wmf36tgdjzx/"/>
+    <id>http://www.full-stacker.com/2016/07/10/cirm4od66000i4wmf36tgdjzx/</id>
     <published>2016-07-10T07:57:16.000Z</published>
     <updated>2016-07-10T07:57:16.000Z</updated>
     
@@ -123,8 +167,8 @@
   
   <entry>
     <title>碎碎念</title>
-    <link href="http://www.full-stacker.com/2016/06/04/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
-    <id>http://www.full-stacker.com/2016/06/04/碎碎念/</id>
+    <link href="http://www.full-stacker.com/2016/06/04/cirm4od6d000n4wmfcrr319py/"/>
+    <id>http://www.full-stacker.com/2016/06/04/cirm4od6d000n4wmfcrr319py/</id>
     <published>2016-06-04T10:02:57.000Z</published>
     <updated>2016-04-10T05:28:06.000Z</updated>
     
@@ -152,8 +196,8 @@
   
   <entry>
     <title>python笔记</title>
-    <link href="http://www.full-stacker.com/2016/05/18/python%E7%AC%94%E8%AE%B0/"/>
-    <id>http://www.full-stacker.com/2016/05/18/python笔记/</id>
+    <link href="http://www.full-stacker.com/2016/05/18/cirm4od5n000b4wmf5xdfft8w/"/>
+    <id>http://www.full-stacker.com/2016/05/18/cirm4od5n000b4wmf5xdfft8w/</id>
     <published>2016-05-18T03:40:41.000Z</published>
     <updated>2016-04-10T05:28:06.000Z</updated>
     
@@ -400,8 +444,8 @@ a=&amp;quot;abc&amp;quot;;
   
   <entry>
     <title>设计模式-六大原则</title>
-    <link href="http://www.full-stacker.com/2016/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99/"/>
-    <id>http://www.full-stacker.com/2016/04/27/设计模式-六大原则/</id>
+    <link href="http://www.full-stacker.com/2016/04/27/cirm4od6a000l4wmfm6z9bmrn/"/>
+    <id>http://www.full-stacker.com/2016/04/27/cirm4od6a000l4wmfm6z9bmrn/</id>
     <published>2016-04-27T05:50:32.000Z</published>
     <updated>2016-04-10T05:28:06.000Z</updated>
     
@@ -426,8 +470,8 @@ a=&amp;quot;abc&amp;quot;;
   
   <entry>
     <title>test</title>
-    <link href="http://www.full-stacker.com/2016/04/20/test/"/>
-    <id>http://www.full-stacker.com/2016/04/20/test/</id>
+    <link href="http://www.full-stacker.com/2016/04/20/cirm4od5z000f4wmfbns05aco/"/>
+    <id>http://www.full-stacker.com/2016/04/20/cirm4od5z000f4wmfbns05aco/</id>
     <published>2016-04-20T05:17:34.000Z</published>
     <updated>2016-04-10T05:28:06.000Z</updated>
     
@@ -442,8 +486,8 @@ a=&amp;quot;abc&amp;quot;;
   
   <entry>
     <title>git学习</title>
-    <link href="http://www.full-stacker.com/2016/04/15/git%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://www.full-stacker.com/2016/04/15/git学习/</id>
+    <link href="http://www.full-stacker.com/2016/04/15/cirm4od69000k4wmfbrzdbhsg/"/>
+    <id>http://www.full-stacker.com/2016/04/15/cirm4od69000k4wmfbrzdbhsg/</id>
     <published>2016-04-15T11:49:29.000Z</published>
     <updated>2016-04-10T05:28:06.000Z</updated>
     
@@ -483,8 +527,8 @@ a=&amp;quot;abc&amp;quot;;
   
   <entry>
     <title>写在二十六岁</title>
-    <link href="http://www.full-stacker.com/2016/04/15/%E5%86%99%E5%9C%A8%E4%BA%8C%E5%8D%81%E5%85%AD%E5%B2%81/"/>
-    <id>http://www.full-stacker.com/2016/04/15/写在二十六岁/</id>
+    <link href="http://www.full-stacker.com/2016/04/15/cirm4od6c000m4wmf0wtji85j/"/>
+    <id>http://www.full-stacker.com/2016/04/15/cirm4od6c000m4wmf0wtji85j/</id>
     <published>2016-04-15T11:29:33.000Z</published>
     <updated>2016-04-10T05:28:06.000Z</updated>
     
@@ -512,8 +556,8 @@ a=&amp;quot;abc&amp;quot;;
   
   <entry>
     <title>从equals方法开始说</title>
-    <link href="http://www.full-stacker.com/2016/04/10/%E4%BB%8Eequals%E6%96%B9%E6%B3%95%E5%BC%80%E5%A7%8B%E8%AF%B4/"/>
-    <id>http://www.full-stacker.com/2016/04/10/从equals方法开始说/</id>
+    <link href="http://www.full-stacker.com/2016/04/10/cirm4od64000h4wmf8vve6ysr/"/>
+    <id>http://www.full-stacker.com/2016/04/10/cirm4od64000h4wmf8vve6ysr/</id>
     <published>2016-04-10T05:28:06.000Z</published>
     <updated>2016-04-10T05:28:06.000Z</updated>
     
@@ -543,8 +587,8 @@ a=&amp;quot;abc&amp;quot;;
   
   <entry>
     <title>第一篇</title>
-    <link href="http://www.full-stacker.com/2016/04/02/%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
-    <id>http://www.full-stacker.com/2016/04/02/第一篇/</id>
+    <link href="http://www.full-stacker.com/2016/04/02/cirm4od6f000o4wmf5yrtrorj/"/>
+    <id>http://www.full-stacker.com/2016/04/02/cirm4od6f000o4wmf5yrtrorj/</id>
     <published>2016-04-02T14:42:18.000Z</published>
     <updated>2016-04-10T05:28:06.000Z</updated>
     
