@@ -2249,7 +2249,7 @@ a.search-result {
   overflow: hidden;
 }
 body {
-  background: #f5f7f9 url("/images/backgroud.png");
+  background: #f5f7f9;
   -moz-background-size: 40% 100%;
 /* 老版本的 Firefox */
   background-size: 100% 150%;
