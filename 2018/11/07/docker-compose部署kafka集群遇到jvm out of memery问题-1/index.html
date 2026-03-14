@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="利用docker-compose部署kafka集群遇到内存不足问题，报错信息中有如下信息： kafka_1_a6f53db08f56 | # Native memory allocation (mmap) failed to map 1073741824 bytes for committing reserved memory. kafka_1_a6f53db08f56 | # Can not s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker-compose部署kafka集群遇到jvm out of memery问题">
+<meta property="og:url" content="http://www.full-stacker.com/2018/11/07/docker-compose%E9%83%A8%E7%BD%B2kafka%E9%9B%86%E7%BE%A4%E9%81%87%E5%88%B0jvm%20out%20of%20memery%E9%97%AE%E9%A2%98-1/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="利用docker-compose部署kafka集群遇到内存不足问题，报错信息中有如下信息： kafka_1_a6f53db08f56 | # Native memory allocation (mmap) failed to map 1073741824 bytes for committing reserved memory. kafka_1_a6f53db08f56 | # Can not s">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-11-07T10:16:41.000Z">
+<meta property="article:modified_time" content="2018-11-07T10:57:34.000Z">
+<meta property="article:author" content="骐骏">
+<meta property="article:tag" content="docker | kafka | 内存溢出 | jvm">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2018/11/07/docker-compose%E9%83%A8%E7%BD%B2kafka%E9%9B%86%E7%BE%A4%E9%81%87%E5%88%B0jvm%20out%20of%20memery%E9%97%AE%E9%A2%98-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2018/11/07/docker-compose%E9%83%A8%E7%BD%B2kafka%E9%9B%86%E7%BE%A4%E9%81%87%E5%88%B0jvm%20out%20of%20memery%E9%97%AE%E9%A2%98-1/","path":"2018/11/07/docker-compose部署kafka集群遇到jvm out of memery问题-1/","title":"docker-compose部署kafka集群遇到jvm out of memery问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>docker-compose部署kafka集群遇到jvm out of memery问题 | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2018/11/07/docker-compose%E9%83%A8%E7%BD%B2kafka%E9%9B%86%E7%BE%A4%E9%81%87%E5%88%B0jvm%20out%20of%20memery%E9%97%AE%E9%A2%98-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="docker-compose部署kafka集群遇到jvm out of memery问题 | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          docker-compose部署kafka集群遇到jvm out of memery问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2018-11-07 10:16:41 / Modified: 10:57:34" itemprop="dateCreated datePublished" datetime="2018-11-07T10:16:41+00:00">2018-11-07</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>399</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>1 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>利用docker-compose部署kafka集群遇到内存不足问题，报错信息中有如下信息：</p>
+<pre>kafka_1_a6f53db08f56 | # Native memory allocation (mmap) failed to map 1073741824 bytes for committing reserved memory.
+kafka_1_a6f53db08f56 | # Can not save log file, dump to screen..
+kafka_1_a6f53db08f56 | #
+kafka_1_a6f53db08f56 | # There is insufficient memory for the Java Runtime Environment to continue.
+kafka_1_a6f53db08f56 | # Native memory allocation (mmap) failed to map 1073741824 bytes for committing reserved memory.
+kafka_1_a6f53db08f56 | # Possible reasons:
+kafka_1_a6f53db08f56 | # The system is out of physical RAM or swap space
+kafka_1_a6f53db08f56 | # In 32 bit mode, the process size limit was hit
+kafka_1_a6f53db08f56 | # Possible solutions:
+kafka_1_a6f53db08f56 | # Reduce memory load on the system
+kafka_1_a6f53db08f56 | # Increase physical memory or swap space
+kafka_1_a6f53db08f56 | # Check if swap backing store is full
+kafka_1_a6f53db08f56 | # Use 64 bit Java on a 64 bit OS
+kafka_1_a6f53db08f56 | # Decrease Java heap size (-Xmx/-Xms)
+kafka_1_a6f53db08f56 | # Decrease number of Java threads
+kafka_1_a6f53db08f56 | # Decrease Java thread stack sizes (-Xss)
+kafka_1_a6f53db08f56 | # Set larger code cache with -XX:ReservedCodeCacheSize=
+kafka_1_a6f53db08f56 | # This output file may be truncated or incomplete.
+
+VM Arguments:
+kafka_1_a6f53db08f56 |<strong> jvm_args: -Xmx1G -Xms1G -XX:+UseG1GC -XX:MaxGCPauseMillis=20</strong> -XX:InitiatingHeapOccupancyPercent=35 -XX:+ExplicitGCInvokesConcurrent -Djava.awt.headless=true -Xloggc:/opt/kafka/bin/../logs/kafkaServer-gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=100M -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dkafka.logs.dir=/opt/kafka/bin/../logs -Dlog4j.configuration=file:/opt/kafka/bin/../config/log4j.properties
+````</pre>
+
+<p>可以看出默认的堆大小为1G，所以在机器配置较低时内存会不足。</p>
+<p>在docker-compose.yml  wurstmeister&#x2F;kafka默认没有配置jvm参数 可以使用<span style="background-color: #ff0000;"> KAFKA_JVM_PERFORMANCE_OPTS<span style="background-color: #ffffff;"> 指定jvm参数调整堆栈大小</span></span></p>
+<pre>version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 123.206.77.193
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    <span style="background-color: #ff0000;">  KAFKA_JVM_PERFORMANCE_OPTS: " -Xmx256m -Xms256m"</span>
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  kafka-manager:
+    image: sheepkiller/kafka-manager    # 如果要安装web管理工具可以同时安装这个，最后通过苏主机IP的9000端口进行访问，例如172.31.148.174:9000
+    links:
+      - kafka
+      - zookeeper
+    environment:
+      ZK_HOSTS: zookeeper:2181
+      APPLICATION_SECRET: "letmein"
+    ports:
+      - "9000:9000"
+    expose:
+      - "9000"</pre>
+
+<p>&nbsp;</p>
+<span id="more"></span>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker-kafka-%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA-jvm/" rel="tag"># docker | kafka | 内存溢出 | jvm</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%20%E4%B9%8B%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6-1/" rel="prev" title="深入理解java虚拟机 之内存管理机制">
+                  <i class="fa fa-angle-left"></i> 深入理解java虚拟机 之内存管理机制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/12/25/elasticSearch%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86-1/" rel="next" title="elasticSearch核心知识">
+                  elasticSearch核心知识 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

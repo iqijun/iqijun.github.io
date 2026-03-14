@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="本文首发在csdn博客现转移到此处 原文地址：http:&#x2F;&#x2F;blog.csdn.net&#x2F;iqijun&#x2F;article&#x2F;details&#x2F;14449987 一、Unix定时器         Unix定时器由cron进程实现，其是一个daemon进程。cron会按照crontabs文件指定的时间执行命令。         crontabs命令：         crontab        删除cro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="unix深入篇[博客搬家]">
+<meta property="og:url" content="http://www.full-stacker.com/2016/03/02/unix%E6%B7%B1%E5%85%A5%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="本文首发在csdn博客现转移到此处 原文地址：http:&#x2F;&#x2F;blog.csdn.net&#x2F;iqijun&#x2F;article&#x2F;details&#x2F;14449987 一、Unix定时器         Unix定时器由cron进程实现，其是一个daemon进程。cron会按照crontabs文件指定的时间执行命令。         crontabs命令：         crontab        删除cro">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-03-02T12:36:52.000Z">
+<meta property="article:modified_time" content="2016-03-02T12:36:52.000Z">
+<meta property="article:author" content="骐骏">
+<meta property="article:tag" content="uninx常用命令">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2016/03/02/unix%E6%B7%B1%E5%85%A5%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2016/03/02/unix%E6%B7%B1%E5%85%A5%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/","path":"2016/03/02/unix深入篇[博客搬家]-1/","title":"unix深入篇[博客搬家]"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>unix深入篇[博客搬家] | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2016/03/02/unix%E6%B7%B1%E5%85%A5%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="unix深入篇[博客搬家] | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          unix深入篇[博客搬家]
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-03-02 12:36:52" itemprop="dateCreated datePublished" datetime="2016-03-02T12:36:52+00:00">2016-03-02</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>849</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>3 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><pre>本文首发在csdn博客现转移到此处 原文地址：http://blog.csdn.net/iqijun/article/details/14449987</pre>
+<pre>一、Unix定时器
+        Unix定时器由cron进程实现，其是一个daemon进程。cron会按照crontabs文件指定的时间执行命令。
+        crontabs命令：
+        crontab        删除crontabs原有内容，并通过键盘输入新内容
+        crontab myfile 将myfile的内容取代crontabs原有内容
+        crontab -r      删除现有的crontabs文件
+        crontab -l      显示现有的crontabs文件内容
+        使用举例：
+                1.crontab -l &gt; tmp
+                2.对tmp编辑添加一行
+                   0  3  1 * *  /user/bin/stat
+                3.运行crontab tmp
+二、Unix用户管理
+        只有root用户和授权用户才能对用户和用户组进行增加，修改，删除操作
+        常用命令：
+                useradd        增加用户
+                userdel        删除用户
+                usermod        修改用户
+                userls         显示用户和系统登录信息
+                passwd         修改用户口令
+                groupadd       增加用户组
+                groupdel       删除用户组
+                groupmod       修改用户组
+                groupls        显示用户组信息
+        命令格式：
+             1. useradd [-c comment] [-d directory] [-g group] [-m] [-s shell] username
+                -c comment 表示注释
+                -d directory 表示家目录
+                -g group     表示属于哪个组
+                -m        表示如果没有家目录则自动创建
+                -s shell  表示使用shell类型
+                username  用户名
+                示例：
+                useradd -c "new user" -m -d /test/cruise -g newgroup -s  /bin/ksh cruise
+            2. userdel username
+                有的Unix系统不允许彻底删除用户，userdel只是收回用户的使用权。
+            3.gruopadd mygroup
+            4.groupdel mygroup
+     增加和删除用户的另一种方法：
+        1.增加用户：
+             1)在etc/passwd文件中新增一行数据，表示该用户的信息
+             2）为该用户选择用户组，将该用户标识符加载/etc/group文件内适当位置
+             3）为该用户创建一个家目录，将家目录的属性改为该用户所有，组别也改为该用户的组别
+             4）为该用户设置密码
+           /etc/passwd文件：是一个文本文件，用来存放用户信息，每一行表示一个用户。
+          每行的内容格式：user_name:password:uid:gid:comment:home:shell
+                其中uid是用户的识别号，是一个数值，每个用户的识别号不同
+                    comment  注释，可以是任意字符，一般用来说明用户的身份特征
+                    shell:该用户缺省的shell，一般取值为/bin/sh,/bin/ksh, /bin/csh
+           /etc/group文件：是一个文本文件，用来存放用户的组信息，
+             每行内容格式： group_name:password:gid:members_list
+                password  用户组密码，一般为空
+              特别注意：一个用户可以属于多个用户组
+                /etc/group内容示例：
+                 group::50:tom,cruise,jerry,amily
+            2.创建家目录
+               # mkdir /user/cruise  在/usr目录下创建和用户名同名的目录
+               # chown cruise  /user/cruise
+               #chgrp mygroup /user/cruise
+               #chmod 755 /user/cruise
+            3.设置密码
+                passwd cruise *****
+      2.删除用户的步骤：
+            a.在/etc/passwd中删除用户的行
+            b.在/etc/group中删除用户的组信息
+            c.删除家目录
+
+三、硬盘维护
+1.硬盘维护命令：#du #df #df -k
+2.mount命令和unmount命令
+   mount的过程：
+        1.创建目录
+        2.对目录权限进行修改
+        3.执行mount命令，将设备挂接到该目录
+ 示例：1.mkdir /hd_dir
+       2.chmod 777 /hd_dir
+       3.mount /cruise/tom /hd_dir其中：cruise/tom是分区设备
+硬盘信息命令：root用户下键入： #prtvtoc    
+硬盘格式化命令 #format
+unmount命令：unmount 设备文件 或者 unmount 挂接目录</pre>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/uninx%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="tag"># uninx常用命令</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/03/01/unix%E5%9F%BA%E7%A1%80%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/" rel="prev" title="unix基础篇[博客搬家]">
+                  <i class="fa fa-angle-left"></i> unix基础篇[博客搬家]
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/03/12/%E4%BD%A0%E5%A5%BD%EF%BC%8C2015%EF%BC%81%EF%BC%81%EF%BC%81%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/" rel="next" title="你好，2015！！！[博客搬家]">
+                  你好，2015！！！[博客搬家] <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

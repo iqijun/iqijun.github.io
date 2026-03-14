@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="本文首发在csdn博客先转移到此处  原文地址：http:&#x2F;&#x2F;blog.csdn.net&#x2F;iqijun&#x2F;article&#x2F;details&#x2F;14231197 1.Unix命令由命令（command）和零到多个参数组成，命令和参数之间，以及参数和参数之间用空格隔开。2.Unix的命令区分大小写，且命令和参数之间必须隔开。3.可以在一行中运行多个命令，命令之间需要用“;”隔开4.要想让程序在后台执行，只需">
+<meta property="og:type" content="article">
+<meta property="og:title" content="unix基础篇[博客搬家]">
+<meta property="og:url" content="http://www.full-stacker.com/2016/03/01/unix%E5%9F%BA%E7%A1%80%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="本文首发在csdn博客先转移到此处  原文地址：http:&#x2F;&#x2F;blog.csdn.net&#x2F;iqijun&#x2F;article&#x2F;details&#x2F;14231197 1.Unix命令由命令（command）和零到多个参数组成，命令和参数之间，以及参数和参数之间用空格隔开。2.Unix的命令区分大小写，且命令和参数之间必须隔开。3.可以在一行中运行多个命令，命令之间需要用“;”隔开4.要想让程序在后台执行，只需">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-03-01T19:13:07.000Z">
+<meta property="article:modified_time" content="2016-03-01T19:13:07.000Z">
+<meta property="article:author" content="骐骏">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2016/03/01/unix%E5%9F%BA%E7%A1%80%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2016/03/01/unix%E5%9F%BA%E7%A1%80%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/","path":"2016/03/01/unix基础篇[博客搬家]-1/","title":"unix基础篇[博客搬家]"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>unix基础篇[博客搬家] | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2016/03/01/unix%E5%9F%BA%E7%A1%80%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="unix基础篇[博客搬家] | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          unix基础篇[博客搬家]
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-03-01 19:13:07" itemprop="dateCreated datePublished" datetime="2016-03-01T19:13:07+00:00">2016-03-01</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>8 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本文首发在csdn博客先转移到此处  原文地址：<a href="http://blog.csdn.net/iqijun/article/details/14231197">http://blog.csdn.net/iqijun/article/details/14231197</a></p>
+<p>1.Unix命令由命令（command）和零到多个参数组成，命令和参数之间，以及参数和参数之间用空格隔开。<br>2.Unix的命令区分大小写，且命令和参数之间必须隔开。<br>3.可以在一行中运行多个命令，命令之间需要用“;”隔开<br>4.要想让程序在后台执行，只需要在命令行的最后加上“&amp;”符号。<br>如$find -name abc -print&gt;myfind&amp;  在后台运行find命令，在当前目录和子目录下查找文件名为abc的文件，并将结果存到myfind文件中<br>5.nohup命令：<br>当终端推出后，由该终端启动的后台命令自动退出。要想终端退出后程序不停止运行，则需要用nohup命令来启动后台程序。<br>如 $ nohup find -name abc print&gt;myfind&amp;<br>6.unix 命令中的一些特殊键：<br>ctrl +　d 结束键盘输入或退出当前shell<br>del  中断键，停止当前动作回到shell<br>ctrl + s 暂停屏幕输出<br>ctrl + q 继续屏幕输出<br>ctrl + u kill键，删除光标所在行的所有字符<br>Esc 结束当前的操作状态。<br>7.Unix的简单命令<br>查看帮助信息 man<br>查看日期 date<br>查看日历： cal 2013<br>显示大写大字 banner “ABCD”<br>计算器 bc<br>修改口令 passwd<br>查看谁在使用系统 who<br>查看我是谁  who am i<br>显示用户信息 finger Administration  显示登录信息 finger<br>清空屏幕： clear<br>8.unix用户间简单的通信<br>a.write 命令<br>write destination-user[terminal]<br>通信双方的一些约定：用“o”表示一条报文结束，以“oo”表示结束对话<br>b.talk<br>c.mesg [y] [n] 接受或拒绝信息<br>d.wall广播式消息传递：只用root用户可以使用，三种格式<br>I. #wall<br>II #wall filename<br>III #wall “send a message”<br>9.注销或退出unix<br>exit 或者 logout<br>或者直接 ctrl + d<br>二、 unix的文件系统<br>1.unix操作系统可以由多个可以动态安装及拆卸的文件系统组成。unix文件系统主要分为两大类：根文件系统和附加文件系统。<br>2.文件存取权限修改：chmod<br>a.符号模式：chmod [who] op permission file<br>如：chmod u +w test  表示为user（文件拥有者）增加写的权限<br>chmod g -w test 表示为组内用户减少写的权限。<br>b.绝对模式： chmod xyz file 其中x,y,z分别是0–7的数字，分别表示属主，用户组，其他用户<br>x,y,z的取值公式是 a<em>4+b</em>2+c<br>其中：a&#x3D;1表示可读，a&#x3D;0表示不可读 b表示是否可写，c表示是否可执行。<br>3.改变文件的属主<br>必须对文件具有write权利才可以改变文件的属主<br>chown 属主名 file   如： chown  cruise test 将test的属主改为cruise<br>4.改变文件所在的组<br>必须是文件的属主或者supervisor才能改变文件组别的归属<br>chgrp 组名 文件名<br>5.重定向与管道<br>a.      &lt;  重定向输入<br>&lt; 重定向输出<br>&gt;&gt;重定向输出并追加到文件最后<br>如： ls -l &gt;file1 将ls -l的结果输出到file1<br>ls &gt;&gt;file1 将ls的结果附加到file1的尾部<br>b.unix管道 将一文件的输出作为另一文件的输入 管道符号为  |<br>ls|more<br>ps -ef|grep smith 将ps -ef  的输出作为grep smith的输入<br>6.Unix文件系统常用命令<br>pwd 显示当前目录<br>cd &#x2F;user 进入到user目录下<br>cd  进入到home目录<br>mkdir 创建目录<br>rmdir 删除空目录<br>ls     显示目录的内容<br>示例：ls -l abc 文件长列表（和windows下详细信息相似）<br>ls -a abc 所有类型的文件<br>ls -d * 不进入子目录<br>cat   显示文本文件的内容<br>more   一次一屏显示文本文件内容<br>cp    拷贝文件</p>
+<p>三、unix常用工具和实用程序<br>1.vi<br>vi 文件名   进入命令模式<br>i  将在光标所在位置之前插入文本 (insert)   I  将在光标所在行的第一个非空字符前插入文本<br>a  将在光标所在位置之后添加文本（append）  A  将在光标所在行的末尾添加文本<br>o  将在光标所在行的下一行开始插入文本      O  将在光标所在行的上一行开始插入文本<br>光标位置移动：<br>h:左移 j:下移 k：上移 l：右移<br>行号G 光标移到某一行（如1G表示光标移动到第一行）   G表示移动到文件结尾<br>文本输入方式退出： ESC<br>删除更改操作： x 删除光标所在字符    dd 删除光标所在行<br>退出vi  ：wq 存盘退出 :q 不存盘退出    :q! 不存盘强制退出   ：w 只存盘不退出<br>2.find命令<br>find 目录名 条件<br>条件：  -name name 可以使用通配符<br>-print     将符合条件的路径打印出来<br>-size n     寻找占用n个block的文件<br>-type x      以文件类型作为查找条件，文件类型x如下<br>d—目录   f—文件   b—块  c–字符  p–管道<br>-user username username 可以是用户名或者Uid号<br>-group group  group可以为组名或者gid号<br>-links n       寻找链接数等于n的所有文件 +n表示大于n -n表示小于n<br>-atim n         寻找n天前曾被存取的文件<br>-mtime n         寻找n天前曾被修改的文件<br>-exec command{}\  用寻找到的文件作为执行command的对象，{}内存放欲执行command时所需要的参数<br>条件的逻辑运算符：！ 非 ； -o 或 ； 空格  与<br>3.grep命令    global search regular expression(RE) and print out the line,全面搜索正则表达式并把行打印出来<br>grep在整个文件中搜索指定的字符串，并将所有出现该字符串的行打印<br>命令格式 grep 字符串 文件名<br>示例： grep “I am fun” cruise.txt<br>4.cmp命令比较文件<br>cmp命令可以比较两个文件，这两个文件可以是文本文件也可以是非文本文件。cmp命令会显示两个文件第一次数据不同的位置。若两个文件内容相同，<br>则不显示任何信息。<br>命令格式：cmp [-ls] 文件名1 文件名2<br>-l 显示每个不同之处不同字节的内容<br>-s 只显示cmp命令的返回值（相同为0,不相同为1）<br>5.文件的备份和恢复实用程序<br>a.tar 命令<br>b.文件压缩</p>
+<ol>
+<li> compress filename 将文件压缩 压缩后文件后缀为”.z” compress压缩文件减少存储空间<br>uncompress file.z 将文件解压<br>2.pack压缩文件<br>pack filename 将文件压缩 压缩后文件后缀为”.z”  其压缩后的空间因文件类型而定<br>unpack file.z<br>注：pack对太小的文件不压缩如果要强制压缩实用 pack -f filename<br>3.gzip压缩文件 压缩后的文件名为.gz<br>gzip filename<br>gunzip filename 解压<br>4.pkzip 压缩后的文件名为.zip<br>pkzip filename<br>pkunzip filename 解压<br>四、Unix的简单维护和管理<br>1：init状态<br>2：unix关机<br>3.修改系统时间： date -t 201311041719<br>将系统时间更改为2013年11月4号17点19分<br>4.管理后台进程<br>a.显示进程信息<br>ps            显示使用终端有关的进程信息<br>ps -u 用户名  显示某个用户的进程<br>ps -e         显示正在执行的进程<br>ps -f         长列表显示每个进程信息<br>b.用kill命令杀掉后台进程<br>kill 进程号       删除进程<br>kill -9 进程号    强制删除进程<br>c.停止失控的进程步骤<br>1）在未死锁的终端以root登录<br>2）用ps -ef 和 grep 关键字 命令找到失控进程的pid号<br>3）kill pid ,若杀不掉，再运行 kill -9 pid号<br>4）若还是杀不死，则shutdown<br>5.磁盘使用情况<br>a.df -v        查看磁盘的自由空间<br>b.du [文件名]  查看磁盘的使用情况<br>五、网络通信<br>1.查看网上用户信息<br>finger[用户名]@主机域名或ip地址</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/02/22/android%20fragment%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%B8%8D%E6%89%A7%E8%A1%8ConConfigurationChanged%E6%96%B9%E6%B3%95-1/" rel="prev" title="android fragment屏幕旋转不执行onConfigurationChanged方法">
+                  <i class="fa fa-angle-left"></i> android fragment屏幕旋转不执行onConfigurationChanged方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/03/02/unix%E6%B7%B1%E5%85%A5%E7%AF%87%5B%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%5D-1/" rel="next" title="unix深入篇[博客搬家]">
+                  unix深入篇[博客搬家] <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

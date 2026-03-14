@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="限流详解   限流算法   令牌法：每秒产生指定数量令牌，如果能够获得令牌则不限流；无法获得令牌则限流 漏斗法：类似于一边进水一边放水；将请求放入桶中如果桶没满，正常处理，如果桶满，则拒绝请求。  应用级限流     分布式限流   redis + lua nginx + lua  接入层限流 (nginx等)   ngx_http_limit_conn_module   limit_conn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《亿级流量网站架构》读书笔记">
+<meta property="og:url" content="http://www.full-stacker.com/2018/08/10/%E3%80%8A%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="限流详解   限流算法   令牌法：每秒产生指定数量令牌，如果能够获得令牌则不限流；无法获得令牌则限流 漏斗法：类似于一边进水一边放水；将请求放入桶中如果桶没满，正常处理，如果桶满，则拒绝请求。  应用级限流     分布式限流   redis + lua nginx + lua  接入层限流 (nginx等)   ngx_http_limit_conn_module   limit_conn">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-08-10T12:38:30.000Z">
+<meta property="article:modified_time" content="2018-08-10T12:38:30.000Z">
+<meta property="article:author" content="骐骏">
+<meta property="article:tag" content="亿级流量网站架构 | 张开涛">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2018/08/10/%E3%80%8A%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2018/08/10/%E3%80%8A%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/","path":"2018/08/10/《亿级流量网站架构》读书笔记-1/","title":"《亿级流量网站架构》读书笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>《亿级流量网站架构》读书笔记 | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2018/08/10/%E3%80%8A%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="《亿级流量网站架构》读书笔记 | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《亿级流量网站架构》读书笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-08-10 12:38:30" itemprop="dateCreated datePublished" datetime="2018-08-10T12:38:30+00:00">2018-08-10</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>11 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><ol>
+<li>限流详解
+
+<ol>
+<li>限流算法
+
+<ol>
+<li>令牌法：每秒产生指定数量令牌，如果能够获得令牌则不限流；无法获得令牌则限流</li>
+<li>漏斗法：类似于一边进水一边放水；将请求放入桶中如果桶没满，正常处理，如果桶满，则拒绝请求。</li>
+</ol></li>
+<li>应用级限流
+
+<ol>
+<li></li>
+</ol></li>
+<li>分布式限流
+
+<ol>
+<li>redis + lua</li>
+<li>nginx + lua</li>
+</ol></li>
+<li>接入层限流 (nginx等)
+
+<ol>
+<li>ngx_http_limit_conn_module   limit_conn  对某个key对应的总的网络连接数进行限制
+示例：
+<code>// 按域名限流
+limit_conn_zone $serve_name zone=one:10m rate=1r/s;
+location ~* .htm$ {
+limit_conn zone=one burst=5  nodelay;
+proxy_pass http://backend_tomcat;
+}</code></li>
+<li>ngx_http_limit_req_module   limit_req  对某个key对应的请求进行限流，是使用漏斗算法实现的
+<code>// 按ip限流
+limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+location ~* .htm$ {
+limit_req zone=one burst=5  nodelay;
+proxy_pass http://backend_tomcat;
+}</code>
+ngx_http_limit_conn_module，ngx_http_limit_req_module 两个模块都可以针对Ip或域名进行限流</li>
+<li>lua-resty-limit-traffic  openResty提供的lua限流模块
+可以灵活编程限流</li>
+</ol></li>
+<li>节流
+
+<p>在特定的时间窗口内对重复的相同的时间最多只处理一次，或者想限制多个连续相同的时间最小执行时间间隔</p>
+<ol>
+<li>三种实现方式 throttleFirst throttleLast throttleWithTimeout</li>
+<li>throttleFirst/throttleLast是指在一个时间窗口期内如果有多个相同的请求只处理第一个/最后一个。比如连续拖拽浏览器窗口，只响应最后一次</li>
+<li>throttleWithTimeout限制两个连续事件的执行时间不得小于某个时间窗口。比如搜索关键字自动补全，利用该方式可以减少网络请求</li>
+</ol></li>
+</ol></li>
+<li>降级
+
+<ol>
+<li>降级预案 分级降级
+
+<ol>
+<li>一般：因网络抖动或项目上线造成的超时，可自动降级</li>
+<li>警告：一段时间内成功率有波动（95%~100%），可自动降级，并发送告警</li>
+<li>错误：可用率低于90%，或访问量突增达到系统阈值，要根据情况实现自动降级或人工降级</li>
+<li>严重错误：由于特殊原因出现的错误，需要实现紧急人工降级</li>
+</ol></li>
+<li>降级分类
+
+<ol>
+<li>自动降级、人工降级</li>
+<li>读服务降级、写服务降级</li>
+<li>按处于系统的层级分为：多级降级
+
+<ol>
+<li>页面降级</li>
+<li>页面片段降级</li>
+<li>页面异步请求降级</li>
+<li>服务功能降级</li>
+<li>读降级</li>
+<li>写降级</li>
+<li>爬虫降级：识别出爬虫直接拒绝</li>
+<li>风控降级：拒绝高风险用户</li>
+</ol></li>
+</ol></li>
+<li>使用Hystrix实现降级</li>
+</ol></li>
+<li>超时与重试机制
+
+<ol>
+<li>零散知识 
+
+<ol>
+<li>写服务是幂等才可以使用重试</li>
+<li>如果重试次数太多，则可能造成请求剧增</li>
+<li>如果不设置超时时间，会造成响应慢，请求累积</li>
+</ol></li>
+<li>代理层超时设置（以nginx为例）
+
+<ol>
+<li>nginx有四种超时设置：
+
+<ol>
+<li>客户端超时设置</li>
+<li>DNS解析超时</li>
+<li>代理超时</li>
+<li>如果使用ngx_lua,则有lua相关超时设置</li>
+</ol></li>
+</ol></li>
+<li>web容器超时机制 （以tomcat为例）
+
+<ol>
+<li>connectionTimeout：配置与客户端建立连接的超时时间，从接收到连接后，在配置的时间内没有接收到客户端请求行，将被认定为连接超时，默认为60000ms</li>
+<li></li>
+</ol></li>
+<li>中间件客户端超时与重试</li>
+<li>数据库客户端超时</li>
+<li>Nosql客户端超时</li>
+<li>业务超时
+
+<ol>
+<li>任务型超时：比如订单超时未支付，可以通过Worker定期扫描数据库修改状态。</li>
+<li>服务调用型超时，比如，某个服务的全局超时时间是500ms，但是有多处服务调用，每处服务调用的超时时间可能不一样，此时可以使用Future来解决，如：Future.get(3000,TimeUnit.MILLISECONDE)
+8.前端Ajax超时</li>
+<li>设置timeout属性</li>
+</ol>
+
+<pre><code>    $.ajax({
+        url:xxxx,
+        timeout:2000,
+        success:function(){
+
+        }
+    })
+</code></pre></li>
+</ol></li>
+<li>回滚机制
+
+<blockquote>
+  回滚是指当程序或数据出错时，将程序或数据恢复到最近一个正确的版本，常见的如事物回滚，代码库回滚，部署版本回滚，数据库版本回滚，静态资源版本回滚。通过回滚机制可以保证系统在某些场景下的高可用。
+</blockquote>
+
+<ol>
+<li>事物回滚
+
+<ol>
+<li>单数据库回滚</li>
+<li>分布式事物回滚
+
+<ol>
+<li>使用两阶段提交，三阶段提交协议，这种方式实现回滚难度较低，但对性能影响比较大。</li>
+<li>保证最终一致性，而不是强一致性，常见方法：事物表、消息队列、补偿机制（执行/回滚）、TCC（预占/确认/取消）、Sagas模式(拆分事物+补偿模式)等实现最终一致性。</li>
+</ol></li>
+</ol></li>
+<li>代码回滚</li>
+<li>部署回滚
+
+<ol>
+<li>部署版本化</li>
+<li>小版本增量发布</li>
+<li>大版本灰度发布</li>
+<li>架构升级并发发布
+
+<p>架构升级后，我们不清楚新版本功能是否正常，因此，新老版本会共存一段时间。等所有流量迁移到新版本集群后，将老版本集群下线。<br>接入层要能够灵活控制流量的方向</p></li></p>
+</ol></li>
+<li>数据版本回滚</li>
+<li>静态资源版本回滚</li>
+</ol></li>
+<li>压测与预案
+
+<ol>
+<li>压测一般指性能压力测试，用来评估系统的稳定性和性能</li>
+<li>线下压测 -- JMeter Apache ab测试</li>
+<li>线上压测  读压测、写压测、混合压测
+
+<ol>
+<li>仿真压测 使用TCPCopy将线上请求复制到测试环境，并可发大N倍</li>
+<li>隔离集群压测  将需要压测大系统在线上集群隔离出来</li>
+<li>单机压测 通过单机压测估算出单机极限处理能力，继而估算集群极限能力，但由于集群系统收到依赖但系统的影响所以该估算并不准确</li>
+</ol></li>
+<li>系统优化和容灾</li>
+<li>制定应急预案</li>
+</ol></li>
+<li><p>高并发
+
+<ol>
+<li>应用级缓存
+
+<ol>
+<li>分类
+
+<ol>
+<li>堆缓存</li>
+<li>堆外缓存</li>
+<li>磁盘缓存</li>
+<li>分布式缓存</li>
+<li>多级缓存</li>
+</ol></li>
+<li>多级缓存： 
+
+<ol>
+<li>本地缓存过期时间设置为远程缓存的一半，防止本地缓存时间过长造成多实例间数据不一致</li>
+<li>写缓存的时候，先写本地缓存，然后异步更新远程缓存；异步更新远程缓存是为了更快的相应用户请求。</li>
+<li>读缓存时，先读本地缓存，本地缓存不命中再批量查询远程缓存</li>
+</ol></li>
+<li>缓存使用模式实践
+
+<ol>
+<li>主要分为两大类：
+
+<ol>
+<li>Cache-Aside 由业务代码直接维护缓存</li>
+<li>Cache-As-SoR(read-through（读穿透）,write-through（写穿透）,write-behind（回写，即异步写）)： 业务代码只操作缓存，然后委托给缓存去操作SoR
+
+<ol>
+<li>read-through: 业务代码调用cache，如果未命中由cache回源到SoR</li>
+<li>write-through:业务代码调用cache写，然后由cache负责写缓存和SoR，同步写cache和SoR</li>
+<li>write-behind:业务代码调用cache写，然后由cache负责写缓存和SoR,异步写cache和SoR，异步后可以实现批量写、合并写、延时、限流</li>
+</ol></li>
+</ol></li>
+<li>名词解释
+
+<ol>
+<li>SoR 即system of record 记录系统或者叫做数据源，即实际存储原始数据的系统</li>
+<li>Cache：缓存，SoR的快照 cache的访问速度要比SoR要快</li>
+<li>回源：即到数据源头查找数据</li>
+</ol></li>
+</ol></li>
+</ol></li>
+<li>数据库连接池
+
+<ol>
+<li>mysql 空闲连接8小时自动断开
+1.在连接池中配置 testOnBorrow=true 在数据库连接池中取连接时先验证连接的有效性；validationQuery 创建连接时验证</li>
+</ol></li>
+<li>HTTP缓存</li>
+<li>线程池：减少线程创建，销毁的耗时
+
+<ol>
+<li>线程池分类：</li>
+<li>tomcat线程池：
+
+<pre><code>&lt;Connector port="8010" protocol="AJP/1.3" redirectPort="8443"   acceptCount="100" maxConnections="200" minSpareThreads="10" maxThreads="200"/&gt;
+
+</code></pre>
+
+<p>acceptCount:最多接收多少请求进入等待队列，超过后直接拒绝</p>
+<p>maxConnections：tomcat的最大并发数，当超过后还会接收请求并放到等待队列（等待队列大小有acceptCont决定）</p>
+<p>配置方式二、利用Executor</p>
+<pre><code><br />&lt;Executor name="tomcatThreadPool" namePrefix="catalina-exec-" deamon="true" minSpareThread="25" maxThreads="200" maxIdelTime="60000" maxQueueSize="Integer.MAX_VALUE    "&gt;
+&lt;Connector port="8010" protocol="AJP/1.3" redirectPort="8443" excutor="tomcatThreadPool" /&gt;
+
+</code></pre>
+
+<p>使用org.apache.catalina.Executor实现，表示其中一个可以在多个connector间共享的线程池，而且有更丰富的配置</p></li></p>
+</ol></li>
+<li>异步并发实战
+
+<ol>
+<li>同步阻塞</li>
+<li>异步Future</li>
+<li>异步callback</li>
+<li>异步编排 completableFuture</li>
+<li>异步Web服务实现</li>
+<li>请求缓存</li>
+<li>请求合并</li>
+</ol></li>
+<li><p>如何实现扩容
+
+<ol>
+<li>扩容的三个步骤
+
+<ol>
+<li>尝试简单扩容解决</li>
+<li>水平拆分和垂直拆分数据库/应用系统的伸缩性，即通过扩容提升系统负载能力</li>
+<li>根据现有系统特性，从架构层面进行重构甚至重新设计</li>
+</ol></li>
+<li>单体应用垂直扩容
+
+<ol>
+<li>增大机器内存，增加核数，换固态硬盘，增加磁盘容量</li>
+</ol></li>
+<li>单体应用水平扩容
+
+<ol>
+<li>增加镜像，利用负载均衡器负载新增加的应用</li>
+</ol></li>
+<li>应用拆分：按业务将一个大系统拆分为多个子系统</li>
+<li>数据库拆分
+
+<ol>
+<li>跨库join可以考虑通过全局表、ES搜索等异构数据机制来实现</li>
+<li>还要考虑分布式事务</li>
+</ol></li>
+<li>扩容总结：应用扩容可以通过部署更多的实例来解决，无法部署更多实例时，就需要考虑拆分或者重新架构。而数据库扩容首先是硬件层面的，然后按照业务垂直拆分，接着水平拆分，最后根据场景进行读写分离，还可以将读流量分流到NoSql中</li>
+<li>数据库拆分示例：
+
+<ol>
+<li>数据库分库分表可以在应用层实现也可以在中间件层实现</li>
+<li>sharing-jdbc使用</li>
+<li>数据异构
+
+<p>数据异构主要按照不同查询维度建立表结构，这样就可以按照不同的维度进行查询。数据异构有查询维度异构，聚合数据异构等。查询异构示例：将订单表按商家订单、用户订单异构；或者将订单信息存储到ES中。聚合异构示例：将存储到多个表中的商品基本信息、属性、图片等聚合到kv存储集群中。</p></li>
+</ol></li>
+<li>任务系统扩容</li>
+</ol></li>
+<li>队列
+
+<ol>
+<li>使用队列进行异步处理、系统解耦、数据同步、流量削峰、扩展性、缓存等。在使用队列时需要考虑是否需要保证消息的有序性及如何保证，是否能重复消费及如何保证重复消费的幂等性。</li>
+<li>队列常用方式
+
+<ol>
+<li>缓冲队列</li>
+<li>任务队列</li>
+<li>消息队列</li>
+<li>请求队列</li>
+<li>数据总线队列</li>
+<li>混合队列</li>
+</ol></li>
+</ol></li>
+</ol></li>
+<li>京东商品详情页实践 （略）            </li>
+<li>使用OpenResty开发高性能web应用
+
+<ol>
+<li>nginx+lua的常见实践和场景：动态负载均衡、防火墙（DDOS，IP/url/userAgent/referer黑名单、防盗链）、限流、降级、A/B测试和灰度发布、多级缓存、服务器请求合并、服务质量监控</li>
+</ol></li>
+<li>应用数据静态化架构高性能单页web应用
+
+<ol>
+<li>将数据和模板都动态存储</li>
+<li></li>
+</ol></li>
+</ol>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84-%E5%BC%A0%E5%BC%80%E6%B6%9B/" rel="tag"># 亿级流量网站架构 | 张开涛</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/07/30/mongo%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BC%80%E5%8F%91%E7%B2%BE%E8%A6%81%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/" rel="prev" title="mongo管理与开发精要读书笔记">
+                  <i class="fa fa-angle-left"></i> mongo管理与开发精要读书笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/08/11/ngnix%20internal-1/" rel="next" title="ngnix internal">
+                  ngnix internal <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

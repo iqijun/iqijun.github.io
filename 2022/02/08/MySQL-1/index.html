@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="索引的实现形式 B-Tree索引，Hash索引，全文索引，单值索引、唯一索引、复合索引、聚簇索引、非聚簇索引等等，以及它们各自的特点 常见的优化手段，编码时有哪些要注意的 不要用select *  索引，最左原则，最好用覆盖索引 建表是注意字段长度，各系统对齐，不浪费字段，不常用的字段及大字段可以考虑单独建一张表（可以减少磁盘IO） 不要多张表join 不使用UUID作为主键   B树与B+树的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL">
+<meta property="og:url" content="http://www.full-stacker.com/2022/02/08/MySQL-1/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="索引的实现形式 B-Tree索引，Hash索引，全文索引，单值索引、唯一索引、复合索引、聚簇索引、非聚簇索引等等，以及它们各自的特点 常见的优化手段，编码时有哪些要注意的 不要用select *  索引，最左原则，最好用覆盖索引 建表是注意字段长度，各系统对齐，不浪费字段，不常用的字段及大字段可以考虑单独建一张表（可以减少磁盘IO） 不要多张表join 不使用UUID作为主键   B树与B+树的">
+<meta property="og:locale">
+<meta property="og:image" content="http://imghub.full-stacker.com/qijunImgs/TOIMG926480219093720N.png">
+<meta property="article:published_time" content="2022-02-08T15:50:43.896Z">
+<meta property="article:modified_time" content="2022-02-08T16:15:50.479Z">
+<meta property="article:author" content="骐骏">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://imghub.full-stacker.com/qijunImgs/TOIMG926480219093720N.png">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2022/02/08/MySQL-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2022/02/08/MySQL-1/","path":"2022/02/08/MySQL-1/","title":"MySQL"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MySQL | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2022/02/08/MySQL-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MySQL | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-02-08 15:50:43 / Modified: 16:15:50" itemprop="dateCreated datePublished" datetime="2022-02-08T15:50:43+00:00">2022-02-08</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>7 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><ol>
+<li>索引的实现形式</li>
+<li>B-Tree索引，Hash索引，全文索引，单值索引、唯一索引、复合索引、聚簇索引、非聚簇索引等等，以及它们各自的特点</li>
+<li>常见的优化手段，编码时有哪些要注意的<ol>
+<li>不要用select * </li>
+<li>索引，最左原则，最好用覆盖索引</li>
+<li>建表是注意字段长度，各系统对齐，不浪费字段，不常用的字段及大字段可以考虑单独建一张表（可以减少磁盘IO）</li>
+<li>不要多张表join</li>
+<li>不使用UUID作为主键</li>
+</ol>
+</li>
+<li>B树与B+树的区别，与跳表的区别</li>
+<li>B+树是怎么保持平衡的</li>
+<li>MyISAM与Innodb的区别<ol>
+<li>事务 MyISAM不支持事务</li>
+<li>锁  MyISAM只支持表锁，InnoDB支持行锁</li>
+<li><img src="http://imghub.full-stacker.com/qijunImgs/TOIMG926480219093720N.png" alt="image"></li>
+</ol>
+</li>
+<li>MVCC实现原理</li>
+<li>表中只有(id &#x3D;1 ,a&#x3D;0)一条数据，下述操作结果是怎么样的</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>时刻</th>
+<th>Session A</th>
+<th>Session B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>时刻1</td>
+<td>begin </br>select a from test where id &#x3D; 1;</td>
+<td></td>
+</tr>
+<tr>
+<td>时刻2</td>
+<td>update test set a &#x3D; a+1 where id &#x3D; 1</br>(此时这条数据加了行锁，sessionB无法更改，只有sessionA commit后才其他事务才可以修改)</td>
+<td></td>
+</tr>
+<tr>
+<td>时刻3</td>
+<td></td>
+<td>select a from test where id &#x3D; 1;</td>
+</tr>
+<tr>
+<td>时刻4</td>
+<td></td>
+<td>update test set a &#x3D; a+1 where id &#x3D; 1</td>
+</tr>
+<tr>
+<td>时刻5</td>
+<td>select a from test where id &#x3D; 1;</td>
+<td></td>
+</tr>
+<tr>
+<td>时刻6</td>
+<td>commit;</td>
+<td></td>
+</tr>
+<tr>
+<td>时刻7</td>
+<td>select a from test where id &#x3D; 1;</td>
+<td></td>
+</tr>
+</tbody></table>
+<ol start="8">
+<li><p>常见的分库的方法</p>
+<ol>
+<li>range方法，根据时间段分库<ol>
+<li>京东接单框架的数据每天分一个表</li>
+</ol>
+</li>
+<li>hash方法，根据业务字段进行hash</li>
+<li></li>
+</ol>
+</li>
+<li><p>mysql主从同步是怎么实现的，主从延迟怎么解决</p>
+<ol>
+<li>优化网络</li>
+<li>升级Slave硬件配置</li>
+<li>Slave调整参数，关闭binlog，修改innodb_flush_log_at_trx_commit参数值</li>
+<li>升级MySQL版本到5.7，使用并行复制</li>
+</ol>
+</li>
+<li><p>数据库扩容，怎么迁移数据，迁移数据的注意事项。数据迁移中产生的脏数据怎么里。怎么校验数据的迁移结果</p>
+</li>
+<li><p>什么场景考虑分库分表，分库分表的缺点</p>
+</li>
+<li><p>MySQL的事务隔离级别</p>
+</li>
+<li><p>MySQL如何解决幻读问题，间隙锁是怎么加的，什么时间加的</p>
+</li>
+<li><p>索引不适用的条件<br>索引列上有函数，不满足最左前缀，使用了不等号，使用了范围查询，值类型不匹配等等<br>索引的分类</p>
+</li>
+<li><p>为什么mysql使用b+树而不是红黑树或者hashmap或者跳表</p>
+<ol>
+<li>不使用红黑树是因为：<ol>
+<li>在增删改查的过程中，时间复杂度为log2n，而b+是logmN，体现在内存和磁盘的IO上，代价比较大。</li>
+<li>特别是插入的时候，红黑树需要进行节点颜色调整，对于频繁的插入而言，这是一个耗时的过程，而b+树仅仅是页分裂问题。另外从并发交付来说，要么线程不安全，要么加锁虽然线程安全，但是牺牲了效率。</li>
+<li>区间查找而言，b+树的叶子节点带有双向链表，因此比较方便。对于红黑树而言，虽然可以实现，比如通过中序遍历的方式，但是实现起来比较复杂。</li>
+</ol>
+</li>
+<li>不使用hashmap是因为<ol>
+<li>假设瓶颈不在hash数组上（hashmap由数组加链表构成），一方面，对于庞大数据量的链表来说，查找的时间复杂度为O（n）</li>
+<li>另一方面从磁盘IO性能考虑，链表足够长，频繁的io会导致极差的性能</li>
+<li>没有办法进行范围查找</li>
+</ol>
+</li>
+<li>不使用跳表是因为<ol>
+<li>虽然在区间查找上两者不相上下，如果纯粹基于内存工作，那就是redis。两者的主要区别，那就是一个是关系型，另一个是非关系型，redis是基于某个key进行排序构造的，如果像mysql哪样建立二级索引，那么每一个都是“聚簇索引”，得不偿失，维护也麻烦（就是说跳表无法解决索引问题）</li>
+<li>还是数据关系型的问题，虽然说跳表这个结构也可以以Json格式来存储数据库的行数据，但是类似主外键关系、模糊查找等功能，无法提供或者提供起来较为繁琐</li>
+<li>如果考虑到足够大的数据，大到需要使用硬盘的话，内存和磁盘进行io的内容会是什么？是跳表的每一层数据，前几层可能还好，越往下，可能不是一次页交换可以容纳下的，那么跳表在查找上的优势尽失，反观mysql，每次交换出来的非叶子节点都是索引，可查找范围大，io次数少，性能高</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>为什么redis使用跳表而不是红黑树或者hashmap<br>1. 由上面分析可知，红黑树在内存工作效率更高，但是同样基于内存的redis为什么不用红黑树，区别在于红黑树范围查询太费劲，插入元素时进行的节点颜色调整太费解，同样的操作，跳表仅仅需要更新前后下三个指针即可，而且，红黑树这样做来保持平衡带来的查找优势对跳表来说并不明显<br>2. 不使用hashmap，也是因为链表的操作太费时，远不如跳表这种链表的折半查找来的快</p>
+</li>
+<li><p>读写分离</p>
+<ol>
+<li>为什么要读写分离<ol>
+<li>扩展读能力</li>
+</ol>
+</li>
+<li>怎么读写分离<br> MySQL原生支持主从复制，主库写数据，写binlog，从库同步主库的数据，向外提供读服务</li>
+</ol>
+</li>
+<li><p>MySQL主从复制的原理<br>IO线程读binlog日志（记录了增删改操作），写入从库的relaylog中，从库的SQL线程，见relaylog 写入数据，从库读取binlog 写relay log ，写数据都是串行的</p>
+</li>
+<li><p>主从延迟相关</p>
+<ol>
+<li>主库的并发越高，延迟就越大</li>
+<li>semi-sync 半同步复制   从库写到relay log即返回成功</li>
+<li>主从延迟的解决方式：<ol>
+<li>将主库拆分，减少并发，减少延迟</li>
+<li>打开并行复制（并行复制什么？）</li>
+<li>代码层面的处理： 如 写后直接更新，而不要 “写”–&gt; “查”–&gt; “更新”</li>
+<li>如果确实存在写后立即查询的场景，可以强制查“主库”，但这样就失去了读写的分离的意义，不推荐</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>分库分表中间件</p>
+<ol>
+<li>proxy方式的中间件 （有维护成本）<ol>
+<li>cobar</li>
+<li>atlas(360公司开源)</li>
+<li>mycat</li>
+</ol>
+</li>
+<li>client方式的中间件<ol>
+<li>TDDL</li>
+<li>sharding-jdbc (支持分布式事务)</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>分库分表的方式</p>
+<ol>
+<li>range方式， 按时间来分<ol>
+<li>优点</li>
+<li>缺点</li>
+</ol>
+</li>
+<li>hash方式： 选定一个键，进行hash<ol>
+<li>优点</li>
+<li>缺点</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>分库分表数据迁移</p>
+<ol>
+<li>停机迁移</li>
+<li>不停机迁移：<ol>
+<li>双写： 既写老库也写新库</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>数据库动态扩容 </p>
+<ol>
+<li>数据库中间件</li>
+<li>停机扩容：<ol>
+<li>从单库单表迁移到多库多表时经常使用</li>
+</ol>
+</li>
+<li>不停机扩容<ol>
+<li>初始设计时就设计大一点，如 32个库，每个库32张表，只扩数据库服务器，不扩表，可以减少代码修改<br>  路由规则： id%32&#x3D;库  (id&#x2F;32)%32&#x3D;表</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>分布式id怎么生成</p>
+<ol>
+<li>向全局数据库中生成id（支持的并发低但数据多）</li>
+<li>UUID</li>
+<li>获取当前时间，并发高时容易出问题–&gt;改进 时间戳+用户ID+业务含义编码</li>
+<li>雪花算法： 64位 long型ID–》二进制（0|时间戳|机房|机器ID）</li>
+<li>利用redis自增 （jd使用）</li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/28/JVM%E9%9D%A2%E8%AF%95%E9%A2%98-1/" rel="prev" title="JVM面试题">
+                  <i class="fa fa-angle-left"></i> JVM面试题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/03/26/%E8%A7%A3%E9%99%A4%E9%9A%94%E7%A6%BB-1/" rel="next" title="解除隔离">
+                  解除隔离 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

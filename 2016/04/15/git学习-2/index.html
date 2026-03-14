@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="&lt;p&gt;1.安装客户端 （略）&lt;br&gt;2.告诉git你的名字&lt;br&gt;    git config –global user.name “你的名字”&lt;br&gt;3.设置邮箱&lt;br&gt;    git config –global user.email “xxxx@xx.com”&lt;br&gt;4.cd到要创建git仓库的目录&lt;br&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git学习">
+<meta property="og:url" content="http://www.full-stacker.com/2016/04/15/git%E5%AD%A6%E4%B9%A0-2/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="&lt;p&gt;1.安装客户端 （略）&lt;br&gt;2.告诉git你的名字&lt;br&gt;    git config –global user.name “你的名字”&lt;br&gt;3.设置邮箱&lt;br&gt;    git config –global user.email “xxxx@xx.com”&lt;br&gt;4.cd到要创建git仓库的目录&lt;br&gt;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-04-15T19:49:29.000Z">
+<meta property="article:modified_time" content="2016-04-15T19:49:29.000Z">
+<meta property="article:author" content="骐骏">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2016/04/15/git%E5%AD%A6%E4%B9%A0-2/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2016/04/15/git%E5%AD%A6%E4%B9%A0-2/","path":"2016/04/15/git学习-2/","title":"git学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>git学习 | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2016/04/15/git%E5%AD%A6%E4%B9%A0-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="git学习 | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-04-15 19:49:29" itemprop="dateCreated datePublished" datetime="2016-04-15T19:49:29+00:00">2016-04-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">未分类</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>4 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>&lt;p&gt;1.安装客户端 （略）&lt;br&gt;2.告诉git你的名字&lt;br&gt;    git config –global user.name “你的名字”&lt;br&gt;3.设置邮箱&lt;br&gt;    git config –global user.email “<a href="mailto:&#120;&#x78;&#x78;&#x78;&#x40;&#x78;&#x78;&#46;&#99;&#111;&#x6d;">xxxx@xx.com</a>”&lt;br&gt;4.cd到要创建git仓库的目录&lt;br&gt;     注意：windows系统下进入到某个盘符要使用“&#x2F;盘符名&#x2F;xxx”如：“&#x2F;c&#x2F;work”&lt;br&gt; 5.创建仓库&lt;br&gt;    git init&lt;br&gt; 6.将文件添加到git仓库&lt;br&gt;    git add  目录&lt;br&gt;   出现警告  warning: LF will be replaced by CRLF in&lt;br&gt;7.查看仓库的状态&lt;br&gt;    git status&lt;br&gt;8.查看修改的内容&lt;br&gt;    git diff &lt;path&gt;&lt;&#x2F;path&gt;&lt;br&gt;9.提交修改后的文件&lt;br&gt;    git add &lt;path&gt;&lt;&#x2F;path&gt;&lt;br&gt;    git commit&lt;br&gt;10.查看提交过的版本&lt;br&gt;    git log&lt;br&gt;    git log –pretty&#x3D;oneline  &#x2F;&#x2F;查看简易的提交日志&lt;br&gt;11.版本回退&lt;br&gt;    在 git中使用“head”表示当前版本，上一个版本是“head^”,上上个版本是“head^^”前一百个版本是“HEAD~100”&lt;br&gt;   使用git reset恢复&lt;br&gt;    git reset –hard HEAD&lt;br&gt;    git reset –hard  commit_id&lt;br&gt;12.撤销修改&lt;br&gt;    git checkout —  &lt;path&gt;&lt;&#x2F;path&gt;&lt;br&gt;    1.如果没有执行git add命令将修改添加的暂存区，那么将工作区的修改恢复为与版本库一样&lt;br&gt;    2.如果执行了git add命令，那么将恢复到添加到暂存区后的状态。&lt;br&gt;    3.git reset HEAD &lt;path&gt;&lt;&#x2F;path&gt;可以把暂存区的修改撤销掉（unstage），然后执行git checkout –&lt;path&gt;&lt;&#x2F;path&gt;&lt;br&gt; 13.删除文件&lt;br&gt;    git rm&lt;br&gt; 14.添加远程仓库&lt;br&gt;     git remote add weixin <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#x74;&#x2e;&#x6f;&#115;&#x63;&#104;&#x69;&#x6e;&#x61;&#x2e;&#110;&#x65;&#x74;">git@git.oschina.net</a>:iqijun&#x2F;weChat.git  &#x2F;&#x2F;将git仓库重命名为weixin&lt;br&gt;     git push -u weixin master    &#x2F;&#x2F;将当前分支推送到名为weixin的远程仓库的master分支，-u将本地分支和远程分支创建关联，以后推送或拉去时可以简化命令&lt;br&gt;     拉取文件：&lt;br&gt;         git pull &amp;lt;远程主机名&amp;gt; &amp;lt;远程分支名&amp;gt;:&amp;lt;本地分支名&amp;gt;&lt;br&gt;         如果远程分支和当前分支合并，可简化为git pull &amp;lt;远程主机名&amp;gt; &amp;lt;远程分支名&amp;gt; 如：git pull weixin master&lt;br&gt;  15.克隆远程库&lt;br&gt;    git clone   <a href="mailto:&#103;&#105;&#116;&#x40;&#x67;&#105;&#116;&#x2e;&#111;&#115;&#x63;&#104;&#105;&#x6e;&#97;&#x2e;&#x6e;&#101;&#x74;">git@git.oschina.net</a>:iqijun&#x2F;weChat.git&lt;br&gt;   16.分支管理&lt;br&gt;       a) git checkout -b branchA  &#x2F;&#x2F;创建并切换到branchA分支&lt;br&gt;           checkout -b 相当于以下两条命令：&lt;br&gt;           git  branch branchA  &#x2F;&#x2F;创建分支&lt;br&gt;           git checkout branchA  &#x2F;&#x2F;&lt;br&gt;        b) git branch 查看分支，当前面有“*”时表示当前分支。&lt;br&gt;        c) git  merge branchA  将branchA合并到当前分支&lt;br&gt;        d)删除分支  git branch -d branchA&lt;br&gt;        e)存储现场，存储现场后可以保存当前分支的状态，然后切换到其他分支进行其他工作（如：修改bug）&lt;br&gt;              git stash &#x2F;&#x2F;可以进行多次现场存储&lt;br&gt;               git stash  list   &#x2F;&#x2F;查看现场&lt;br&gt;                git stash apply stash@{0}  恢复stash@{0}状态时的现场。&lt;br&gt;                git stash drop     删除现场&lt;br&gt;                git stash pop 恢复并删除现场&lt;br&gt;        f)创建远程分支到本地&lt;br&gt;git checkout -b weixin  origin&#x2F;dev  &#x2F;&#x2F;将远程origin主机上的dev分支创建为本地weixin分支&lt;&#x2F;p&gt;<br>&lt;pre&gt;&lt;code&gt;  17.多人协作</p>
+<p>18.标签管理</p>
+<p>19.标签操作<br>&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;p&gt;  20.&lt;&#x2F;p&gt;<br>&lt;ol&gt;<br>&lt;li&gt;误将a.txt删除后找回方法：&lt;br&gt;  git rm a.txt ，删除文件&lt;br&gt;  a. git log 找到离没删文件前最近的commit id&lt;br&gt;  b. 将操作过的其它文件转移&lt;br&gt;  c. git reset –hard “commit id”&lt;ol&gt;<br>&lt;li&gt;忽略已被git追踪的文件&lt;br&gt;1) git rm –cached 路径&#x2F;文件&lt;br&gt;2) git update-index –assume-unchanged &lt;path&gt;&lt;&#x2F;path&gt;  更新&lt;br&gt;3) 编辑.gitignore文件&lt;br&gt;4) git commit -m “We really don’t want Git to track this anymore!”&lt;br&gt;9.怎么知道本地有设置？git config –local –list 看一眼。&lt;br&gt;怎么设置本地属性？ git config user.name&#x2F;email。&lt;&#x2F;li&gt;<br>&lt;&#x2F;ol&gt;<br>&lt;&#x2F;li&gt;<br>&lt;&#x2F;ol&gt;</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/04/15/%E5%86%99%E5%9C%A8%E4%BA%8C%E5%8D%81%E5%85%AD%E5%B2%81-2/" rel="prev" title="写在二十六岁">
+                  <i class="fa fa-angle-left"></i> 写在二十六岁
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99-1/" rel="next" title="设计模式-六大原则">
+                  设计模式-六大原则 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

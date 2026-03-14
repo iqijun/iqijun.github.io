@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Future模式，如字面意思，就是要在将来的某个时刻获取到结果，有点类似于ES6中的Promise。   一个简单的栗子： 定义一个数据接口： package com.fullstacker.study.designpattern.future;  public interface Data {      String getRequest();  }    真实的数据加载类： packag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Future模式">
+<meta property="og:url" content="http://www.full-stacker.com/2017/04/11/Future%E6%A8%A1%E5%BC%8F-1/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="Future模式，如字面意思，就是要在将来的某个时刻获取到结果，有点类似于ES6中的Promise。   一个简单的栗子： 定义一个数据接口： package com.fullstacker.study.designpattern.future;  public interface Data {      String getRequest();  }    真实的数据加载类： packag">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-04-11T15:39:13.000Z">
+<meta property="article:modified_time" content="2017-04-27T17:54:24.000Z">
+<meta property="article:author" content="骐骏">
+<meta property="article:tag" content="设计模式 | future">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2017/04/11/Future%E6%A8%A1%E5%BC%8F-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2017/04/11/Future%E6%A8%A1%E5%BC%8F-1/","path":"2017/04/11/Future模式-1/","title":"Future模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Future模式 | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2017/04/11/Future%E6%A8%A1%E5%BC%8F-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Future模式 | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Future模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-04-11 15:39:13" itemprop="dateCreated datePublished" datetime="2017-04-11T15:39:13+00:00">2017-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2017-04-27 17:54:24" itemprop="dateModified" datetime="2017-04-27T17:54:24+00:00">2017-04-27</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>958</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>3 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+  Future模式，如字面意思，就是要在将来的某个时刻获取到结果，有点类似于ES6中的Promise。
+</blockquote>
+
+<p>一个简单的栗子：</p>
+<p>定义一个数据接口：</p>
+<pre><code>package com.fullstacker.study.designpattern.future;
+
+public interface Data {
+
+    String getRequest();
+
+}
+
+</code></pre>
+
+<p>真实的数据加载类：</p>
+<pre><code>package com.fullstacker.study.designpattern.future;
+
+public class RealData implements Data{
+
+    private String result ;
+
+    public RealData (String queryStr){
+        System.out.println("根据\"" + queryStr + "\"进行查询，这是一个很耗时的操作..");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("耗时五秒,操作完毕，获取结果");
+        result = "查询结果";
+    }
+
+    @Override
+    public String getRequest() {
+        return result;
+    }
+
+}
+</code></pre>
+
+<p>FutureData用于程序中使用“加载数据”，实现Future效果：</p>
+<pre><code>package com.fullstacker.study.designpattern.future;
+
+
+public class FutureData implements Data{
+
+    private RealData realData ;
+
+    private boolean isReady = false;
+
+    public synchronized void setRealData(RealData realData) {
+        //如果已经装载完毕了，就直接返回
+        if(isReady){
+            return;
+        }
+        //如果没装载，进行装载真实对象
+        this.realData = realData;
+        isReady = true;
+        //进行通知
+        notify();
+    }
+
+    @Override
+    public synchronized String getRequest() {
+        //如果没装载好 程序就一直处于阻塞状态
+        while(!isReady){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        //装载好直接获取数据即可
+        return this.realData.getRequest();
+    }
+
+
+}
+
+</code></pre>
+
+<p>查询FutureData</p>
+<pre><code>package com.fullstacker.study.designpattern.future;
+
+public class FutureClient {
+
+    public Data request(final String queryStr){
+        //1 我想要一个代理对象（Data接口的实现类）先返回给发送请求的客户端，告诉他请求已经接收到，可以做其他的事情
+        final FutureData futureData = new FutureData();
+        //2 启动一个新的线程，去加载真实的数据，传递给这个代理对象
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //3 这个新的线程可以去慢慢的加载真实对象，然后传递给代理对象
+                RealData realData = new RealData(queryStr);
+                futureData.setRealData(realData);
+            }
+        }).start();
+
+        return futureData;
+    }
+
+}
+
+</code></pre>
+
+<p>使用演示：</p>
+<pre><code>package com.fullstacker.study.designpattern.future;
+
+public class Main {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        FutureClient fc = new FutureClient();
+        Data data = fc.request("这是一个参数");
+        System.out.println("请求发送成功!");
+        System.out.println("做其他的事情...");
+        String result = data.getRequest();  
+        System.out.println(result);
+
+    }
+}
+
+</code></pre>
+
+<p>运行main方法,打印结果</p>
+<pre><code>请求发送成功!
+做其他的事情...
+根据"这是一个参数"进行查询，这是一个很耗时的操作..
+耗时五秒,操作完毕，获取结果
+查询结果
+</code></pre>
+
+<p>调用FutureClient的request()方法，返回一个futureData实例，但是该实例并未加载真实的数据realData，而是通过子线程异步对realData赋值。main方法中当执行String result &#x3D; data.getRequest();  时由于还未得到真正的realData所以会一直等到数据真正加载完才能执行下面的打印。</p>
+<p>jdk中有现成的Future模式接口FutureTask，使用示例如下：</p>
+<pre><code>import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
+
+public class UseFuture implements Callable&lt;String&gt;{
+    private String para;
+
+    public UseFuture(String para){
+        this.para = para;
+    }
+
+    /**
+     * 这里是真实的业务逻辑，其执行可能很慢
+     */
+    @Override
+    public String call() throws Exception {
+        //模拟执行耗时
+        System.out.println("线程名："+ Thread.currentThread().getName());
+        Thread.sleep(5000);
+        String result = this.para + "处理完成";
+        return result;
+    }
+
+    //主控制函数
+    public static void main(String[] args) throws Exception {
+        String queryStr = "query";
+        //构造FutureTask，并且传入需要真正进行业务逻辑处理的类,该类一定是实现了Callable接口的类
+        FutureTask&lt;String&gt; future = new FutureTask&lt;String&gt;(new UseFuture(queryStr));
+
+        FutureTask&lt;String&gt; future2 = new FutureTask&lt;String&gt;(new UseFuture("task2222"));
+        //创建一个固定线程的线程池且线程数为1,
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        //这里提交任务future,则开启线程执行RealData的call()方法执行
+        //submit和execute的区别： 第一点是submit可以传入实现Callable接口的实例对象， 第二点是submit方法有返回值
+
+        Future f1 = executor.submit(future);        //单独启动一个线程去执行的
+        Future f2 = executor.submit(future2);
+        System.out.println("请求完毕");
+
+        try {
+            //这里可以做额外的数据操作，也就是主程序执行其他业务逻辑
+            System.out.println("处理实际的业务逻辑...");
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //调用获取数据方法,如果call()方法没有执行完成,则依然会进行等待
+        System.out.println("数据：" + future.get());
+        System.out.println("数据：" + future2.get());
+
+        executor.shutdown();
+    }
+
+}
+
+</code></pre>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-future/" rel="tag"># 设计模式 | future</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/03/31/%E4%B9%A6%E5%8D%95-2017-1/" rel="prev" title="书单-2017">
+                  <i class="fa fa-angle-left"></i> 书单-2017
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/04/19/Master-worker%E6%A8%A1%E5%BC%8F-1/" rel="next" title="Master-worker模式">
+                  Master-worker模式 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

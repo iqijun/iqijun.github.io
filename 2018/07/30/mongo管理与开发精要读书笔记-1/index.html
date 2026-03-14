@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="作者红丸 一、基础篇  noSql 简介 not only sql  mongo特点  面向集合 模式自由，对于存储在mongo数据库中的数据不需要知道它的任何结构定义 文档型 支持动态查询 支持完全索引，包含内部对象 支持复制和故障修复 使用高效率的二进制进行存储 支持处理碎片 文件格式为Bson 可通过网络访问   mongo的使用场景  网站数据， 缓存 大尺寸低价值的数据 高伸缩场景 用于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongo管理与开发精要读书笔记">
+<meta property="og:url" content="http://www.full-stacker.com/2018/07/30/mongo%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BC%80%E5%8F%91%E7%B2%BE%E8%A6%81%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="作者红丸 一、基础篇  noSql 简介 not only sql  mongo特点  面向集合 模式自由，对于存储在mongo数据库中的数据不需要知道它的任何结构定义 文档型 支持动态查询 支持完全索引，包含内部对象 支持复制和故障修复 使用高效率的二进制进行存储 支持处理碎片 文件格式为Bson 可通过网络访问   mongo的使用场景  网站数据， 缓存 大尺寸低价值的数据 高伸缩场景 用于">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-07-30T22:58:11.000Z">
+<meta property="article:modified_time" content="2018-07-30T22:58:11.000Z">
+<meta property="article:author" content="骐骏">
+<meta property="article:tag" content="mongo | 红丸 | mongo管理与开发精要">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2018/07/30/mongo%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BC%80%E5%8F%91%E7%B2%BE%E8%A6%81%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2018/07/30/mongo%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BC%80%E5%8F%91%E7%B2%BE%E8%A6%81%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/","path":"2018/07/30/mongo管理与开发精要读书笔记-1/","title":"mongo管理与开发精要读书笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>mongo管理与开发精要读书笔记 | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2018/07/30/mongo%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BC%80%E5%8F%91%E7%B2%BE%E8%A6%81%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="mongo管理与开发精要读书笔记 | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mongo管理与开发精要读书笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-07-30 22:58:11" itemprop="dateCreated datePublished" datetime="2018-07-30T22:58:11+00:00">2018-07-30</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>15 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>作者红丸</p>
+<p>一、基础篇</p>
+<ol>
+<li><p>noSql 简介 not only sql</p>
+</li>
+<li><p>mongo特点</p>
+<ol>
+<li>面向集合</li>
+<li>模式自由，对于存储在mongo数据库中的数据不需要知道它的任何结构定义</li>
+<li>文档型</li>
+<li>支持动态查询</li>
+<li>支持完全索引，包含内部对象</li>
+<li>支持复制和故障修复</li>
+<li>使用高效率的二进制进行存储</li>
+<li>支持处理碎片</li>
+<li>文件格式为Bson</li>
+<li>可通过网络访问</li>
+</ol>
+</li>
+<li><p>mongo的使用场景</p>
+<ol>
+<li>网站数据，</li>
+<li>缓存</li>
+<li>大尺寸低价值的数据</li>
+<li>高伸缩场景</li>
+<li>用于对象及json数据的存储</li>
+</ol>
+</li>
+<li><p>快速入门</p>
+<ol>
+<li>mongo的逻辑结构<br>文档–&gt;集合–&gt;库</li>
+<li>Mongo使用预分配空间机制，每个预分配文件都用0来填充，如果要想禁用预分配机制可以在启动时，加参数–noprealloc，每一次预分配都是上一次分配都数据文件大小都2倍，数据文件最大为2G。这样既可以防止过小都数据库浪费磁盘空间，有可以保证大数据库有充足都预留空间</li>
+<li>日志系统<ol>
+<li>系统日志:用来记录mongo都启停信息和运行期间的异常信息,使用方式</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">       // 使用追加方式记录系统日志</span><br><span class="line">       mongod --logpath=/data/log/servelog.log logappend</span><br><span class="line"></span><br><span class="line">&lt;pre&gt;&lt;code&gt;   ```</span><br><span class="line">   2.  journal日志：</span><br><span class="line"></span><br><span class="line">    jornal日志通过预写式的redo日志为mongo增加额外的保障，开启该功能数据更新会先写入jornal日志，定期集中提交（目前是100ms，有望继续减小），然后在真实数据上进行变更。如果服务安全关闭，日志会被清除。在启动服务时如果存在jornal日志，则会执行提交，这保证来那些写入来jornal日志但在mongo崩溃前没有提交的数据</span><br><span class="line"></span><br><span class="line">   3.  慢查询日志</span><br><span class="line"></span><br><span class="line">    记录超过一定时间的查询语句，后，可以通过查看db.system.profile 这个collection来获取慢日志信息。</span><br></pre></td></tr></table></figure>
+<p>&#x2F;&#x2F; 指定profile参数  超过5秒就要记录到慢sql中<br>mongod  –profile &#x3D; 1 –slowms&#x3D; 5</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">   4.  oplog主从日志</span><br><span class="line">    Replica Sets 复制过程中一个服务器充当主服务器，而 一个 或 多个 服务器 充当从服务器，主服务器将更新写入一个本地 的 collection 中， 这个collection 记录 着 发 生在 主 服务器 的 更新 操作， 并将 这些 操作 分发 到 从 服务器 上。</span><br><span class="line">4. 元数据存储</span><br><span class="line">5. mongo数据类型</span><br><span class="line">6. mongo安装配置，简单操作 （略）</span><br><span class="line">&lt;/code&gt;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">二、高级篇</span><br><span class="line">5. mongo高级查询</span><br><span class="line">    1. 面向文档的NoSQL数据库解决的主要问题不是高性能的并发读写，而是在保证 存储海量数据的同时具有良好的查询性能。</span><br><span class="line">    2. 查询操作符</span><br><span class="line">        1. 条件操作符 $gt $lt $gte $lte $in $nin $mod $ne</span><br><span class="line">        2. $all匹配所有,需要配上所有$all中的条件才被查询出来，使用示例</span><br><span class="line">        &lt;code&gt;// age字段必须有 12，3，4三个值时才能查询出来</span><br><span class="line">        db.user.find(&#123;age:&#123;$all:[12,3,4]&#125;&#125;);&lt;/code&gt;</span><br><span class="line">        3.$exists 判断字段是否存在</span><br><span class="line">        &lt;code&gt;&amp;lt;!--查询拥有age字段的数据--&amp;gt;</span><br><span class="line">           db. users. find(&#123; age:&#123;$ exists: true&#125;&#125;);&lt;/code&gt;</span><br><span class="line"></span><br><span class="line">&lt;pre&gt;&lt;code&gt;    4.null值的处理</span><br></pre></td></tr></table></figure>
+<p>&lt;!–查询age为null的数据，这种方式会将不包含age的数据也查询出来–&gt;<br>db.user.find({ age: null})</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果要查询拥有age，并且为null的数据要与$exists一起使用</span><br></pre></td></tr></table></figure>
+<p> db.user.find({age:{$in:[null],$exists:true}})</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5. $size匹配数组元素个数</span><br></pre></td></tr></table></figure>
+<p>&lt;!–匹配有favorite字段3个元素的数据–&gt;<br>db.user.find({favorite:{$size:3}});   </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6. count查询记录条数</span><br></pre></td></tr></table></figure>
+<p>&#x2F;&#x2F; 此时count为user集合中所有文档的数量<br>db.user.find().skip(10).limit(5).count()<br>&#x2F;&#x2F; 此时返回限制后的条数 5<br>db.user.find().skip(10).limit(5).count(true)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">7. skip，sort </span><br><span class="line">8. group </span><br><span class="line">9. 数组内容的查询</span><br><span class="line">10. 内嵌文档查询</span><br><span class="line">11. 正则表达式查询</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>&lt;!–查询不是以b开头的名字–&gt;<br>db.users.find({ name:{$ not:&#x2F;^ B.*&#x2F;}});</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">12. $where</span><br><span class="line"></span><br><span class="line">“$ where 查询” 是指采用类似于SQL中的where语句来进行查询的方式，但 命令中并不包含where关键字,如：</span><br><span class="line">　　</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>　　db.user.find(“age&gt;3”);<br>　　<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">        　　</span><br><span class="line">&amp;gt; 但有一点需要注意，如非必要，尽量不要使用，因为一旦使用，document都 必须从BSON转换为一个JavaScript对象，所以$where查询比一般的查询会慢很多。</span><br><span class="line"></span><br><span class="line">13. 联合查询</span><br><span class="line">    1. 由于mongo本身的特点不推荐使用联合查询</span><br><span class="line">    2. 手动联合查询</span><br></pre></td></tr></table></figure><br>        &#x2F;&#x2F;1. 查询用户信息并赋值给变量u<br>        var u &#x3D; db.user.find({name:”tom”});</p>
+<pre><code>    //2. 查询作者为tom的文章
+
+    db.posting.find({author:u});
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3. DBRef方式 </span><br><span class="line">    1. DBRef的概念类似于关系数据库中的外键；例如,把collectionB 的 _id作为collectionA的中的一列，然后通过collectionA中这一列的值查找相应的collectionB的数据</span><br><span class="line">    2. 使用示例</span><br></pre></td></tr></table></figure>
+        // 注意 db.user.find()查询出来的是一个数组（游标），要使用下标取出第一个元素
+        &amp;gt; u1 = db.user.find({name:&quot;tom&quot;})[0]
+            {
+                    &quot;_id&quot; : ObjectId(&quot;5b55e764172c4f195a933f37&quot;),
+                    &quot;name&quot; : &quot;tom&quot;,
+                    &quot;age&quot; : null
+            }
+        // 在posting方法中插入一条带有dbRef的数据    
+        &amp;gt; db.posting.insert({title:&quot;dbrefTest&quot;,users:new DBRef(&quot;user&quot;,u1._id)})
+        WriteResult({ &quot;nInserted&quot; : 1 })
+        // 通过文章查询作者信息
+        &amp;gt; db.posting.find({&quot;title&quot;:&quot;dbrefTest&quot;})[0].users.fetch()
+        {
+                &quot;_id&quot; : ObjectId(&quot;5b55e764172c4f195a933f37&quot;),
+                &quot;name&quot; : &quot;tom&quot;,
+                &quot;age&quot; : null
+        }
+
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">14. 游标和存储过程</span><br><span class="line">    1. 游标使用示例</span><br></pre></td></tr></table></figure>
+    ＞ for( var c= db. t3. find(); c. hasNext();){ 
+        printjson( c. next());
+
+    }
+
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2. 存储过程</span><br><span class="line">    1. mongo的存储过程是使用JavaScript来写的</span><br><span class="line">    2. mongo的存储过程保存在db.system.js集合中</span><br><span class="line">    3. 在mongo中新建一个存储过程</span><br></pre></td></tr></table></figure>
+        ＞ db. system. js. save({_ id:&quot; addNumbers&quot;, 
+            value: function( x, y){ return x+ y;}});
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4. 查看存储过程</span><br></pre></td></tr></table></figure>
+        db.system.js.find();
+
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5. 调用存储过程</span><br></pre></td></tr></table></figure>
+        &amp;gt; db.eval(&#39;addNumber(1,2)&#39;)
+        WARNING: db.eval is deprecated
+        3
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. 高级更新</span><br><span class="line">    1. mongo两个更新命令： update，save</span><br></pre></td></tr></table></figure>
+// update使用方法 
+db.collection.update({criteria},{objNew},upsert,multi);
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用示例：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+// 更新count&amp;gt;1的数据，
+＞ db. t1. update({&quot; count&quot;:{$ gt: 1}},{$ set:{&quot; test2&quot;:&quot; OK2&quot;}}, false, true)
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">save命令</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+db.collection.save(obj);
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 数据更新操作符</span><br><span class="line">    1. $inc </span><br></pre></td></tr></table></figure>
+    {$inc:{ field: value}}
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用示例：</span><br></pre></td></tr></table></figure>
+    //将age&amp;gt;3的数据age字段增加5
+    db. t1. update({&quot;age&quot;:{$gt:3}},{$inc:{&quot;age&quot;:5}}, false, true)
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2. $set</span><br></pre></td></tr></table></figure>
+    {$set:{feild:&quot;newValue&quot;}}
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. $unset删除字段</span><br></pre></td></tr></table></figure>
+    {$unset:{feild:1}}
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4. $push 向数组类型的字段中追加值</span><br></pre></td></tr></table></figure>
+    {$push:{filed:&quot;newValue&quot;}}
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5. $pushAll 向数组类型的字段中追加多个值</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    // 追加的值为一个数组
+    {$pushAll:{field:newValuAarry}}
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6. $addToSet 向数组型字段追加新值，当且仅当这个值不存在时才会追加</span><br></pre></td></tr></table></figure>
+    {$addToSet:{field:newValue}}
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用示例：</span><br></pre></td></tr></table></figure>
+    //更新非数组字段报错
+    &amp;gt; db.user.update({name:&quot;tom&quot;},{$addToSet:{name:&quot;tomcat&quot;}})
+    WriteResult({
+            &quot;nMatched&quot; : 0,
+            &quot;nUpserted&quot; : 0,
+            &quot;nModified&quot; : 0,
+            &quot;writeError&quot; : {
+                    &quot;code&quot; : 2,
+                    &quot;errmsg&quot; : &quot;Cannot apply $addToSet to non-array field. Field named &#39;name&#39; has non-array type string&quot;
+            }
+    })
+    //使用$set向原有数据中增加一个数组类型的字段
+    &amp;gt; db.user.update({name:&quot;tom&quot;},{$set:{&quot;postings&quot;:[&quot;mongo&quot;]}})
+    WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+    &amp;gt; db.user.find({name:&quot;tom&quot;})
+    { &quot;_id&quot; : ObjectId(&quot;5b55e764172c4f195a933f37&quot;), &quot;name&quot; : &quot;tom&quot;, &quot;age&quot; : null, &quot;postings&quot; : [ &quot;mongo&quot; ] }
+    // 增加的值是一个数组，与原有数据中“mongo”值不同
+    &amp;gt; db.user.update({name:&quot;tom&quot;},{$addToSet:{&quot;postings&quot;:[&quot;mongo&quot;]}})
+    WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+    // 验证发现此时数组中存在“mongo”和“【“mongo”】”两个值
+    &amp;gt; db.user.find({name:&quot;tom&quot;})
+    { &quot;_id&quot; : ObjectId(&quot;5b55e764172c4f195a933f37&quot;), &quot;name&quot; : &quot;tom&quot;, &quot;age&quot; : null, &quot;postings&quot; : [ &quot;mongo&quot;, [ &quot;mongo&quot; ] ] }
+    //向数组中追加一个已经存在的值，追加失败
+    &amp;gt; db.user.update({name:&quot;tom&quot;},{$addToSet:{&quot;postings&quot;:&quot;mongo&quot;}})
+    WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 0 })
+    // 向数组中追加一个不存在的值，追加成功
+    &amp;gt; db.user.update({name:&quot;tom&quot;},{$addToSet:{&quot;postings&quot;:&quot;java&quot;}})
+    WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+    &amp;gt; db.user.find({name:&quot;tom&quot;})
+    { &quot;_id&quot; : ObjectId(&quot;5b55e764172c4f195a933f37&quot;), &quot;name&quot; : &quot;tom&quot;, &quot;age&quot; : null, &quot;postings&quot; : [ &quot;mongo&quot;, [ &quot;mongo&quot; ], &quot;java&quot; ] }
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7. $pop 删除数组型字段中的一个值,只能删除一个值</span><br></pre></td></tr></table></figure>
+    // 删除第一个值
+    {$pop:{field:-1}}
+    // 删除最后一个值
+    {$pop:{field:1}}
+
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8. $pull 删除数组内指定value的值</span><br></pre></td></tr></table></figure>
+    {$pull:{field:value}}
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">9. $pullAll 删除数组内的多个值</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    {$pull:{}filed:array_value}
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10. $rename 重命名字段名称</span><br></pre></td></tr></table></figure>
+    {$rename:{old_field_name:new_field_name}}
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用示例：</span><br></pre></td></tr></table></figure>
+    // 注意一定要将multi参数值设置为true，否则只会修改第一条数据
+     db.posting.update({},{$rename:{users:&quot;user&quot;}},false,true)
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;/code&gt;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">6. 高级特性</span><br><span class="line">    1. capped Collection</span><br><span class="line"></span><br><span class="line">&lt;pre&gt;&lt;code&gt;    Capped Collection 是 性能 出色 的 有着 固定 大小 的 集合， 以 LRU（ Least Recently Used， 最近 最少 使用） 规则 和 插入 顺序 执行 age- out（ 老化 移出） 处理， 自动 维护 集合 中 对象 的 插入 顺序。</span><br><span class="line">    1. 创建capped collectioin</span><br></pre></td></tr></table></figure>
+    ＞ db. createCollection(&quot; mycoll&quot;,{ capped: true, size: 100000})
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    在 创建 时 要 预先 指定 大小， 如果 空间 用完， 新 添加 的 对象 将会 取代 集合 中最 旧的 对象。 更新 如果 超出 collection 的 大小， 更新 失败。 虽然 不允许 删除， 但是 可以 调用 drop() 删除 集合 中的 所 有行， drop 后 需要 显 式 地 重建 集合。 在 32 位 机上， 一个 Capped Collection 的 最大值 约为 482. 5MB， 64 位 上 只 受 系统 文件 大小 的 限制。</span><br><span class="line"></span><br><span class="line">2. 判断集合是否是capped collection</span><br></pre></td></tr></table></figure>
+//如果是capped 返回true
+db.colletion.isCapped();
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. 将普通的集合转换为capped</span><br></pre></td></tr></table></figure>
+db.runCommand({&quot;convertToCapped&quot;:&quot;mycoll&quot;,size:10000})
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用示例：</span><br></pre></td></tr></table></figure>
+&amp;gt; db.runCommand({&quot;convertToCapped&quot;:&quot;posting&quot;,size:10000})
+{ &quot;ok&quot; : 1 }
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">4. capped的用途</span><br><span class="line">    1. 日志</span><br><span class="line">    Capped Collection 是 MongoDB 中日 志 机制 的 首选， MongoDB 没有 使用 日志 文件， 而是 把 日志 事件 存储 在 数据库 中。 在 一个 没有 索引 的 Capped Collection 中 插入 对象 的 速度 与 在 文件 系统 中 记录 日志 的 速度 相当。</span><br><span class="line">5. 注意事项</span><br><span class="line">    1. 为了 发挥 Capped Collection 的 最大 性能， 如果 写 比 读 多， 最好 不要 在上面 创建 索引， 否则 插入 速度 从&quot; log speed&quot; 降为&quot; database speed&quot;。</span><br><span class="line">    2. 可以 在 创建 Capped Collection 时 指定 collection 中 能够 存放 的 最大 文档 数。 但这 时 也要 指定 size， 因为 总是 先 检查 size 后 检查 maxRowNumber。 可以 使用 validate() 查看 一个 collection 已经 使用 了 多少 空间，从而 决定 size 设为 多大。 如： </span><br></pre></td></tr></table></figure>
+    db. createCollection(&quot; mycoll&quot;,{ capped: true, size: 100000, max: 100}); 
+
+    db. mycoll. validate();
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. GridFs规范</span><br><span class="line">    1. 利用mongofiles命令将文件保存到mongo数据库中</span><br></pre></td></tr></table></figure>
+// 在testData文件夹下创建一个待上传的文件/usr/testData/testfileUpload.txt
+root@05927cf09461:/usr# cd testData/
+root@05927cf09461:/usr/testData# ls
+testfileUpload.txt
+root@05927cf09461:/usr/testData# pwd
+/usr/testData
+// 利用mongofiles命令将文件上传到mongo中
+root@05927cf09461:/usr/testData# mongofiles put /usr/testData/testfileUpload.txt
+2018-07-28T07:38:16.803+0000    connected to: localhost
+2018-07-28T07:38:16.803+0000    added file: /usr/testData/testfileUpload.txt
+// 利用mongofiles list命令查看已上传的文件
+root@05927cf09461:/usr/testData# mongofiles list
+2018-07-28T07:38:30.732+0000    connected to: localhost
+/usr/testData/testfileUpload.txt        0
+// 登陆mongo查看数据库中的集合，增加了fs.chunks和fs.files集合
+&amp;gt; show collections
+    fs.chunks
+    fs.files
+    posting
+    user
+//从mongo中下载文件
+mongofiles get ./testfileUpload.txt
+2018-07-28T07:54:43.685+0000    connected to: localhost
+2018-07-28T07:54:43.686+0000    finished writing to ./testfileUpload.txt
+
+// 查看fs.chunk,fs.files集合信息略
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">3. MapReduce编程 略</span><br><span class="line">&lt;/code&gt;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">三、 管理篇</span><br><span class="line">7. 数据迁移</span><br><span class="line">    1. 数据迁移步骤</span><br><span class="line">        1. 设计迁移方案</span><br><span class="line">        2. 进行数据模拟迁移</span><br><span class="line">        3. 测试数据模拟迁移结果</span><br><span class="line">        4. 准备实施数据迁移: 进行完整的数据备份，确定数据迁移方案，配置和安装软硬件</span><br><span class="line">        5. 正式迁移数据</span><br><span class="line">        6. 测试正式迁移的数据</span><br><span class="line">        7. 移植应用软件</span><br><span class="line">        8. 正式运行应用系统</span><br><span class="line">    2. 迁移工具</span><br><span class="line">        1. mongoexport 导出指定的collection，可以导出指定列，可以按条件查询要导出的数据</span><br><span class="line">        2. mongodump  可以导出整个数据库也可以导出指定的collection，可以导出按条件查询出来的数据</span><br><span class="line">        3. mongoimport 导入工具</span><br><span class="line">        4. mongorestore 数据恢复</span><br><span class="line">        5. eval执行特定语句</span><br><span class="line">        6. 执行js文件&lt;br /&gt;</span><br><span class="line">        &lt;code&gt;mongo test.js&lt;/code&gt;</span><br><span class="line">8. 管理命令</span><br><span class="line">    1. mongo管理涉及一下几个方面</span><br><span class="line">        1. 故障排除</span><br><span class="line">        2. 减少停机时间</span><br><span class="line">        3. 建立备份和恢复策略</span><br><span class="line">    2. 远程复制集合</span><br></pre></td></tr></table></figure>
+//将192.168.1.110:27017 test数据库中user集合的数据拷贝过来，不拷贝索引
+db.runCommand({cloneCollection:&quot;test.user&quot;,from:&quot;192.168.1.110:27017&quot;,copyIndexes: false})
+</code></pre>
+<pre><code>```
+3. 本地复制集合
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.source_coll.find().forEach(function(data)&#123;</span><br><span class="line">    db.target_coll.insert(x);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+3. 复制数据库
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.copyDatabase(&amp;quot;fromDB&amp;quot;,&amp;quot;toDB&amp;quot;,&amp;quot;fromHost&amp;quot;,&amp;quot;userName&amp;quot;,&amp;quot;password&amp;quot;)</span><br></pre></td></tr></table></figure>
+4. 刷新磁盘
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123;fsync:1&#125;)</span><br></pre></td></tr></table></figure>
+该命令可以将未写入磁盘的信息写入磁盘，并锁定写操作，但读操作可以继续执行。并且**该命令必须在admin库执行**
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 加上 async参数表示异步刷新磁盘</span><br><span class="line">db. runCommand(&#123; fsync: 1, async: true&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// lock参数表明在执行刷新磁盘前先锁定数据操作</span><br><span class="line">&amp;gt; db. runCommand(&#123; fsync: 1, lock: 1&#125;) </span><br><span class="line">    &#123;&amp;quot;info&amp;quot;:&amp;quot; now locked against writes&amp;quot;,&amp;quot; ok&amp;quot;: 1&#125; </span><br><span class="line">// 查看锁定状态</span><br><span class="line">＞ db. currentOp()</span><br><span class="line">    &#123;&amp;quot;inprog&amp;quot;:[],&amp;quot; fsyncLock&amp;quot;: 1&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+5. getLastError() 查看异常信息；阻塞客户端保证数据已写入成功
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 由于没有错误，返回null</span><br><span class="line">&amp;gt; db.getLastError()</span><br><span class="line">null</span><br><span class="line"></span><br><span class="line">// 在写入3个节点后返回，最长等待时间1000ms</span><br><span class="line">&amp;gt; db.getLastError(3,1000)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+6. 查看当前活动进程
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&amp;gt; db.currentOp()</span><br><span class="line">    &#123;</span><br><span class="line">            &amp;quot;inprog&amp;quot; : [</span><br><span class="line">                    &#123;</span><br><span class="line">                            &amp;quot;host&amp;quot; : &amp;quot;05927cf09461:27017&amp;quot;,</span><br><span class="line">                            &amp;quot;desc&amp;quot; : &amp;quot;conn23&amp;quot;,</span><br><span class="line">                            &amp;quot;connectionId&amp;quot; : 23,</span><br><span class="line">                            &amp;quot;client&amp;quot; : &amp;quot;127.0.0.1:43532&amp;quot;,</span><br><span class="line">                            &amp;quot;appName&amp;quot; : &amp;quot;MongoDB Shell&amp;quot;,</span><br><span class="line">                            &amp;quot;clientMetadata&amp;quot; : &#123;</span><br><span class="line">                                    &amp;quot;application&amp;quot; : &#123;</span><br><span class="line">                                            &amp;quot;name&amp;quot; : &amp;quot;MongoDB Shell&amp;quot;</span><br><span class="line">                                    &#125;,</span><br><span class="line">                                    &amp;quot;driver&amp;quot; : &#123;</span><br><span class="line">                                            &amp;quot;name&amp;quot; : &amp;quot;MongoDB Internal Client&amp;quot;,</span><br><span class="line">                                            &amp;quot;version&amp;quot; : &amp;quot;4.0.0&amp;quot;</span><br><span class="line">                                    &#125;,</span><br><span class="line">                                    &amp;quot;os&amp;quot; : &#123;</span><br><span class="line">                                            &amp;quot;type&amp;quot; : &amp;quot;Linux&amp;quot;,</span><br><span class="line">                                            &amp;quot;name&amp;quot; : &amp;quot;Ubuntu&amp;quot;,</span><br><span class="line">                                            &amp;quot;architecture&amp;quot; : &amp;quot;x86_64&amp;quot;,</span><br><span class="line">                                            &amp;quot;version&amp;quot; : &amp;quot;16.04&amp;quot;</span><br><span class="line">                                    &#125;</span><br><span class="line">                            &#125;,</span><br><span class="line">                            &amp;quot;active&amp;quot; : true,</span><br><span class="line">                            &amp;quot;currentOpTime&amp;quot; : &amp;quot;2018-07-28T14:48:51.210+0000&amp;quot;,</span><br><span class="line">                            &amp;quot;opid&amp;quot; : 823887,</span><br><span class="line">                            &amp;quot;secs_running&amp;quot; : NumberLong(0),</span><br><span class="line">                            &amp;quot;microsecs_running&amp;quot; : NumberLong(23936),</span><br><span class="line">                            &amp;quot;op&amp;quot; : &amp;quot;command&amp;quot;,</span><br><span class="line">                            &amp;quot;ns&amp;quot; : &amp;quot;admin.$cmd.aggregate&amp;quot;,</span><br><span class="line">                            &amp;quot;command&amp;quot; : &#123;</span><br><span class="line">                                    &amp;quot;currentOp&amp;quot; : 1,</span><br><span class="line">                                    &amp;quot;$db&amp;quot; : &amp;quot;admin&amp;quot;</span><br><span class="line">                            &#125;,</span><br><span class="line">                            &amp;quot;numYields&amp;quot; : 0,</span><br><span class="line">                            &amp;quot;locks&amp;quot; : &#123;</span><br><span class="line"></span><br><span class="line">                            &#125;,</span><br><span class="line">                            &amp;quot;waitingForLock&amp;quot; : false,</span><br><span class="line">                            &amp;quot;lockStats&amp;quot; : &#123;</span><br><span class="line"></span><br><span class="line">                            &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">            ],</span><br><span class="line">            &amp;quot;ok&amp;quot; : 1</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+7. 杀死进程
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.killOp(123/*pid*/)</span><br></pre></td></tr></table></figure>
+8. 验证数据有效性,数据是否损坏，是否完整等信息
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&amp;gt; db.user.validate()</span><br><span class="line">    &#123;</span><br><span class="line">            &amp;quot;ns&amp;quot; : &amp;quot;test.user&amp;quot;,</span><br><span class="line">            &amp;quot;nInvalidDocuments&amp;quot; : NumberLong(0),</span><br><span class="line">            &amp;quot;nrecords&amp;quot; : 103,</span><br><span class="line">            &amp;quot;nIndexes&amp;quot; : 1,</span><br><span class="line">            &amp;quot;keysPerIndex&amp;quot; : &#123;</span><br><span class="line">                    &amp;quot;test.user.$_id_&amp;quot; : 103</span><br><span class="line">            &#125;,</span><br><span class="line">            &amp;quot;valid&amp;quot; : true,</span><br><span class="line">            &amp;quot;warnings&amp;quot; : [</span><br><span class="line">                    &amp;quot;Some checks omitted for speed. use &#123;full:true&#125; option to do more thorough scan.&amp;quot;</span><br><span class="line">            ],</span><br><span class="line">            &amp;quot;errors&amp;quot; : [ ],</span><br><span class="line">            &amp;quot;ok&amp;quot; : 1</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+9. 数据压缩 repairDatabase
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 查看数据与索引的总大小</span><br><span class="line">&amp;gt; db.user.totalSize()</span><br><span class="line">73728</span><br><span class="line">// 数据大小</span><br><span class="line">&amp;gt; db.user.storageSize()</span><br><span class="line">36864</span><br><span class="line">// 不能使用在collection上</span><br><span class="line">&amp;gt; db.user.repairDatabase()</span><br><span class="line">2018-07-28T14:57:46.971+0000 E QUERY    [js] TypeError: db.user.repairDatabase is not a function :</span><br><span class="line">@(shell):1:1</span><br><span class="line">// 整理碎片，压缩数据</span><br><span class="line">&amp;gt; db.repairDatabase()</span><br><span class="line">&#123; &amp;quot;ok&amp;quot; : 1 &#125;</span><br><span class="line">&amp;gt; db.user.storageSize()</span><br><span class="line">36864</span><br><span class="line">&amp;gt; db.user.totalSize()</span><br><span class="line">53248</span><br></pre></td></tr></table></figure>
+</code></pre>
+
+<ol start="9">
+<li>访问控制<ol>
+<li><p>mongo数据库的安全性主要包括</p>
+<ol>
+<li>限制特定 IP地址访问。<ol>
+<li>绑定ip后，在连接mongo时必须显示的指定mongo所在ip才能连接，建议绑定内网ip可以直接排除外网的攻击</li>
+<li>使用示例</li>
+</ol>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">            //mongo启动时绑定ip</span><br><span class="line">            mongod --bind_ip 192.168.1.110</span><br><span class="line"></span><br><span class="line">&lt;pre&gt;&lt;code&gt;        ```</span><br><span class="line">        在客户端上连接mongo</span><br></pre></td></tr></table></figure>
+<p> mongo 192.168.1.110</p>
+</li>
+</ol>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2. 设置监听端口。</span><br><span class="line">    1. 不使用默认端口</span><br><span class="line">    2. 使用示例</span><br></pre></td></tr></table></figure>
+<p> mongod –bind_ip 192.168.1.110 –port 28018</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3. 使用用户名和口令登录。</span><br><span class="line">    1. mongo 3.x后使用createUser而不是addUser</span><br></pre></td></tr></table></figure>
+<p> db.createUser({user:’root’,pwd:’pwd’,roles:[‘readWrite’,’dbAdmin’]})<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 必须在mongo启动时指定--auth参数，并且至少已经创建一个数据库用户后，才会启用验证；如果没有数据库用户，即使指定--auth参数也不会生效</span><br><span class="line">3. 删除用户</span><br></pre></td></tr></table></figure><br> db.system.users.remove({user:”XXXXXX”})<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4. 查看创建的用户</span><br></pre></td></tr></table></figure><br> &gt; db.system.users.find()<br> { “_id” : “admin.root”, “user” : “root”, “db” : “admin”, “credentials” : { “SCRAM-SHA-1” : { “iterationCount” : 10000, “salt” : “UwfWWqy8Do2wjiY&#x2F;hSzT+g&#x3D;&#x3D;”, “storedKey” : “UvrWJ2hbxsgwSR3vUiK&#x2F;je5wnks&#x3D;”, “serverKey” : “Te5&#x2F;9eQAw9TYQlSNBEEC8PB7fh0&#x3D;” }, “SCRAM-SHA-256” : { “iterationCount” : 15000, “salt” : “+uf4DVvouUvB&#x2F;mhKlWAyheU5brY1Wak2Zalr9Q&#x3D;&#x3D;”, “storedKey” : “wgHg2tHe2R4pTV6wml2h65ZjecIDZA4NyPVurX7puFM&#x3D;”, “serverKey” : “F+r+rls&#x2F;npaWauo+e9zmUqWXG1fy3B1UJJutFIgu4OA&#x3D;” } }, “roles” : [ { “role” : “readWrite”, “db” : “admin” }, { “role” : “dbAdmin”, “db” : “admin” } ] }<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;/code&gt;&lt;/pre&gt;</span><br><span class="line"></span><br><span class="line">四、性能篇</span><br><span class="line">10. 索引及优化</span><br><span class="line">    1. 遵循以下索引优化原则，可以建立比较高效和合理的索引： </span><br><span class="line">        1. 在 索引中包括条件的所有列，可以使用索引形成的屏蔽来拒绝结果集中 不合格的行。 </span><br><span class="line">        2. 对于需要排序的引用列，适当地创建索引可以避免排序。 </span><br><span class="line">        3. 考虑到管理上的开销，应避免在索引中使用多于5个的列。 </span><br><span class="line">        4. 对于多列索引，将查询中引用最多列放在定义的前面</span><br><span class="line">        5. 不要 在 索引 中 包含 经常 修改 或 进行 插入、 删除 的 列（ 主 关键字 和 外来 关键字 除外）。</span><br><span class="line">    2. 创建一个索引</span><br></pre></td></tr></table></figure></p>
+</li>
+</ol>
+<p> ＞ db. t3. ensureIndex({ age: 1})<br> ＞ db. t3. getIndexes()<br> [ { “name”:”_ id_”, “ns”:” test. t3”, “key”:{ “<em>id”: 1 }, “v”: 0 }, { “_id”: ObjectId(“ 4fb906da0be632163d0839fe”), “ns”:” test. t3”, “key”:{ “age”: 1 }, “name”:” age</em> 1”, “v”: 0 } ]</p>
+</li>
+</ol>
+<pre><code>```
+3. 静默方式创建索引
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.t1.ensureIndex(&#123;age:1&#125;,&#123;backgroud:true&#125;)</span><br></pre></td></tr></table></figure>
+4. 复合索引
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.t1.ensureIndex(&#123;age:1,name:1&#125;,&#123;backgroud:true&#125;)</span><br></pre></td></tr></table></figure>
+5. 唯一索引
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">＞ db. t3. ensureIndex(&#123; age: 1&#125;,&#123;unique:true&#125;) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+6. 使用hint强制使用索引
+7. 删除索引
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 删除user表所有的索引</span><br><span class="line">db.user.dropIndexs();</span><br><span class="line"></span><br><span class="line">//删除firstName上的索引</span><br><span class="line">db.user.dropIndex(&#123;firstName：1&#125;)</span><br></pre></td></tr></table></figure>
+8. 重建索引
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//重建user上的所有索引，并且整理磁盘空间碎片</span><br><span class="line">db.user.reIndex（）</span><br></pre></td></tr></table></figure>
+9. explain查看执行计划
+</code></pre>
+
+<ol start="11">
+<li>优化器 profile<ol>
+<li>查询当前profile级别</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    // 0 表示不启用profile ；1 表示记录慢命令 2表示记录所有的命令</span><br><span class="line"></span><br><span class="line">&lt;blockquote&gt;</span><br><span class="line">  db.getProfilingLevel()</span><br><span class="line">      0</span><br><span class="line">&lt;/blockquote&gt;</span><br><span class="line"></span><br><span class="line">&lt;pre&gt;&lt;code&gt;```</span><br><span class="line">2. 设置profile级别</span><br></pre></td></tr></table></figure>
+<p>&gt; db.setProfilingLevel(2)<br>{ &quot;was&quot; : 0, &quot;slowms&quot; : 100, &quot;sampleRate&quot; : 1, &quot;ok&quot; : 1 }</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. profile记录在system.profile表中</span><br></pre></td></tr></table></figure>
+<p>&#x2F;&#x2F; 查询profile记录<br>db.system.profile.find();</p>
+<pre><code>&lt;/code&gt;&lt;/pre&gt;
+
+12.
+
+11.
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mongo-%E7%BA%A2%E4%B8%B8-mongo%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BC%80%E5%8F%91%E7%B2%BE%E8%A6%81/" rel="tag"># mongo | 红丸 | mongo管理与开发精要</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/06/30/mongo%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-1/" rel="prev" title="mongo使用示例">
+                  <i class="fa fa-angle-left"></i> mongo使用示例
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/08/10/%E3%80%8A%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1/" rel="next" title="《亿级流量网站架构》读书笔记">
+                  《亿级流量网站架构》读书笔记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

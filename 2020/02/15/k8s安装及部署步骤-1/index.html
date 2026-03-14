@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="国内安装k8s的四种途径：    1. 使用kubeadmin通过离线镜像安装    2. 使用阿里公有云平台k8s,钞能力    3. 通过yum官方仓库安装,上古版本    4. 二进制包的形式进行安装,kubeasz (github) 安装步骤：一、 环境配置：    1. 设置主机名与时区    timedatectl set-timezone Asia&#x2F;Shanghai  #都">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s安装及部署步骤">
+<meta property="og:url" content="http://www.full-stacker.com/2020/02/15/k8s%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%AA%A4-1/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="国内安装k8s的四种途径：    1. 使用kubeadmin通过离线镜像安装    2. 使用阿里公有云平台k8s,钞能力    3. 通过yum官方仓库安装,上古版本    4. 二进制包的形式进行安装,kubeasz (github) 安装步骤：一、 环境配置：    1. 设置主机名与时区    timedatectl set-timezone Asia&#x2F;Shanghai  #都">
+<meta property="og:locale">
+<meta property="og:image" content="http://www.full-stacker.com/wp-content/uploads/2020/02/ee7f471d8304ec6208cec93c2c0c83da.png">
+<meta property="article:published_time" content="2020-02-15T16:40:54.000Z">
+<meta property="article:modified_time" content="2020-02-15T16:41:50.000Z">
+<meta property="article:author" content="骐骏">
+<meta property="article:tag" content="k8s入门 | rinetd | pod | k8s">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.full-stacker.com/wp-content/uploads/2020/02/ee7f471d8304ec6208cec93c2c0c83da.png">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2020/02/15/k8s%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%AA%A4-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2020/02/15/k8s%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%AA%A4-1/","path":"2020/02/15/k8s安装及部署步骤-1/","title":"k8s安装及部署步骤"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>k8s安装及部署步骤 | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2020/02/15/k8s%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%AA%A4-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="k8s安装及部署步骤 | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          k8s安装及部署步骤
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-02-15 16:40:54 / Modified: 16:41:50" itemprop="dateCreated datePublished" datetime="2020-02-15T16:40:54+00:00">2020-02-15</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>9 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>国内安装k8s的四种途径：<br>    1. 使用kubeadmin通过离线镜像安装<br>    2. 使用阿里公有云平台k8s,钞能力<br>    3. 通过yum官方仓库安装,上古版本<br>    4. 二进制包的形式进行安装,kubeasz (github)</p>
+<p>安装步骤：<br>一、 环境配置：<br>    1. 设置主机名与时区<br>    timedatectl set-timezone Asia&#x2F;Shanghai  #都要执行<br>    hostnamectl set-hostname master   #132执行<br>    hostnamectl set-hostname node1    #133执行<br>    hostnamectl set-hostname node2    #137执行<br>    2. 添加hosts网络主机配置,三台虚拟机都要设置，方便寻找主机<br>    <code>vim /etc/hosts<br>    192.168.26.70 master<br>    192.168.26.73 node1<br>    192.168.26.77 node2</code><br>    3. 关闭防火墙，三台虚拟机都要设置，这一步操作是为了防止在学习阶段由于防火墙造成的各种网络问题，生产环境跳过这一步，<br>    <code>sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39; /etc/selinux/config<br>    setenforce 0<br>    systemctl disable firewalld<br>    systemctl stop firewall</code><br>二、 安装kubeadmin<br>    1. 将镜像包上传至服务器每个节点<br>    <code>mkdir /usr/local/k8s-install<br>    cd /usr/local/k8s-install</code><br>    XFTP上传安装文件<br>    2. 按每个Centos上安装Docker（安装包模式安装docker，可以换为其他方式安装docker）<br>    <code>tar -zxvf docker-ce-18.09.tar.gz<br>    cd docker<br>    yum localinstall -y *.rpm<br>    systemctl start docker<br>    systemctl enable docker</code><br>    3. 确保从cgroups均在同一个从groupfs<br>    #cgroups是control groups的简称，它为Linux内核提供了一种任务聚集和划分的机制，通过一组参数集合将一些任务组织成一个或多个子系统。<br /><br>    #cgroups是实现IaaS虚拟化(kvm、lxc等)，PaaS容器沙箱(Docker等)的资源管理控制部分的底层基础。<br>    #子系统是根据cgroup对任务的划分功能将任务按照一种指定的属性划分成的一个组，主要用来实现资源的控制。<br>    #在cgroup中，划分成的任务组以层次结构的形式组织，多个子系统形成一个数据结构中类似多根树的结构。cgroup包含了多个孤立的子系统，每一个子系统代表单一的资源<br>    docker info | grep cgroup<br>    如果不是groupfs,执行下列语句<br>    <code>cat &lt;&lt; EOF &gt; /etc/docker/daemon.json<br>    {<br>      &quot;exec-opts&quot;: [&quot;native.cgroupdriver=cgroupfs&quot;]<br>    }<br>    EOF</code><br>    <code>systemctl daemon-reload &amp;&amp; systemctl restart docker</code><br>    4. 安装kubeadm<br>    # kubeadm是集群部署工具<br>    <code>cd /usr/local/k8s-install/kubernetes-1.14<br>    tar -zxvf kube114-rpm.tar.gz<br>    cd kube114-rpm<br>    yum localinstall -y *.rpm</code><br>    5. 关闭交换区 （可以理解为虚拟内存，k8s使用时尽量不使用交换区，防止出现预料之外的问题）<br>    swapoff -a<br>    vi &#x2F;etc&#x2F;fstab<br>    #swap一行注释<br>    <code>#/dev/mapper/centos-swap swap   swap    defaults        0 0</code><br>    6. 配置网桥<br>    <code>cat &lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf<br>    net.bridge.bridge-nf-call-ip6tables = 1<br>    net.bridge.bridge-nf-call-iptables = 1<br>    EOF<br>    sysctl --system</code><br>    7. 通过镜像安装k8s，将k8s的镜像load到docker中，方便后面部署（docker仓库中没有可以免费获取的k8s镜像）<br>    cd &#x2F;usr&#x2F;local&#x2F;k8s-install&#x2F;kubernetes-1.14<br>    docker load -i k8s-114-images.tar.gz<br>    docker load -i flannel-dashboard.tar.gz<br>三、 通过kubeadmin部署k8s集群<br>    1. master主服务器配置<br>    kubeadm init –kubernetes-version&#x3D;v1.14.1 –pod-network-cidr&#x3D;10.244.0.0&#x2F;16<br>    在执行完上面的命令后会提示下一步要执行的命令：如下：<br>    mkdir -p $HOME&#x2F;.kube<br>    sudo cp -i &#x2F;etc&#x2F;kubernetes&#x2F;admin.conf $HOME&#x2F;.kube&#x2F;config<br>    sudo chown $(id -u):$(id -g) $HOME&#x2F;.kube&#x2F;config<br>    kubectl get nodes<br>    #查看存在问题的pod<br>    kubectl get pod –all-namespaces<br>    #设置全局变量<br>    #安装flannel网络组件  负责在多个pod之间通讯<br>    kubectl create -f kube-flannel.yml<br>    2. 加入NODE节点<br>    在master主机上执行完kubeadm init 命令后会提示如何加入worker节点，如下：<br>    kubeadm join 192.168.4.130:6443 –token 911xit.xkp2gfxbvf5wuqz7 <br>        –discovery-token-ca-cert-hash sha256:23db3094dc9ae1335b25692717c40e24b1041975f6a43da9f43568f8d0dbac72<br>    如果忘记token<br>    在master 上执行kubeadm token list 查看 ，在node上运行<br>    kubeadm join 192.168.163.132:6443 –token aoeout.9k0ybvrfy09q1jf6 –discovery-token-unsafe-skip-ca-verification<br>    kubectl get nodes<br>    3.  Master开启仪表盘（在master节点执行即可）<br>    <code>kubectl apply -f kubernetes-dashboard.yaml<br>    kubectl apply -f admin-role.yaml<br>    kubectl apply -f kubernetes-dashboard-admin.rbac.yaml<br>    kubectl -n kube-system get svc</code><br>    <a href="http://192.168.163.132:32000/">http://192.168.163.132:32000</a> 访问<br>四、 通过界面部署tomcat，如图，填写完表格中的信息点击部署即可完成镜像的部署。<br><img src="http://www.full-stacker.com/wp-content/uploads/2020/02/ee7f471d8304ec6208cec93c2c0c83da.png" alt="" /><br>五、 通过脚本部署tomcat：<br>    1. 与部署相关的命令：<br>       <code>kubectl create -f 部署yml文件 #创建部署<br>        kubectl apply -f 部署yml文件 #更新部署配置 （如果未创建的话，会创建）<br>        kubectl get pod [-o wide] #查看已部署pod<br>        kubectl describe pod pod名称 #查看Pod详细信息<br>        kubectl logs [-f] pod名称 #查看pod输出日志</code><br>    2. yml文件的编写<br>        最简版示例：<br>        <code>apiVersion: extensions/v1beta1<br>        kind: Deployment<br>        metadata:<br>          name: tomcat-deploy<br>        spec:<br>          replicas: 2<br>          template:<br>            metadata:<br>              labels:<br>                app: tomcat-cluster<br>            spec:<br>              containers:<br>              - name: tomcat-cluster-container<br>                image: tomcat:latest<br>                ports:<br>                - containerPort: 8080</code><br>    3. 外部访问tomcat集群<br>        a. Service服务用于对外暴露应用（service类似于nginx做负载均衡）<br>        b. 编写service的yml<br>        <code>apiVersion: v1<br>        kind: Service<br>        metadata:<br>         name: tomcat-service<br>         labels:<br>           app: tomcat-service-service<br>        spec:<br>         type: NodePort #这里代表是NodePort类型的<br>         selector:<br>          app: tomcat-cluster  #这里选择器一定要选择容器的标签<br>         ports:<br>         - port: 8000   #集群内部服务之间访问的端口  k8s service所在pod的端口<br>           targetPort: 8080  # 容器本身暴露的端口<br>           nodePort: 32500  # 指定暴露到宿主机的端口 通过这个端口可以访问集群中指定的机器</code><br>        c. 创建好service后暴漏端口是service容器的端口，而不是宿主机的端口<br>         在主机外部可以通过192.168.26.70:32500访问tomcat  这种方式是直接访问各个节点，而没有经过service的“负载均衡”<br>    4. 集群文件共享<br>        a. 在k8smaster的宿主机上安装nfs<br>            i. yum install -y nfs-utils rpcbind<br>            ii. nfs的配置<br>            vim &#x2F;etc&#x2F;exports<br>            exports内容为：<br>            &#x2F;usr&#x2F;local&#x2F;data&#x2F;www-data 192.168.26.70&#x2F;24(rw,sync)<br>            参数说明：&#x2F;usr&#x2F;local&#x2F;data&#x2F;www-data 指定要暴漏的路径<br>                    192.168.26.70  为该主机的ip地址<br>                    24为网络掩码<br>                    （rw,sync）是指明暴漏该路径读写权限，并且是同步的读写<br>        b. 启动服务：<br>            i. systemctl start nfs.service    启动nfs服务<br>            ii. systemctl start rpcbind.service 启动rpcbind服务<br>            iii. systemctl enable nfs.service 将nfs服务设置为开机启动<br>            iv. systemctl enable rpcbind.service<br>        c. 在节点服务器上配置nfs配置<br>            i. yum install -y nfs-utils<br>            ii. showmount -e 192.168.26.70  查看是否有主服务器信息<br>            iii. mount 192.168.26.70:&#x2F;usr&#x2F;local&#x2F;data&#x2F;www-data &#x2F;mnt   将主服务器上的共享目录 挂载到&#x2F;mnt目录<br>    5. 部署挂载点<br>        a. 就如同docker的磁盘映射，k8s也可以指定磁盘映射，结合上一步中通过nfs进行集群文件共享，我们便可以实现只修改一次文件，整个集群中文件便全部更新<br>        b. 挂载点部署实现方式如下：<br>        <code>apiVersion: extensions/v1beta1<br>        kind: Deployment<br>        metadata:<br>          name: tomcat-deploy<br>        spec:<br>          replicas: 2<br>          template:<br>            metadata:<br>              labels:<br>                app: tomcat-cluster<br>            spec:<br>              volumes:  # 说明要进行磁盘映射<br>              - name: web-app # 映射的名称，与containers中的配置要一致<br>                hostPath:  # 宿主机上路径<br>                 path: /mnt # 具体路径<br>              containers:<br>              - name: tomcat-cluster-container<br>                image: tomcat:latest<br>                ports:<br>                - containerPort: 8080<br>                volumeMounts: # container中要挂载目录<br>                - name: web-app # 和上方的名称对应<br>                  mountPath: /usr/local/tomcat/webapps/ROOT # 容器中的挂载目录</code><br>    6. 使用Rinted(端口转发工具)对外提供Service负载均衡支持<br>        a. 之前在创建Service是指定了type为NodePort，并且指定了对外暴露的端口为32500，在使用Rinted时需要修改该配置：<br>            i. 原tomcat-service.yml配置文件内容如下<br>            apiVersion: v1<br>            kind: Service<br>            metadata:<br>             name: tomcat-service<br>             labels:<br>               app: tomcat-service-service<br>            spec:<br>             type: NodePort #这里代表是NodePort类型的<br>             selector:<br>              app: tomcat-cluster  #这里选择器一定要选择容器的标签<br>             ports:<br>             - port: 8000   #集群内部服务之间访问的端口  k8s service所在pod的端口<br>               targetPort: 8080  # 容器本身暴露的端口<br>               nodePort: 32500  # 指定暴露到宿主机的端口 通过这个端口可以访问集群中指定的机器<br>            ii. 将tomcat-Service内容修改为如下内容，即注释掉typ:NodePort和nodePort暴露的端口<br>            apiVersion: v1<br>            kind: Service<br>            metadata:<br>             name: tomcat-service<br>             labels:<br>               app: tomcat-service-service<br>            spec:<br>             # type: NodePort #这里代表是NodePort类型的<br>             selector:<br>              app: tomcat-cluster  #这里选择器一定要选择容器的标签<br>             ports:<br>             - port: 8000   #集群内部服务之间访问的端口  k8s service所在pod的端口<br>               targetPort: 8080  # 容器本身暴露的端口<br>              # nodePort: 32500  # 指定暴露到宿主机的端口 通过这个端口可以访问集群中指定的机器<br>        b.  kubectl apply -f tomcat-service.yml 更新service配置<br>        c. kubectl describe service tomcat-service 查看service详情<br>            Name:              tomcat-service<br>            Namespace:         default<br>            Labels:            app&#x3D;tomcat-service-service<br>            Annotations:       kubectl.kubernetes.io&#x2F;last-applied-configuration:<br>                                 {“apiVersion”:”v1”,”kind”:”Service”,”metadata”:{“annotations”:{},”labels”:{“app”:”tomcat-service-service”},”name”:”tomcat-service”,”namesp…<br>            Selector:          app&#x3D;tomcat-cluster<br>            Type:              ClusterIP<br>            IP:                10.101.53.16<br>            Port:              <unset>  8000&#x2F;TCP<br>            TargetPort:        8080&#x2F;TCP<br>            Endpoints:         10.244.1.8:8080,10.244.2.7:8080  #底层两个docker的信息<br>            Session Affinity:  None<br>            Events:            <none><br>        此时在k8s集群内可以通过ip+port的方式访问集群内的应用，比如上面显示的信息，我们便可以通过10.101.53.16:8000访问tomcat-service服务，tomcat-service便会通过负载均衡算法将请求打到10.244.1.8:8080,10.244.2.7:8080上面。但由于这个ip不是真实的外网ip，仅仅是k8s集群内维护的ip，在k8s集群外侧是无法通过这个ip访问的集群的。<br>        如何将k8s集群内的ip，端口映射到物理机的ip，端口上呢？—Rineted<br>        d. Rinetd是Linux操作系统中为重定向传输控制协议工具<br>        可将源IP端口数据转发至目标IP端口<br>        在Kubernetes中用于将service服务对外暴露<br>        e. Rinetd安装步骤<br>            i. wget <a href="http://www.boutell.com/rinetd/http/rinetd.tar.gz">http://www.boutell.com/rinetd/http/rinetd.tar.gz</a> 下载源码包（网络问题无法下载）<br>            ii. tar -zxvf rinetd.tar.gz  解压文件<br>            iii. cd rinetd&#x2F;<br>            iv. sed -i ‘s&#x2F;65536&#x2F;65535&#x2F;g’ rinetd.c  修改rinetd源文件，修改允许映射的端口范围<br>            v. yum install -y gcc 安装c语言编译器<br>            vi. make&amp;make install<br>            vii. vi &#x2F;etc&#x2F;rinetd.conf 创建rinetd的配置文件<br>            0.0.0.0 8000 10.101.53.16 8000        #0.0.0.0 指定任何机器都可以通过8000端口访问到10.101.53.16（k8s中tomcat-service的ip）的8000端口<br>            viii. rinetd -c &#x2F;etc&#x2F;rinetd.conf 加载配置文件，使配置生效<br>        f. 此时便可以通过宿主机的ip+8000端口访问到tomcat-service的服务了<br>    7. 到此，便完成了通过k8s部署应用的全部过程</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/k8s%E5%85%A5%E9%97%A8-rinetd-pod-k8s/" rel="tag"># k8s入门 | rinetd | pod | k8s</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/01/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91yum%E6%BA%90%E5%AE%89%E8%A3%85docker-ce%E7%89%88%E6%9C%AC%E5%90%8E%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5-1/" rel="prev" title="使用阿里云yum源安装docker-ce版本后启动失败">
+                  <i class="fa fa-angle-left"></i> 使用阿里云yum源安装docker-ce版本后启动失败
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/03/01/IO%E5%90%8C%E6%AD%A5%E9%98%BB%E5%A1%9E%EF%BC%8C%E5%90%8C%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9E%EF%BC%8C%E5%BC%82%E6%AD%A5%E7%9A%84%E5%8C%BA%E5%88%AB-1/" rel="next" title="IO同步阻塞，同步非阻塞，异步的区别">
+                  IO同步阻塞，同步非阻塞，异步的区别 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

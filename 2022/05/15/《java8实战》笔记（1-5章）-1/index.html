@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Java 8实战Raoul 关于本书 Java 8的流支持这种简明的数据库查询式编程——但用的是Java语法，而无需了解数据库！其次，流被设计成无需同时将所有的数据调入内存（甚至根本无需计算），这样就可以处理无法装入计算机内存的流数据了。   Java 8可以对流做一些集合所不能的优化操作，例如，它可以将对同一个流的若干操作组合起来，从而只遍历一次数据，而不是花很大代价去多次遍历它。更妙的是，Ja">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《java8实战》笔记（1-5章）">
+<meta property="og:url" content="http://www.full-stacker.com/2022/05/15/%E3%80%8Ajava8%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%881-5%E7%AB%A0%EF%BC%89-1/index.html">
+<meta property="og:site_name" content="骐骏的博客">
+<meta property="og:description" content="Java 8实战Raoul 关于本书 Java 8的流支持这种简明的数据库查询式编程——但用的是Java语法，而无需了解数据库！其次，流被设计成无需同时将所有的数据调入内存（甚至根本无需计算），这样就可以处理无法装入计算机内存的流数据了。   Java 8可以对流做一些集合所不能的优化操作，例如，它可以将对同一个流的若干操作组合起来，从而只遍历一次数据，而不是花很大代价去多次遍历它。更妙的是，Ja">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-05-15T21:44:03.084Z">
+<meta property="article:modified_time" content="2022-05-15T21:50:13.381Z">
+<meta property="article:author" content="骐骏">
+<meta property="article:tag" content="读书笔记 | java8 | 流 | lambda | java8实战">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.full-stacker.com/2022/05/15/%E3%80%8Ajava8%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%881-5%E7%AB%A0%EF%BC%89-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2022/05/15/%E3%80%8Ajava8%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%881-5%E7%AB%A0%EF%BC%89-1/","path":"2022/05/15/《java8实战》笔记（1-5章）-1/","title":"《java8实战》笔记（1-5章）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>《java8实战》笔记（1-5章） | 骐骏的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script size="150" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">骐骏的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习 记录 分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E4%B9%A6"><span class="nav-number">1.</span> <span class="nav-text">关于本书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC1%E7%AB%A0-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%85%B3%E5%BF%83Java-8"><span class="nav-number">2.</span> <span class="nav-text">第1章 为什么要关心Java 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC2%E7%AB%A0-%E9%80%9A%E8%BF%87%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96%E4%BC%A0%E9%80%92%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">第2章 通过行为参数化传递代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC3%E7%AB%A0-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">第3章 Lambda表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#java8-%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.1.</span> <span class="nav-text">java8 中的函数式接口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Predicate"><span class="nav-number">4.1.1.</span> <span class="nav-text">Predicate</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java-util-function-Predicate%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89%E4%BA%86%E4%B8%80%E4%B8%AA%E5%90%8D%E5%8F%ABtest%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95%EF%BC%8C%E5%AE%83%E6%8E%A5%E5%8F%97%E6%B3%9B%E5%9E%8BT%E5%AF%B9%E8%B1%A1%EF%BC%8C%E5%B9%B6%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AAboolean%E3%80%82"><span class="nav-number">4.2.</span> <span class="nav-text">java.util.function.Predicate接口定义了一个名叫test的抽象方法，它接受泛型T对象，并返回一个boolean。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Consumer"><span class="nav-number">4.2.1.</span> <span class="nav-text">Consumer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Function"><span class="nav-number">4.2.2.</span> <span class="nav-text">Function</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Supplier"><span class="nav-number">4.2.3.</span> <span class="nav-text">Supplier</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%90%88Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">4.3.</span> <span class="nav-text">复合Lambda表达式的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E5%99%A8%E5%A4%8D%E5%90%88"><span class="nav-number">4.3.1.</span> <span class="nav-text">比较器复合</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%86%E5%BA%8F-reversed"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">逆序 reversed()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E5%99%A8%E9%93%BE"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">比较器链</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%93%E8%AF%8D%E5%A4%8D%E5%90%88%EF%BC%88Predicate%EF%BC%89"><span class="nav-number">4.3.2.</span> <span class="nav-text">谓词复合（Predicate）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0-Function"><span class="nav-number">4.3.3.</span> <span class="nav-text">复合函数(Function)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC4%E7%AB%A0-%E5%BC%95%E5%85%A5%E6%B5%81"><span class="nav-number">5.</span> <span class="nav-text">第4章 引入流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E6%93%8D%E4%BD%9C"><span class="nav-number">5.1.</span> <span class="nav-text">中间操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%BD%E7%AE%A1filter%E5%92%8Cmap%E6%98%AF%E4%B8%A4%E4%B8%AA%E7%8B%AC%E7%AB%8B%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%BD%86%E5%AE%83%E4%BB%AC%E5%90%88%E5%B9%B6%E5%88%B0%E5%90%8C%E4%B8%80%E6%AC%A1%E9%81%8D%E5%8E%86%E4%B8%AD%E4%BA%86%EF%BC%88%E6%88%91%E4%BB%AC%E6%8A%8A%E8%BF%99%E7%A7%8D%E6%8A%80%E6%9C%AF%E5%8F%AB%E4%BD%9C%E5%BE%AA%E7%8E%AF%E5%90%88%E5%B9%B6%EF%BC%89"><span class="nav-number">5.2.</span> <span class="nav-text">尽管filter和map是两个独立的操作，但它们合并到同一次遍历中了（我们把这种技术叫作循环合并）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%88%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">5.3.</span> <span class="nav-text">终端操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">5.4.</span> <span class="nav-text">流的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC5%E7%AB%A0-%E4%BD%BF%E7%94%A8%E6%B5%81"><span class="nav-number">6.</span> <span class="nav-text">第5章 使用流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E6%B5%81"><span class="nav-number">6.1.</span> <span class="nav-text">构建流</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="骐骏"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">骐骏</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2022/05/15/%E3%80%8Ajava8%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%881-5%E7%AB%A0%EF%BC%89-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="骐骏">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="《java8实战》笔记（1-5章） | 骐骏的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《java8实战》笔记（1-5章）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-05-15 21:44:03 / Modified: 21:50:13" itemprop="dateCreated datePublished" datetime="2022-05-15T21:44:03+00:00">2022-05-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BB%E8%BF%87%E7%9A%84%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">读过的书</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>15 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Java 8实战<br>Raoul</p>
+<h3 id="关于本书"><a href="#关于本书" class="headerlink" title="关于本书"></a>关于本书</h3><blockquote>
+<p>Java 8的流支持这种简明的数据库查询式编程——但用的是Java语法，而无需了解数据库！其次，流被设计成无需同时将所有的数据调入内存（甚至根本无需计算），这样就可以处理无法装入计算机内存的流数据了。</p>
+</blockquote>
+<blockquote>
+<p>Java 8可以对流做一些集合所不能的优化操作，例如，它可以将对同一个流的若干操作组合起来，从而只遍历一次数据，而不是花很大代价去多次遍历它。更妙的是，Java可以自动将流操作并行化（集合可不行）。</p>
+</blockquote>
+<h3 id="第1章-为什么要关心Java-8"><a href="#第1章-为什么要关心Java-8" class="headerlink" title="第1章 为什么要关心Java 8"></a>第1章 为什么要关心Java 8</h3><blockquote>
+<p>从有点修正主义的角度来看，在Java 8中加入Streams可以看作把另外两项扩充加入Java 8的直接原因：把代码传递给方法的简洁方式（方法引用、Lambda）和接口中的默认方法。</p>
+</blockquote>
+<blockquote>
+<p>Java 8可以透明地把输入的不相关部分拿到几个CPU内核上去分别执行你的Stream操作流水线，但是写代码时不能访问共享的可变数据，即需要保证在多线程操作时，数据是线程安全的</p>
+</blockquote>
+<blockquote>
+<p>在多个处理器内核之间使用synchronized，其代价往往比你预期的要大得多，因为同步迫使代码按照顺序执行，而这与并行处理的宗旨相悖</p>
+</blockquote>
+<blockquote>
+<p><strong>编程语言的整个目的就在于操作值</strong>，要是按照历史上编程语言的传统，这些值因此被称为一等值（或一等公民，这个术语是从20世纪60年代美国民权运动中借用来的）。</p>
+</blockquote>
+<blockquote>
+<p>编程语言中的其他结构也许有助于我们表示值的结构，但在程序执行期间不能传递，因而是二等公民。前面所说的值是Java中的一等公民，但其他很多Java概念（如方法和类等）则是二等公民。用方法来定义类很不错，因此，Java 8的设计者决定允许方法作为值，让编程更轻松。</p>
+</blockquote>
+<blockquote>
+<p>在Java 8里写下File::isHidden的时候，你就创建了一个方法引用，</p>
+</blockquote>
+<blockquote>
+<p>我们说使用这些概念的程序为函数式编程风格，这句话的意思是“编写把函数作为一等值来传递的程序”。</p>
+</blockquote>
+<blockquote>
+<p>我们把这种数据迭代的方法称为外部迭代。相反，有了Stream API，你根本用不着操心循环的事情。数据处理完全是在库内部进行的。我们把这种思想叫作内部迭代。</p>
+</blockquote>
+<blockquote>
+<p>Collection主要是为了存储和访问数据，而Stream则主要用于描述对数据的计算。</p>
+</blockquote>
+<blockquote>
+<p><strong><em>Java中从函数式编程中引入的两个核心思想：将方法和Lambda作为一等值，以及在没有可变共享状态时，函数或方法可以有效、安全地并行执行。</em></strong></p>
+</blockquote>
+<h3 id="第2章-通过行为参数化传递代码"><a href="#第2章-通过行为参数化传递代码" class="headerlink" title="第2章 通过行为参数化传递代码"></a>第2章 通过行为参数化传递代码</h3><blockquote>
+<p>**<em>行为参数化</em>**是可以帮助你处理频繁变更的需求的一种软件开发模式</p>
+</blockquote>
+<blockquote>
+<p>行为参数化：让方法接受多种行为（或战略）作为参数，并在内部使用，来完成不同的行为。</p>
+</blockquote>
+<blockquote>
+<p>DRY（Don’t Repeat Yourself，不要重复自己）的软件工程原则。</p>
+</blockquote>
+<h3 id="第3章-Lambda表达式"><a href="#第3章-Lambda表达式" class="headerlink" title="第3章 Lambda表达式"></a>第3章 Lambda表达式</h3><blockquote>
+<p>可以把**<em>Lambda表达式</em>**理解为简洁地表示可传递的匿名函数的一种方式：它没有名称，但它有参数列表、函数主体、返回类型，可能还有一个可以抛出的异常列表。</p>
+</blockquote>
+<blockquote>
+<p>一言以蔽之，**<em>函数式接口就是只定义一个抽象方法的接口，</em>**哪怕有很多默认方法，只要接口只定义了一个抽象方法，它就仍然是一个函数式接口。</p>
+</blockquote>
+<blockquote>
+<p>Lambda表达式允许你直接以内联的形式为函数式接口的抽象方法提供实现，并把整个表达式作为函数式接口的实例（具体说来，是函数式接口一个具体实现的实例）。</p>
+</blockquote>
+<blockquote>
+<p>Lambda表达式可以被赋给一个变量，或传递给一个接受函数式接口作为参数的方法，当然这个Lambda表达式的签名要和函数式接口中抽象方法一样</p>
+</blockquote>
+<blockquote>
+<p>注意你使用了Java 7中的带资源的try语句，它已经简化了代码，因为你不需要显式地关闭资源了）</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public String processFile()throws IOException&#123;</span><br><span class="line"></span><br><span class="line">  try(BufferReader br = new BufferReader(new File(&quot;text&quot;))&#123;</span><br><span class="line">    return br.readLine()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>java7 try-with-resources的实现方式，是使用了语法糖，需要关闭的资源的对象要实现AutoClose接口，在写在try语句块中，进行编译时就会在finally语句中调用close方法</p>
+<blockquote>
+<p>Lambda表达式允许你直接内联，为函数式接口的抽象方法提供实现，并且将整个表达式作为函数式接口的一个实例。</p>
+</blockquote>
+<blockquote>
+<p>函数式接口的抽象方法的签名称为函数描述符</p>
+</blockquote>
+<h4 id="java8-中的函数式接口"><a href="#java8-中的函数式接口" class="headerlink" title="java8 中的函数式接口"></a>java8 中的函数式接口</h4><h5 id="Predicate"><a href="#Predicate" class="headerlink" title="Predicate"></a>Predicate</h5><blockquote>
+<h4 id="java-util-function-Predicate接口定义了一个名叫test的抽象方法，它接受泛型T对象，并返回一个boolean。"><a href="#java-util-function-Predicate接口定义了一个名叫test的抽象方法，它接受泛型T对象，并返回一个boolean。" class="headerlink" title="java.util.function.Predicate接口定义了一个名叫test的抽象方法，它接受泛型T对象，并返回一个boolean。"></a>java.util.function.Predicate接口定义了一个名叫test的抽象方法，它接受泛型T对象，并返回一个boolean。</h4></blockquote>
+<h5 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h5><blockquote>
+<p>java.util.function.Consumer定义了一个名叫accept的抽象方法，它接受泛型T的对象，没有返回（void）。你如果需要访问类型T的对象，并对其执行某些操作，就可以使用这个方法</p>
+</blockquote>
+<h5 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h5><blockquote>
+<p>java.util.function.Function&lt;T, R&gt;接口定义了一个叫作apply的方法，它接受一个泛型T的对象，并返回一个泛型R的对象。如果你需要定义一个Lambda，将输入对象的信息映射到输出，就可以使用这个接口</p>
+</blockquote>
+<h5 id="Supplier"><a href="#Supplier" class="headerlink" title="Supplier"></a>Supplier</h5><blockquote>
+<p>java.util.function.Supplier<T>接口定义了一个get方法，它没有入参，只有一个返回泛型T的对象<br>  </p>
+</blockquote>
+<p>针对基础数据类型，为避免装箱带来的不必要的开销（如创建包装类消耗更多的内存），java提供了针对基础类型的函数式接口，如：IntPredicate,DoublePredicate,IntCousumer,IntFunction等</p>
+<blockquote>
+<p>任何函数式接口都不允许抛出受检异常（checked exception）。<strong>如果你需要Lambda表达式来抛出异常，有两种办法：定义一个自己的函数式接口，并声明受检异常，或者把Lambda包在一个try&#x2F;catch块中</strong>。</p>
+</blockquote>
+<blockquote>
+<p>Lambda的类型是从使用Lambda的上下文推断出来的。上下文（比如，接受它传递的方法的参数，或接受它的值的局部变量）中Lambda表达式需要的类型称为目标类型</p>
+</blockquote>
+<blockquote>
+<p>请注意，如果Lambda表达式抛出一个异常，那么抽象方法所声明的throws语句也必须与之匹配。</p>
+</blockquote>
+<blockquote>
+<p>如果一个Lambda的主体是一个语句表达式，它就和一个返回void的函数描述符兼容（当然需要参数列表也兼容）</p>
+</blockquote>
+<blockquote>
+<p>有时候显式写出类型更易读，有时候去掉它们更易读。没有什么法则说哪种更好；对于如何让代码更易读，程序员必须做出自己的选择</p>
+</blockquote>
+<blockquote>
+<p>Lambda表达式也允许使用<strong>自由变量（不是参数，而是在外层作用域中定义的变量）</strong>，就像匿名类一样。它们被称作捕获Lambda。<strong>Lambda可以没有限制地捕获（也就是在其主体中引用）实例变量和静态变量。但局部变量必须显式声明为final，或事实上是final</strong>。换句话说，Lambda表达式只能捕获指派给它们的局部变量一次。（注：捕获实例变量可以被看作捕获局部变量this)</p>
+</blockquote>
+<blockquote>
+<p><strong>为什么局部变量有这些限制</strong>。<br>第一，实例变量和局部变量背后的实现有一个关键不同。实例变量都存储在堆中，而局部变量则保存在栈上。如果Lambda可以直接访问局部变量，而且Lambda是在一个新线程中使用的，则使用Lambda的线程，可能会在分配该变量的线程将这个变量收回之后才去访问该变量。因此，Java在访问自由局部变量时，实际上是在访问它的副本，而不是访问原始变量。如果局部变量仅仅赋值一次那就没有什么区别了——因此就有了这个限制（指局部变量必须为final的限制）。<br>第二，这一限制不鼓励你使用改变外部变量的典型命令式编程模式（我们会在以后的各章中解释，这种模式会阻碍很容易做到的并行处理）</p>
+</blockquote>
+<blockquote>
+<p>你可以把方法引用看作针对仅仅涉及单一方法的Lambda的语法糖</p>
+</blockquote>
+<blockquote>
+<p>如何构建方法引用方法引用主要有三类。<br>(1) 指向静态方法的方法引用（例如Integer的parseInt方法，写作Integer::parseInt）。<br>(2) 指向任意类型实例方法的方法引用（例如String的length方法，写作String::length）。<br>(3) 指向现有对象的实例方法的方法引用（假设你有一个局部变量expensiveTransaction用于存放Transaction类型的对象，它支持实例方法getValue，那么你就可以写expensive-Transaction::getValue）。</p>
+</blockquote>
+<blockquote>
+<p>第二种方法引用的思想就是你在引用一个对象的方法，而这个对象本身是Lambda的一个参数。例如，Lambda表达式(String s)-&gt; s.toUppeCase()可以写作String::toUpperCase</p>
+</blockquote>
+<blockquote>
+<p>方法引用的签名必须和上下文类型匹配。</p>
+</blockquote>
+<blockquote>
+<p>对于一个现有构造函数，你可以利用它的名称和关键字new来创建它的一个引用：ClassName::new。</p>
+</blockquote>
+<blockquote>
+<p>函数式接口就是仅仅定义一个抽象方法的接口。抽象方法的签名（称为函数描述符）描述了Lambda表达式的签名。</p>
+</blockquote>
+<h4 id="复合Lambda表达式的用法"><a href="#复合Lambda表达式的用法" class="headerlink" title="复合Lambda表达式的用法"></a>复合Lambda表达式的用法</h4><h5 id="比较器复合"><a href="#比较器复合" class="headerlink" title="比较器复合"></a>比较器复合</h5><h6 id="逆序-reversed"><a href="#逆序-reversed" class="headerlink" title="逆序 reversed()"></a>逆序 reversed()</h6><h6 id="比较器链"><a href="#比较器链" class="headerlink" title="比较器链"></a>比较器链</h6><p>第一个条件比较完后可以调用thenComparing()继续比较</p>
+<h5 id="谓词复合（Predicate）"><a href="#谓词复合（Predicate）" class="headerlink" title="谓词复合（Predicate）"></a>谓词复合（Predicate）</h5><blockquote>
+<p>谓词接口包括三个方法：negate、and和or，让你可以重用已有的Predicate来创建更复杂的谓词。</p>
+</blockquote>
+<h5 id="复合函数-Function"><a href="#复合函数-Function" class="headerlink" title="复合函数(Function)"></a>复合函数(Function)</h5><blockquote>
+<p>Function接口为此配了andThen和compose两个默认方法，它们都会返回Function的一个实例<br>andThen方法会返回一个函数，它先对输入应用一个给定函数，再对输出应用另一个函数。f.andthen(g)类似于数学函数中g(f(x)) ,而compse方法则类似于f(g(x))即f.compose(g)与数学函数中f(g(x))相似</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;String, String&gt; toUpperCase = String::toUpperCase; <span class="comment">// 使用方法引用获取到function对象</span></span><br><span class="line">Function&lt;String, String&gt; lowerCase = String::toLowerCase;</span><br><span class="line">toUpperCase.andThen(lowerCase);</span><br><span class="line"><span class="type">String</span> <span class="variable">test</span> <span class="operator">=</span> <span class="string">&quot;teest&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">apply</span> <span class="operator">=</span> toUpperCase.apply(test);</span><br><span class="line">System.out.println(apply);</span><br><span class="line"></span><br><span class="line">Function&lt;String, String&gt; compose = lowerCase.compose(toUpperCase);</span><br><span class="line"><span class="type">String</span> <span class="variable">apply1</span> <span class="operator">=</span> compose.apply(test);</span><br><span class="line"></span><br><span class="line">        System.out.println(apply1);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>只有在接受函数式接口的地方才可以使用Lambda表达式。</strong></p>
+</blockquote>
+<blockquote>
+<p>环绕执行模式（即在方法所必需的代码中间，你需要执行点儿什么操作，比如资源分配和清理）可以配合Lambda提高灵活性和可重用性。</p>
+</blockquote>
+<h3 id="第4章-引入流"><a href="#第4章-引入流" class="headerlink" title="第4章 引入流"></a>第4章 引入流</h3><blockquote>
+<p>流是Java API的新成员，它允许你以声明性方式处理数据集合（通过查询语句来表达，而不是临时编写一个实现）。</p>
+</blockquote>
+<blockquote>
+<p>因为filter、sorted、map和collect等操作是与具体线程模型无关的高层次构件，所以它们的内部实现可以是单线程的，也可能透明地充分利用你的多核架构</p>
+</blockquote>
+<blockquote>
+<p>Java 8中的Stream API可以让你写出这样的代码：<br>❑ 声明性——更简洁，更易读<br>❑ 可复合——更灵活<br>❑ 可并行——性能更好</p>
+</blockquote>
+<blockquote>
+<p>集合与流之间的差异就在于什么时候进行计算</p>
+</blockquote>
+<blockquote>
+<p>集合是一个内存中的数据结构，它包含数据结构中目前所有的值——集合中的每个元素都得先算出来才能添加到集合中</p>
+</blockquote>
+<blockquote>
+<p>相比之下，流则是在概念上固定的数据结构（你不能添加或删除元素），其元素则是按需计算的。</p>
+</blockquote>
+<blockquote>
+<p><strong>和迭代器类似，流只能遍历一次</strong>。遍历完之后，我们就说这个流已经被消费掉了。<strong><em>所以要记得，流只能消费一次！</em></strong></p>
+</blockquote>
+<blockquote>
+<p>集合和流的另一个关键区别在于它们遍历数据的方式</p>
+</blockquote>
+<blockquote>
+<p>使用Collection接口需要用户去做迭代（比如用for-each），这称为外部迭代。相反，Streams库使用内部迭代— 它帮你把迭代做了，还把得到的流值存在某个地方，你只要给出一个函数说要干什么即可</p>
+</blockquote>
+<blockquote>
+<p>Streams库的内部迭代可以自动选择一种适合你硬件的数据表示和并行实现</p>
+</blockquote>
+<p>Stream流中的操作可以分为两大类： </p>
+<blockquote>
+<p>❑ filter、map和limit可以连成一条流水线；<br>❑ collect触发流水线执行并关闭它。<br>可以连接起来的流操作称为中间操作，关闭流的操作称为终端操作。**除非流水线上触发一个终端操作，否则中间操作不会执行任何处理—流的延迟性，**这是因为中间操作一般都可以合并起来，在终端操作时一次性执行</p>
+</blockquote>
+<h4 id="中间操作"><a href="#中间操作" class="headerlink" title="中间操作"></a>中间操作</h4><blockquote>
+<h4 id="尽管filter和map是两个独立的操作，但它们合并到同一次遍历中了（我们把这种技术叫作循环合并）"><a href="#尽管filter和map是两个独立的操作，但它们合并到同一次遍历中了（我们把这种技术叫作循环合并）" class="headerlink" title="尽管filter和map是两个独立的操作，但它们合并到同一次遍历中了（我们把这种技术叫作循环合并）"></a>尽管filter和map是两个独立的操作，但它们合并到同一次遍历中了（我们把这种技术叫作循环合并）</h4></blockquote>
+<p>在既包含filter又包含map的流水线中，数据流中的元素会依次经过filter和map，即一次循环中元素既经过了filter也经过了map </p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>操作参数</th>
+<th>函数描述</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>filter</td>
+<td>Predicate<T></td>
+<td>T-&gt;boolean</td>
+<td>接收一个Predicate对象，并返回符合该Predicate的流</td>
+</tr>
+<tr>
+<td>map</td>
+<td>Function&lt;T,R&gt;</td>
+<td>T-&gt;R</td>
+<td></td>
+</tr>
+<tr>
+<td>limit</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sorted</td>
+<td>Comparator<T></td>
+<td>&lt;T,T&gt;-&gt;int</td>
+<td></td>
+</tr>
+<tr>
+<td>distinct</td>
+<td></td>
+<td></td>
+<td>返回一个由hashcode和equals判断各不相同的流</td>
+</tr>
+<tr>
+<td>skip</td>
+<td></td>
+<td></td>
+<td>跳过n个元素，如果元素个数不足n，则返回空流</td>
+</tr>
+<tr>
+<td>flatMap</td>
+<td></td>
+<td></td>
+<td>把一个流中的每个值都换成另一个流，然后把所有的流连接起来成为一个流</td>
+</tr>
+</tbody></table>
+<h4 id="终端操作"><a href="#终端操作" class="headerlink" title="终端操作"></a>终端操作</h4><blockquote>
+<p>终端操作会从流的流水线生成结果，其<strong>结果可以是任何不是流的值</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>操作</strong></th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>foreach</strong></td>
+<td>消费流中的元素并对其执行lambd，返回void</td>
+</tr>
+<tr>
+<td>count</td>
+<td>返回流中元素的个数，这一操作返回long</td>
+</tr>
+<tr>
+<td>collect</td>
+<td>把流归约成一个集合，比如List，Map，甚至可以是Integer</td>
+</tr>
+</tbody></table>
+<h4 id="流的使用"><a href="#流的使用" class="headerlink" title="流的使用"></a>流的使用</h4><blockquote>
+<p>总而言之，流的使用一般包括三件事：<br>❑ 一个数据源（如集合）来执行一个查询；<br>❑ 一个中间操作链，形成一条流的流水线；<br>❑ 一个终端操作，执行流水线，并能生成结果。</p>
+</blockquote>
+<h3 id="第5章-使用流"><a href="#第5章-使用流" class="headerlink" title="第5章 使用流"></a>第5章 使用流</h3><blockquote>
+<p>使用flatMap方法的效果是，各个数组并不是分别映射成一个流，而是映射成统一的流中的内容。flatmap方法让你把一个流中的每个值都换成另一个流，然后把所有的流连接起来成为一个流</p>
+</blockquote>
+<blockquote>
+<p>另一个常见的数据处理套路是看看数据集中的某些元素是否匹配一个给定的属性。Stream API通过allMatch、anyMatch、noneMatch、findFirst和findAny方法提供了这样的工具。</p>
+</blockquote>
+<blockquote>
+<p>Java 8引入了三个原始类型特化流接口来解决这个问题：IntStream、DoubleStream和LongStream，分别将流中的元素特化为int、long和double，从而避免了暗含的装箱成本</p>
+</blockquote>
+<h4 id="构建流"><a href="#构建流" class="headerlink" title="构建流"></a>构建流</h4><blockquote>
+<ol>
+<li>你可以使用静态方法Stream.of，通过显式值创建一个流</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>你可以使用静态方法Arrays.stream从数组创建一个流。</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3">
+<li>API。java.nio.file.Files中的很多静态方法都会返回一个流。</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="4">
+<li>Stream API提供了两个静态方法来从函数生成流：Stream.iterate和Stream.generate，这两个api可以用来创建无限流</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 输出偶数</span></span><br><span class="line"> Stream.iterate(<span class="number">0</span>,n-&gt; n+<span class="number">2</span>).limit(<span class="number">100</span>).forEach(System.out::println);</span><br><span class="line"> <span class="comment">// 输出斐波那契数列</span></span><br><span class="line"> Stream.iterate(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,t -&gt; <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;t[<span class="number">1</span>],t[<span class="number">0</span>]+t[<span class="number">1</span>]&#125;).limit(<span class="number">10</span>).map(t-&gt; t[<span class="number">0</span>]).forEach(System.out::println);</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>但这里使用的匿名类和Lambda的区别在于，匿名类可以通过字段定义状态，而状态又可以用getAsInt方法来修改。这是一个副作用的例子。你迄今见过的所有Lambda都是没有副作用的；它们没有改变任何状态</p>
+</blockquote>
+<blockquote>
+<p>filter和map等操作是无状态的，它们并不存储任何状态。reduce等操作要存储状态才能计算出一个值。sorted和distinct等操作也要存储状态，因为它们需要把流中的所有元素缓存起来才能返回一个新的流。这种操作称为有状态操作。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-java8-%E6%B5%81-lambda-java8%E5%AE%9E%E6%88%98/" rel="tag"># 读书笔记 | java8 | 流 | lambda | java8实战</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/23/%E3%80%8A%E4%BB%8E%E6%8A%80%E6%9C%AF%E8%B5%B0%E5%90%91%E7%AE%A1%E7%90%86%EF%BC%9A%E6%9D%8E%E5%85%83%E8%8A%B3%E5%8D%87%E8%81%8C%E8%AE%B0%E3%80%8B%E6%91%98%E5%BD%95-1/" rel="prev" title="《从技术走向管理：李元芳升职记》摘录">
+                  <i class="fa fa-angle-left"></i> 《从技术走向管理：李元芳升职记》摘录
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/05/%E4%BB%8E%E6%8A%80%E6%9C%AF%E8%B5%B0%E5%90%91%E7%AE%A1%E7%90%86%EF%BC%9A%E6%9D%8E%E5%85%83%E8%8A%B3%E5%8D%87%E8%81%8C%E8%AE%B0%EF%BC%88%E7%AC%AC3%E7%89%88%EF%BC%89%EF%BC%88%E4%B8%8B%EF%BC%89-1/" rel="next" title="从技术走向管理：李元芳升职记（第3版）（下）">
+                  从技术走向管理：李元芳升职记（第3版）（下） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">骐骏</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6:45</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
