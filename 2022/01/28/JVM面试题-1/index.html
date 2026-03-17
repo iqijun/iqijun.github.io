@@ -19,12 +19,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="类加载机制 双亲委派机制    类加载的过程 常见的垃圾回收算法及各自的问题 常见的垃圾回收器及常见的组合 讲一下JVM堆内存管理 栈上分配-&gt;TLAB-&gt;新声代、老年代-&gt;可达性分析-&gt;GC算法-&gt;所有垃圾回收器及其优缺点和特点 那到底多大的对象会被直接扔到老年代 G1两个region不是连续的，而且之间还有可达的引用，我现在要回收其中一个，另一个会被怎么处理 听">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM面试题">
-<meta property="og:url" content="http://www.full-stacker.com/2022/01/28/JVM%E9%9D%A2%E8%AF%95%E9%A2%98-1/index.html">
+<meta property="og:url" content="https://blog.full-stacker.com/2022/01/28/JVM%E9%9D%A2%E8%AF%95%E9%A2%98-1/index.html">
 <meta property="og:site_name" content="骐骏的博客">
 <meta property="og:description" content="类加载机制 双亲委派机制    类加载的过程 常见的垃圾回收算法及各自的问题 常见的垃圾回收器及常见的组合 讲一下JVM堆内存管理 栈上分配-&gt;TLAB-&gt;新声代、老年代-&gt;可达性分析-&gt;GC算法-&gt;所有垃圾回收器及其优缺点和特点 那到底多大的对象会被直接扔到老年代 G1两个region不是连续的，而且之间还有可达的引用，我现在要回收其中一个，另一个会被怎么处理 听">
 <meta property="og:locale">
@@ -34,10 +34,10 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://www.full-stacker.com/2022/01/28/JVM%E9%9D%A2%E8%AF%95%E9%A2%98-1/">
+<link rel="canonical" href="https://blog.full-stacker.com/2022/01/28/JVM%E9%9D%A2%E8%AF%95%E9%A2%98-1/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2022/01/28/JVM%E9%9D%A2%E8%AF%95%E9%A2%98-1/","path":"2022/01/28/JVM面试题-1/","title":"JVM面试题"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://blog.full-stacker.com/2022/01/28/JVM%E9%9D%A2%E8%AF%95%E9%A2%98-1/","path":"2022/01/28/JVM面试题-1/","title":"JVM面试题"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>JVM面试题 | 骐骏的博客</title>
@@ -214,7 +214,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2022/01/28/JVM%E9%9D%A2%E8%AF%95%E9%A2%98-1/">
+    <link itemprop="mainEntityOfPage" href="https://blog.full-stacker.com/2022/01/28/JVM%E9%9D%A2%E8%AF%95%E9%A2%98-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">

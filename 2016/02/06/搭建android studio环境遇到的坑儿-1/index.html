@@ -19,12 +19,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="AS简介经过2年时间的研发，Google终于正式发布了面向Android开发者的集成开发环境Android Studio 1.2（稳定版）。Android Studio是Google开发的一款面向Android开发者的IDE，支持Windows、Mac、Linux等操作系统，基于流行的Java语言集成开发环境IntelliJ搭建而成。该IDE在2013年5月的Google I&#x2F;O开发者大">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搭建android studio环境遇到的坑儿">
-<meta property="og:url" content="http://www.full-stacker.com/2016/02/06/%E6%90%AD%E5%BB%BAandroid%20studio%E7%8E%AF%E5%A2%83%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%84%BF-1/index.html">
+<meta property="og:url" content="https://blog.full-stacker.com/2016/02/06/%E6%90%AD%E5%BB%BAandroid%20studio%E7%8E%AF%E5%A2%83%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%84%BF-1/index.html">
 <meta property="og:site_name" content="骐骏的博客">
 <meta property="og:description" content="AS简介经过2年时间的研发，Google终于正式发布了面向Android开发者的集成开发环境Android Studio 1.2（稳定版）。Android Studio是Google开发的一款面向Android开发者的IDE，支持Windows、Mac、Linux等操作系统，基于流行的Java语言集成开发环境IntelliJ搭建而成。该IDE在2013年5月的Google I&#x2F;O开发者大">
 <meta property="og:locale">
@@ -38,10 +38,10 @@
 <meta name="twitter:image" content="http://images.cnitblog.com/blog/128883/201502/281320524081895.jpg">
 
 
-<link rel="canonical" href="http://www.full-stacker.com/2016/02/06/%E6%90%AD%E5%BB%BAandroid%20studio%E7%8E%AF%E5%A2%83%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%84%BF-1/">
+<link rel="canonical" href="https://blog.full-stacker.com/2016/02/06/%E6%90%AD%E5%BB%BAandroid%20studio%E7%8E%AF%E5%A2%83%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%84%BF-1/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2016/02/06/%E6%90%AD%E5%BB%BAandroid%20studio%E7%8E%AF%E5%A2%83%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%84%BF-1/","path":"2016/02/06/搭建android studio环境遇到的坑儿-1/","title":"搭建android studio环境遇到的坑儿"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://blog.full-stacker.com/2016/02/06/%E6%90%AD%E5%BB%BAandroid%20studio%E7%8E%AF%E5%A2%83%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%84%BF-1/","path":"2016/02/06/搭建android studio环境遇到的坑儿-1/","title":"搭建android studio环境遇到的坑儿"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>搭建android studio环境遇到的坑儿 | 骐骏的博客</title>
@@ -218,7 +218,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2016/02/06/%E6%90%AD%E5%BB%BAandroid%20studio%E7%8E%AF%E5%A2%83%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%84%BF-1/">
+    <link itemprop="mainEntityOfPage" href="https://blog.full-stacker.com/2016/02/06/%E6%90%AD%E5%BB%BAandroid%20studio%E7%8E%AF%E5%A2%83%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%84%BF-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">

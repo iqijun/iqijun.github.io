@@ -19,12 +19,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.full-stacker.com","root":"/","images":"/images","scheme":"Pisces","darkmode":{"enable":true},"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"atom-one-dark"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="自学是一段痛苦的路程。。。。  但我们在痛苦中进步 并不是很困难的问题，但百度n久，各种答案都有，唯独差一个能解决问题的，幸好还有google。在stackoverflow中找到了解决方法。 http:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;5620033&#x2F;onconfigurationchanged-not-getting-called 英文原文： Caution: Begi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="android fragment屏幕旋转不执行onConfigurationChanged方法">
-<meta property="og:url" content="http://www.full-stacker.com/2016/02/22/android%20fragment%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%B8%8D%E6%89%A7%E8%A1%8ConConfigurationChanged%E6%96%B9%E6%B3%95-1/index.html">
+<meta property="og:url" content="https://blog.full-stacker.com/2016/02/22/android%20fragment%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%B8%8D%E6%89%A7%E8%A1%8ConConfigurationChanged%E6%96%B9%E6%B3%95-1/index.html">
 <meta property="og:site_name" content="骐骏的博客">
 <meta property="og:description" content="自学是一段痛苦的路程。。。。  但我们在痛苦中进步 并不是很困难的问题，但百度n久，各种答案都有，唯独差一个能解决问题的，幸好还有google。在stackoverflow中找到了解决方法。 http:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;5620033&#x2F;onconfigurationchanged-not-getting-called 英文原文： Caution: Begi">
 <meta property="og:locale">
@@ -35,10 +35,10 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://www.full-stacker.com/2016/02/22/android%20fragment%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%B8%8D%E6%89%A7%E8%A1%8ConConfigurationChanged%E6%96%B9%E6%B3%95-1/">
+<link rel="canonical" href="https://blog.full-stacker.com/2016/02/22/android%20fragment%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%B8%8D%E6%89%A7%E8%A1%8ConConfigurationChanged%E6%96%B9%E6%B3%95-1/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://www.full-stacker.com/2016/02/22/android%20fragment%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%B8%8D%E6%89%A7%E8%A1%8ConConfigurationChanged%E6%96%B9%E6%B3%95-1/","path":"2016/02/22/android fragment屏幕旋转不执行onConfigurationChanged方法-1/","title":"android fragment屏幕旋转不执行onConfigurationChanged方法"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://blog.full-stacker.com/2016/02/22/android%20fragment%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%B8%8D%E6%89%A7%E8%A1%8ConConfigurationChanged%E6%96%B9%E6%B3%95-1/","path":"2016/02/22/android fragment屏幕旋转不执行onConfigurationChanged方法-1/","title":"android fragment屏幕旋转不执行onConfigurationChanged方法"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>android fragment屏幕旋转不执行onConfigurationChanged方法 | 骐骏的博客</title>
@@ -215,7 +215,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://www.full-stacker.com/2016/02/22/android%20fragment%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%B8%8D%E6%89%A7%E8%A1%8ConConfigurationChanged%E6%96%B9%E6%B3%95-1/">
+    <link itemprop="mainEntityOfPage" href="https://blog.full-stacker.com/2016/02/22/android%20fragment%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%B8%8D%E6%89%A7%E8%A1%8ConConfigurationChanged%E6%96%B9%E6%B3%95-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
